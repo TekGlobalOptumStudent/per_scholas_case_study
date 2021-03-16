@@ -1,0 +1,16 @@
+body {
+    background: lightgray;
+}
+
+/* testing */
+.placeholder1 {
+    height: 100px;
+    width: 100%;
+    background: red;
+}
+
+.placeholder2 {
+    height: 100px;
+    width: 100%;
+    background: blue;
+}
