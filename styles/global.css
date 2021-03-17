@@ -1,8 +1,24 @@
 body {
     background: lightgray;
+    overflow: hidden;
+}
+
+/* bootstrap */
+.list-group {
+    max-height: 100%;
+    overflow: scroll;
 }
 
 /* testing */
+
+.home-body {
+    height: 100%;
+}
+
+.recent-column {
+    height: 80%;
+}
+
 .placeholder1 {
     height: 100px;
     width: 100%;
