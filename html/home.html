@@ -33,13 +33,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="stories.html">Stories</a>
+                    <a class="nav-link" href="list.html">Browse Library</a>
                 </li>
+                <!-- TODO: hide if not logged in -->
                 <li class="nav-item">
-                    <a class="nav-link" href="snippets.html">Snippets</a>
+                    <a class="nav-link" href="create.html">Make New</a>
                 </li>
             </ul>
             <ul class="navbar-nav justify-content-end">
+                <!-- TODO: dynamically change to profile preview if logged in -->
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -105,6 +107,20 @@
                         <span class="sr-only">Next</span>
                     </a>
                 </div>
+
+                <!-- TODO: dynamically fill with data on carousel swap -->
+                <div class="media">
+                    <img class="align-self-start mr-3" src="..." alt="Generic placeholder image">
+                    <div class="media-body">
+                        <h5 class="mt-0">Top-aligned media</h5>
+                        <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
+                            Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc
+                            ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.</p>
+                        <p>Donec sed odio dui. Nullam quis risus eget urna mollis ornare vel eu leo. Cum sociis natoque
+                            penatibus et magnis dis parturient montes, nascetur ridiculus mus.</p>
+                    </div>
+                </div>
+                
             </div>
             <div class="col-sm-5">
                 <!-- TODO: dynamically fill with data on load -->
