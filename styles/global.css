@@ -5,18 +5,22 @@ body {
 
 /* bootstrap */
 .list-group {
-    max-height: 100%;
-    overflow: scroll;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.row {
+    height: 100%;
+}
+
+.col {
+    height: 100%;
 }
 
 /* testing */
 
 .home-body {
     height: 100%;
-}
-
-.recent-column {
-    height: 80%;
 }
 
 .placeholder1 {
@@ -29,4 +33,8 @@ body {
     height: 100px;
     width: 100%;
     background: blue;
+}
+
+.list-body {
+    height: 100%
 }
