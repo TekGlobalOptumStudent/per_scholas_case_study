@@ -5,6 +5,8 @@ body {
 
 /* bootstrap */
 .row {
+    margin: 0;
+    width: 100%;
     height: 100%;
 }
 
@@ -48,4 +50,11 @@ body {
     height: 100px;
     width: 100%;
     background: green;
+}
+
+.placeholder4 {
+    margin: auto;
+    height: 100%;
+    width: 500px;
+    background: yellow;
 }
