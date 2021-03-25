@@ -1,0 +1,10 @@
+com\PatchworkNovels\entities\Comment.class
+com\PatchworkNovels\dao\CommentI.class
+com\PatchworkNovels\dao\SnippetI.class
+com\PatchworkNovels\entities\Story.class
+com\PatchworkNovels\entities\Snippet.class
+com\PatchworkNovels\controller\TstControllers.class
+com\PatchworkNovels\dao\UserI.class
+com\PatchworkNovels\entities\User.class
+com\PatchworkNovels\dao\StoryI.class
+com\PatchworkNovels\dao\AbstractDao.class
