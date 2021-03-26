@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.dao.SnippetI;
+import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 
 public class SnippetService extends AbstractDAO implements SnippetI {
@@ -44,6 +45,16 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 		}
 		dispose();
 		return true;
+	}
+
+	@Override
+	public boolean addComment(int storyId, Comment comment) {
+		return false;
+	}
+
+	@Override
+	public boolean deleteComment(int storyId, int commentId) {
+		return false;
 	}
 
 	@Override

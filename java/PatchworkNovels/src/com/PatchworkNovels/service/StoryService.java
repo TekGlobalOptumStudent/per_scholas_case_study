@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.dao.StoryI;
+import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 
@@ -96,6 +97,16 @@ public class StoryService extends AbstractDAO implements StoryI {
 		}
 		dispose();
 		return true;
+	}
+
+	@Override
+	public boolean addComment(int storyId, Comment comment) {
+		return false;
+	}
+
+	@Override
+	public boolean deleteComment(int storyId, int commentId) {
+		return false;
 	}
 
 	@Override

@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.dao.UserI;
+import com.PatchworkNovels.entities.Snippet;
+import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
 
 public class UserService extends AbstractDAO implements UserI {
@@ -43,6 +45,36 @@ public class UserService extends AbstractDAO implements UserI {
 		}
 		dispose();
 		return true;
+	}
+
+	@Override
+	public boolean addPublishedStory(int userId, Story story) {
+		return false;
+	}
+
+	@Override
+	public boolean deletePublishedStory(int userId, int storyId) {
+		return false;
+	}
+
+	@Override
+	public boolean addPublishedSnippet(int userId, Snippet snippet) {
+		return false;
+	}
+
+	@Override
+	public boolean deletePublishedSnippet(int userId, int snippetId) {
+		return false;
+	}
+
+	@Override
+	public boolean addFavoriteStory(int userId, Story story) {
+		return false;
+	}
+
+	@Override
+	public boolean deleteFavoriteStory(int userId, int storyId) {
+		return false;
 	}
 
 	@Override
@@ -89,5 +121,5 @@ public class UserService extends AbstractDAO implements UserI {
 		dispose();
 		return false;
 	}
-	
+
 }
