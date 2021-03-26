@@ -1,6 +1,7 @@
 package com.PatchworkNovels.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Story {
@@ -9,6 +10,7 @@ public class Story {
 	
 	private int storyId;
 	private int storyAuthorId;
+	private Date storyTimePosted;
 	private List<Snippet> storyText;
 	private List<Comment> storyComments;
 	private int storyRating;
@@ -19,8 +21,9 @@ public class Story {
 	
 	public Story(int storyAuthorId) {
 		this.storyAuthorId = storyAuthorId;
-		storyText = new ArrayList<Snippet>();
-		storyComments = new ArrayList<Comment>();
+		this.storyTimePosted = new Date();
+		this.storyText = new ArrayList<Snippet>();
+		this.storyComments = new ArrayList<Comment>();
 		this.storyRating = 0;
 	}
 	
@@ -32,6 +35,10 @@ public class Story {
 	
 	public int getStoryAuthorId() {
 		return this.storyAuthorId;
+	}
+	
+	public Date getStoryTimePosted() {
+		return this.storyTimePosted;
 	}
 	
 	public List<Snippet> getStoryText() {
@@ -56,6 +63,10 @@ public class Story {
 		this.storyAuthorId = storyAuthorId;
 	}
 	
+	public void setStoryTimePosted(Date storyTimePosted) {
+		this.storyTimePosted = storyTimePosted;
+	}
+	
 	public void setStoryText(List<Snippet> storyText) {
 		this.storyText = storyText;
 	}
@@ -68,6 +79,8 @@ public class Story {
 		this.storyRating = storyRating;
 	}
 
+	// standard methods
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,6 +90,7 @@ public class Story {
 		result = prime * result + storyId;
 		result = prime * result + storyRating;
 		result = prime * result + ((storyText == null) ? 0 : storyText.hashCode());
+		result = prime * result + ((storyTimePosted == null) ? 0 : storyTimePosted.hashCode());
 		return result;
 	}
 
@@ -105,13 +119,24 @@ public class Story {
 				return false;
 		} else if (!storyText.equals(other.storyText))
 			return false;
+		if (storyTimePosted == null) {
+			if (other.storyTimePosted != null)
+				return false;
+		} else if (!storyTimePosted.equals(other.storyTimePosted))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Story [storyId=" + storyId + ", authorId=" + storyAuthorId + ", storyText=" + storyText + ", storyComments="
-				+ storyComments + ", storyRating=" + storyRating + "]";
+		return "Story [storyId=" + storyId + ", storyAuthorId=" + storyAuthorId + ", storyTimePosted=" + storyTimePosted
+				+ ", storyText=" + storyText + ", storyComments=" + storyComments + ", storyRating=" + storyRating
+				+ "]";
 	}
 	
+	// other methods
+	
+	public void setStoryTimePostedNow() {
+		this.storyTimePosted = new Date();
+	}
 }

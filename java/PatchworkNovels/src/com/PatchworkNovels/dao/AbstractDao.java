@@ -17,7 +17,7 @@ public abstract class AbstractDao {
 	}
 	
 	public void dispose() {
-		if(em.isOpen()) em.close();
-		if(emf.isOpen()) emf.close();
+		if(em != null && em.isOpen()) em.close();
+		if(emf != null && emf.isOpen()) emf.close();
 	}
 }

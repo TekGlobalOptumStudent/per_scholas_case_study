@@ -1,6 +1,7 @@
 package com.PatchworkNovels.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class Snippet {
@@ -9,6 +10,7 @@ public class Snippet {
 	
 	private int snippetId;
 	private int authorId;
+	private Date snippetTimePosted;
 	private String snippetText;
 	private List<Story> snippetStories;
 	private List<Comment> snippetComments;
@@ -20,6 +22,7 @@ public class Snippet {
 	public Snippet(int authorId, String snippetText) {
 		this.authorId = authorId;
 		this.snippetText = snippetText;
+		this.snippetTimePosted = new Date();
 		this.snippetStories = new ArrayList<Story>();
 		this.snippetComments = new ArrayList<Comment>();
 	}
@@ -32,6 +35,10 @@ public class Snippet {
 	
 	public int getAuthorId() {
 		return this.authorId;
+	}
+	
+	public Date getSnippetTimePosted() {
+		return this.snippetTimePosted;
 	}
 	
 	public String getSnippetText() {
@@ -56,6 +63,10 @@ public class Snippet {
 		this.authorId = authorId;
 	}
 	
+	public void setSnippetTimePosted(Date snippetTimePosted) {
+		this.snippetTimePosted = snippetTimePosted;
+	}
+	
 	public void setSnippetText(String snippetText) {
 		this.snippetText = snippetText;
 	}
@@ -67,7 +78,9 @@ public class Snippet {
 	public void setSnippetComments(List<Comment> snippetComments) {
 		this.snippetComments = snippetComments;
 	}
-
+	
+	// standard methods
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -77,6 +90,7 @@ public class Snippet {
 		result = prime * result + snippetId;
 		result = prime * result + ((snippetStories == null) ? 0 : snippetStories.hashCode());
 		result = prime * result + ((snippetText == null) ? 0 : snippetText.hashCode());
+		result = prime * result + ((snippetTimePosted == null) ? 0 : snippetTimePosted.hashCode());
 		return result;
 	}
 
@@ -108,13 +122,25 @@ public class Snippet {
 				return false;
 		} else if (!snippetText.equals(other.snippetText))
 			return false;
+		if (snippetTimePosted == null) {
+			if (other.snippetTimePosted != null)
+				return false;
+		} else if (!snippetTimePosted.equals(other.snippetTimePosted))
+			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Snippet [snippetId=" + snippetId + ", authorId=" + authorId + ", snippetText=" + snippetText
-				+ ", snippetStories=" + snippetStories + ", snippetComments=" + snippetComments + "]";
+		return "Snippet [snippetId=" + snippetId + ", authorId=" + authorId + ", snippetTimePosted=" + snippetTimePosted
+				+ ", snippetText=" + snippetText + ", snippetStories=" + snippetStories + ", snippetComments="
+				+ snippetComments + "]";
 	}
 	
+	// other methods
+	
+	public void setSnippetTimePostedNow() {
+		this.snippetTimePosted = new Date();
+	}
+
 }

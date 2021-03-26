@@ -1,5 +1,15 @@
 package com.PatchworkNovels.dao;
 
-public interface UserI {
+import java.util.List;
 
+import com.PatchworkNovels.entities.User;
+
+public interface UserI {
+	
+	public boolean addUser(User user);
+	public User getUser(int userId);
+	public boolean editUser(int userId, User newUserInfo);
+	public boolean deleteUser(int userId);
+	public List<User> getAllUsers();
+	
 }

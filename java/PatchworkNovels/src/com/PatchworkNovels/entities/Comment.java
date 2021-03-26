@@ -1,5 +1,7 @@
 package com.PatchworkNovels.entities;
 
+import java.util.Date;
+
 public class Comment {
 	
 	// private fields
@@ -7,6 +9,7 @@ public class Comment {
 	private int commentId;
 	private int commentAuthorId;
 	private int storyId;
+	private Date commentTimePosted;
 	private String commentText;
 	private int commentRating;
 	
@@ -17,6 +20,7 @@ public class Comment {
 	public Comment(int commentAuthorId, int storyId, String commentText) {
 		this.commentAuthorId = commentAuthorId;
 		this.storyId = storyId;
+		this.commentTimePosted = new Date();
 		this.commentText = commentText;
 		this.commentRating = 0;
 	}
@@ -33,6 +37,10 @@ public class Comment {
 	
 	public int getStoryId() {
 		return this.storyId;
+	}
+	
+	public Date getCommentTimePosted() {
+		return this.commentTimePosted;
 	}
 	
 	public String getCommentText() {
@@ -57,6 +65,10 @@ public class Comment {
 		this.storyId = storyId;
 	}
 	
+	public void setCommentTimePosted(Date commentTimePosted) {
+		this.commentTimePosted = commentTimePosted;
+	}
+	
 	public void setCommenText(String commentText) {
 		this.commentText = commentText;
 	}
@@ -64,7 +76,9 @@ public class Comment {
 	public void setCommentRating(int commentRating) {
 		this.commentRating = commentRating;
 	}
-
+	
+	// standard methods
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -73,6 +87,7 @@ public class Comment {
 		result = prime * result + commentId;
 		result = prime * result + commentRating;
 		result = prime * result + ((commentText == null) ? 0 : commentText.hashCode());
+		result = prime * result + ((commentTimePosted == null) ? 0 : commentTimePosted.hashCode());
 		result = prime * result + storyId;
 		return result;
 	}
@@ -97,6 +112,11 @@ public class Comment {
 				return false;
 		} else if (!commentText.equals(other.commentText))
 			return false;
+		if (commentTimePosted == null) {
+			if (other.commentTimePosted != null)
+				return false;
+		} else if (!commentTimePosted.equals(other.commentTimePosted))
+			return false;
 		if (storyId != other.storyId)
 			return false;
 		return true;
@@ -105,7 +125,13 @@ public class Comment {
 	@Override
 	public String toString() {
 		return "Comment [commentId=" + commentId + ", commentAuthorId=" + commentAuthorId + ", storyId=" + storyId
-				+ ", commentText=" + commentText + ", commentRating=" + commentRating + "]";
+				+ ", commentTimePosted=" + commentTimePosted + ", commentText=" + commentText + ", commentRating="
+				+ commentRating + "]";
 	}
+
+	// other methods
 	
+	public void setCommentTimePostedNow() {
+		this.commentTimePosted = new Date();
+	}
 }

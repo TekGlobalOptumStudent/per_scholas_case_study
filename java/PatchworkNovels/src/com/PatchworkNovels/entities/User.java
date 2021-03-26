@@ -1,11 +1,13 @@
 package com.PatchworkNovels.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class User {
 	
 	private int userId;
+	private Date dateJoined;
 	private List<Story> publishedStories;
 	private List<Snippet> publishedSnippets;
 	private List<Story> favoriteStories;
@@ -13,6 +15,7 @@ public class User {
 	// constructors
 	
 	public User() { 
+		this.dateJoined = new Date();
 		this.publishedStories = new ArrayList<Story>();
 		this.publishedSnippets = new ArrayList<Snippet>();
 		this.favoriteStories = new ArrayList<Story>();
@@ -22,6 +25,10 @@ public class User {
 	
 	public int getUserId() {
 		return this.userId;
+	}
+	
+	public Date getDateJoined() {
+		return this.dateJoined;
 	}
 	
 	public List<Story> getPublishedStories() {
@@ -42,6 +49,10 @@ public class User {
 		this.userId = userId;
 	}
 	
+	public void setDateJoined(Date dateJoined) {
+		this.dateJoined = dateJoined;
+	}
+	
 	public void setPublishedStories(List<Story> publishedStories) {
 		this.publishedStories = publishedStories;
 	}
@@ -53,11 +64,14 @@ public class User {
 	public void setFavoriteStories(List<Story> favoriteStories) {
 		this.favoriteStories = favoriteStories;
 	}
-
+	
+	// standard methods
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((dateJoined == null) ? 0 : dateJoined.hashCode());
 		result = prime * result + ((favoriteStories == null) ? 0 : favoriteStories.hashCode());
 		result = prime * result + ((publishedSnippets == null) ? 0 : publishedSnippets.hashCode());
 		result = prime * result + ((publishedStories == null) ? 0 : publishedStories.hashCode());
@@ -74,6 +88,11 @@ public class User {
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
+		if (dateJoined == null) {
+			if (other.dateJoined != null)
+				return false;
+		} else if (!dateJoined.equals(other.dateJoined))
+			return false;
 		if (favoriteStories == null) {
 			if (other.favoriteStories != null)
 				return false;
@@ -96,8 +115,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", publishedStories=" + publishedStories + ", publishedSnippets="
-				+ publishedSnippets + ", favoriteStories=" + favoriteStories + "]";
+		return "User [userId=" + userId + ", dateJoined=" + dateJoined + ", publishedStories=" + publishedStories
+				+ ", publishedSnippets=" + publishedSnippets + ", favoriteStories=" + favoriteStories + "]";
 	}
 	
 }
