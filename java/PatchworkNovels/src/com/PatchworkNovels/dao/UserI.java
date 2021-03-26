@@ -11,5 +11,6 @@ public interface UserI {
 	public boolean editUser(int userId, User newUserInfo);
 	public boolean deleteUser(int userId);
 	public List<User> getAllUsers();
+	public boolean validateUser(String username, String password);
 	
 }

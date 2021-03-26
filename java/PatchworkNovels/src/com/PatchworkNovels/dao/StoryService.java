@@ -46,6 +46,23 @@ public class StoryService extends AbstractDAO implements StoryI {
 	}
 
 	@Override
+	public boolean renameStory(int storyId, String newStoryTitle) {
+		if(storyId < 0 || newStoryTitle == null) return false;
+		if(connect()) {
+			Story toEdit = em.find(Story.class, storyId);
+			if(toEdit == null) {
+				dispose();
+				return false;
+			}
+			em.getTransaction().begin();
+			toEdit.setStoryTitle(newStoryTitle);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return false;
+	}
+
+	@Override
 	public boolean likeStory(int storyId) {
 		if(storyId < 0) return false;
 		if(connect()) {
@@ -80,7 +97,7 @@ public class StoryService extends AbstractDAO implements StoryI {
 	}
 
 	@Override
-	public boolean deleteSnippet(int storyId) {
+	public boolean deleteStory(int storyId) {
 		if(storyId < 0) return false;
 		if(connect()) {
 			Story toRemove = em.find(Story.class, storyId);
