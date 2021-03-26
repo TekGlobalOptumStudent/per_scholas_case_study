@@ -4,7 +4,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-public abstract class AbstractDao {
+public abstract class AbstractDAO {
 	
 	private final String PERSISTENCE_UNIT_NAME = "PatchworkNovels";
 	
