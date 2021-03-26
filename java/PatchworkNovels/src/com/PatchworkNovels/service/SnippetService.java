@@ -1,7 +1,9 @@
-package com.PatchworkNovels.dao;
+package com.PatchworkNovels.service;
 
 import java.util.List;
 
+import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.dao.SnippetI;
 import com.PatchworkNovels.entities.Snippet;
 
 public class SnippetService extends AbstractDAO implements SnippetI {

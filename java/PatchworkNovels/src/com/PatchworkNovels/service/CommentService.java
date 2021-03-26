@@ -1,7 +1,9 @@
-package com.PatchworkNovels.dao;
+package com.PatchworkNovels.service;
 
 import java.util.List;
 
+import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.dao.CommentI;
 import com.PatchworkNovels.entities.Comment;
 
 public class CommentService extends AbstractDAO implements CommentI {

@@ -1,7 +1,9 @@
-package com.PatchworkNovels.dao;
+package com.PatchworkNovels.service;
 
 import java.util.List;
 
+import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.dao.StoryI;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 

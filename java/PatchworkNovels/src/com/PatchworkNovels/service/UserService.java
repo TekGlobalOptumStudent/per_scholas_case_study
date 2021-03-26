@@ -1,7 +1,9 @@
-package com.PatchworkNovels.dao;
+package com.PatchworkNovels.service;
 
 import java.util.List;
 
+import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.dao.UserI;
 import com.PatchworkNovels.entities.User;
 
 public class UserService extends AbstractDAO implements UserI {
