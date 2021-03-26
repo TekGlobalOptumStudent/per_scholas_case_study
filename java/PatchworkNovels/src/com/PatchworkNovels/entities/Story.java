@@ -10,6 +10,7 @@ public class Story {
 	
 	private int storyId;
 	private int storyAuthorId;
+	private String storyTitle;
 	private Date storyTimePosted;
 	private List<Snippet> storyText;
 	private List<Comment> storyComments;
@@ -19,8 +20,9 @@ public class Story {
 	
 	public Story() { }
 	
-	public Story(int storyAuthorId) {
+	public Story(int storyAuthorId, String storyTitle) {
 		this.storyAuthorId = storyAuthorId;
+		this.storyTitle = storyTitle;
 		this.storyTimePosted = new Date();
 		this.storyText = new ArrayList<Snippet>();
 		this.storyComments = new ArrayList<Comment>();
@@ -35,6 +37,10 @@ public class Story {
 	
 	public int getStoryAuthorId() {
 		return this.storyAuthorId;
+	}
+	
+	public String getStoryTitle() {
+		return this.storyTitle;
 	}
 	
 	public Date getStoryTimePosted() {
@@ -63,6 +69,10 @@ public class Story {
 		this.storyAuthorId = storyAuthorId;
 	}
 	
+	public void setStoryTitle(String storyTitle) {
+		this.storyTitle = storyTitle;
+	}
+	
 	public void setStoryTimePosted(Date storyTimePosted) {
 		this.storyTimePosted = storyTimePosted;
 	}
@@ -78,7 +88,7 @@ public class Story {
 	public void setStoryRating(int storyRating) {
 		this.storyRating = storyRating;
 	}
-
+	
 	// standard methods
 	
 	@Override
@@ -91,6 +101,7 @@ public class Story {
 		result = prime * result + storyRating;
 		result = prime * result + ((storyText == null) ? 0 : storyText.hashCode());
 		result = prime * result + ((storyTimePosted == null) ? 0 : storyTimePosted.hashCode());
+		result = prime * result + ((storyTitle == null) ? 0 : storyTitle.hashCode());
 		return result;
 	}
 
@@ -124,14 +135,19 @@ public class Story {
 				return false;
 		} else if (!storyTimePosted.equals(other.storyTimePosted))
 			return false;
+		if (storyTitle == null) {
+			if (other.storyTitle != null)
+				return false;
+		} else if (!storyTitle.equals(other.storyTitle))
+			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Story [storyId=" + storyId + ", storyAuthorId=" + storyAuthorId + ", storyTimePosted=" + storyTimePosted
-				+ ", storyText=" + storyText + ", storyComments=" + storyComments + ", storyRating=" + storyRating
-				+ "]";
+		return "Story [storyId=" + storyId + ", storyAuthorId=" + storyAuthorId + ", storyTitle=" + storyTitle
+				+ ", storyTimePosted=" + storyTimePosted + ", storyText=" + storyText + ", storyComments="
+				+ storyComments + ", storyRating=" + storyRating + "]";
 	}
 	
 	// other methods
@@ -139,4 +155,5 @@ public class Story {
 	public void setStoryTimePostedNow() {
 		this.storyTimePosted = new Date();
 	}
+
 }

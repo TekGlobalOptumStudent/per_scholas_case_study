@@ -7,6 +7,8 @@ import java.util.List;
 public class User {
 	
 	private int userId;
+	private String username;
+	private String password;
 	private Date dateJoined;
 	private List<Story> publishedStories;
 	private List<Snippet> publishedSnippets;
@@ -14,7 +16,9 @@ public class User {
 	
 	// constructors
 	
-	public User() { 
+	public User() {
+		this.username = null;
+		this.password = null;
 		this.dateJoined = new Date();
 		this.publishedStories = new ArrayList<Story>();
 		this.publishedSnippets = new ArrayList<Snippet>();
@@ -25,6 +29,10 @@ public class User {
 	
 	public int getUserId() {
 		return this.userId;
+	}
+	
+	public String getUsername() {
+		return this.username;
 	}
 	
 	public Date getDateJoined() {
@@ -47,6 +55,10 @@ public class User {
 	
 	public void setUserId(int userId) {
 		this.userId = userId;
+	}
+	
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	
 	public void setDateJoined(Date dateJoined) {
@@ -73,9 +85,11 @@ public class User {
 		int result = 1;
 		result = prime * result + ((dateJoined == null) ? 0 : dateJoined.hashCode());
 		result = prime * result + ((favoriteStories == null) ? 0 : favoriteStories.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((publishedSnippets == null) ? 0 : publishedSnippets.hashCode());
 		result = prime * result + ((publishedStories == null) ? 0 : publishedStories.hashCode());
 		result = prime * result + userId;
+		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
 
@@ -98,6 +112,11 @@ public class User {
 				return false;
 		} else if (!favoriteStories.equals(other.favoriteStories))
 			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
 		if (publishedSnippets == null) {
 			if (other.publishedSnippets != null)
 				return false;
@@ -110,13 +129,19 @@ public class User {
 			return false;
 		if (userId != other.userId)
 			return false;
+		if (username == null) {
+			if (other.username != null)
+				return false;
+		} else if (!username.equals(other.username))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", dateJoined=" + dateJoined + ", publishedStories=" + publishedStories
-				+ ", publishedSnippets=" + publishedSnippets + ", favoriteStories=" + favoriteStories + "]";
+		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", dateJoined="
+				+ dateJoined + ", publishedStories=" + publishedStories + ", publishedSnippets=" + publishedSnippets
+				+ ", favoriteStories=" + favoriteStories + "]";
 	}
-	
+
 }
