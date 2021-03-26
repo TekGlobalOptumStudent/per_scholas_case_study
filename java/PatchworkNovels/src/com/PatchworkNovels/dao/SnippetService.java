@@ -8,32 +8,62 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 
 	@Override
 	public boolean addSnippet(Snippet snippet) {
-		// TODO Auto-generated method stub
-		return false;
+		if(snippet == null) return false;
+		if(connect()) {
+			em.getTransaction().begin();
+			em.persist(snippet);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public Snippet readSnippet(int snippetId) {
-		// TODO Auto-generated method stub
-		return null;
+		if(snippetId < 0) return null;
+		Snippet ret = null;
+		if(connect()) ret = em.find(Snippet.class, snippetId);
+		dispose();
+		return ret;
 	}
 
 	@Override
 	public boolean editSnippet(int snippetId, String newSnippetText) {
-		// TODO Auto-generated method stub
-		return false;
+		if(snippetId < 0 || newSnippetText == null) return false;
+		if(connect()) {
+			Snippet toEdit = em.find(Snippet.class, snippetId);
+			if(toEdit == null) {
+				dispose();
+				return false;
+			}
+			em.getTransaction().begin();
+			toEdit.setSnippetText(newSnippetText);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public boolean deleteSnippet(int snippetId) {
-		// TODO Auto-generated method stub
-		return false;
+		if(snippetId < 0) return false;
+		if(connect()) {
+			Snippet toRemove = em.find(Snippet.class, snippetId);
+			if(toRemove == null) return false;
+			em.getTransaction().begin();
+			em.remove(toRemove);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public List<Snippet> getAllSnippets() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Snippet> ret = null;
+		if(connect()) ret = em.createQuery("SELECT s FROM Snippet s", Snippet.class).getResultList();
+		dispose();
+		return ret;
 	}
 
 }

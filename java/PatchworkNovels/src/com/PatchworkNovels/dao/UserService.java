@@ -8,32 +8,61 @@ public class UserService extends AbstractDAO implements UserI {
 
 	@Override
 	public boolean addUser(User user) {
-		// TODO Auto-generated method stub
-		return false;
+		if(user == null) return false;
+		if(connect()) {
+			em.getTransaction().begin();
+			em.persist(user);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public User getUser(int userId) {
-		// TODO Auto-generated method stub
-		return null;
+		if(userId < 0) return null;
+		User ret = null;
+		if(connect()) ret = em.find(User.class, userId);
+		dispose();
+		return ret;
 	}
 
 	@Override
 	public boolean editUser(int userId, User newUserInfo) {
-		// TODO Auto-generated method stub
-		return false;
+		if(userId < 0 || newUserInfo == null) return false;
+		if(connect()) {
+			User toEdit = em.find(User.class, userId);
+			if(toEdit == null) {
+				dispose();
+				return false;
+			}
+			em.getTransaction().begin();
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public boolean deleteUser(int userId) {
-		// TODO Auto-generated method stub
-		return false;
+		if(userId < 0) return false;
+		if(connect()) {
+			User toRemove = em.find(User.class, userId);
+			if(toRemove == null) return false;
+			em.getTransaction().begin();
+			em.remove(toRemove);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public List<User> getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> ret = null;
+		if(connect()) ret = em.createQuery("SELECT u FROM User u", User.class).getResultList();
+		dispose();
+		return ret;
 	}
 
 }
