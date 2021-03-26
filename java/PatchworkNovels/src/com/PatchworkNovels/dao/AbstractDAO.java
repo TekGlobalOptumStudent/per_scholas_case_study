@@ -7,13 +7,18 @@ import javax.persistence.Persistence;
 public abstract class AbstractDAO {
 	
 	private final String PERSISTENCE_UNIT_NAME = "PatchworkNovels";
-	
 	protected EntityManagerFactory emf = null;
 	protected EntityManager em = null;
 	
-	public void connect() {
-		emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-		em = emf.createEntityManager();
+	public boolean connect() {
+		try {
+			emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+			em = emf.createEntityManager();
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 	
 	public void dispose() {
