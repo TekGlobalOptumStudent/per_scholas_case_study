@@ -10,8 +10,8 @@ public interface SnippetI {
 	public boolean addSnippet(Snippet snippet);
 	public Snippet readSnippet(int snippetId);
 	public boolean editSnippet(int snippetId, String newSnippetText);
-	public boolean addComment(int storyId, Comment comment);
-	public boolean deleteComment(int storyId, int commentId);
+	public boolean addComment(int snippetId, Comment comment);
+	public boolean deleteComment(int snippetId, int commentId);
 	public boolean deleteSnippet(int snippetId);
 	public List<Snippet> getAllSnippets();
 	

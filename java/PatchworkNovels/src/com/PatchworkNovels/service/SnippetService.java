@@ -48,12 +48,12 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 	}
 
 	@Override
-	public boolean addComment(int storyId, Comment comment) {
+	public boolean addComment(int snippetId, Comment comment) {
 		return false;
 	}
 
 	@Override
-	public boolean deleteComment(int storyId, int commentId) {
+	public boolean deleteComment(int snippetId, int commentId) {
 		return false;
 	}
 
