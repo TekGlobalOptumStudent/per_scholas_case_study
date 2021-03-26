@@ -8,7 +8,6 @@ public class Comment {
 	
 	private int commentId;
 	private int commentAuthorId;
-	private int storyId;
 	private Date commentTimePosted;
 	private String commentText;
 	private int commentRating;
@@ -17,9 +16,8 @@ public class Comment {
 	
 	public Comment() { }
 	
-	public Comment(int commentAuthorId, int storyId, String commentText) {
+	public Comment(int commentAuthorId, String commentText) {
 		this.commentAuthorId = commentAuthorId;
-		this.storyId = storyId;
 		this.commentTimePosted = new Date();
 		this.commentText = commentText;
 		this.commentRating = 0;
@@ -33,10 +31,6 @@ public class Comment {
 	
 	public int getCommentAuthorId() {
 		return this.commentAuthorId;
-	}
-	
-	public int getStoryId() {
-		return this.storyId;
 	}
 	
 	public Date getCommentTimePosted() {
@@ -59,10 +53,6 @@ public class Comment {
 	
 	public void setAuthorCommentId(int commentAuthorId) {
 		this.commentAuthorId = commentAuthorId;
-	}
-	
-	public void setStoryId(int storyId) {
-		this.storyId = storyId;
 	}
 	
 	public void setCommentTimePosted(Date commentTimePosted) {
@@ -88,7 +78,6 @@ public class Comment {
 		result = prime * result + commentRating;
 		result = prime * result + ((commentText == null) ? 0 : commentText.hashCode());
 		result = prime * result + ((commentTimePosted == null) ? 0 : commentTimePosted.hashCode());
-		result = prime * result + storyId;
 		return result;
 	}
 
@@ -117,18 +106,15 @@ public class Comment {
 				return false;
 		} else if (!commentTimePosted.equals(other.commentTimePosted))
 			return false;
-		if (storyId != other.storyId)
-			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Comment [commentId=" + commentId + ", commentAuthorId=" + commentAuthorId + ", storyId=" + storyId
-				+ ", commentTimePosted=" + commentTimePosted + ", commentText=" + commentText + ", commentRating="
-				+ commentRating + "]";
+		return "Comment [commentId=" + commentId + ", commentAuthorId=" + commentAuthorId + ", commentTimePosted="
+				+ commentTimePosted + ", commentText=" + commentText + ", commentRating=" + commentRating + "]";
 	}
-
+	
 	// other methods
 	
 	public void setCommentTimePostedNow() {
