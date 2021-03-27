@@ -79,7 +79,11 @@ public class PatchworkNovelsSetup extends AbstractDAO {
 	
 	// creates the tables using JDBC
 	private static boolean createTables() {
-		return (new UserService().createTable() && new StoryService().createTable() && new SnippetService().createTable() && new CommentService().createTable());
+		if(new UserService().createTable() && new StoryService().createTable() && new SnippetService().createTable() && new CommentService().createTable()) {
+			return true;
+		}
+		System.out.println("Something went wrong when trying to create the tables.");
+		return false;
 	}
 	
 	// reads each included .sql file and runs the SQL queries they contain

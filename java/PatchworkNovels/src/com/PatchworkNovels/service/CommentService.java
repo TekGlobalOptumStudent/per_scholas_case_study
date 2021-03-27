@@ -108,6 +108,8 @@ public class CommentService extends AbstractDAO implements CommentI {
 		if(connect()) {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;

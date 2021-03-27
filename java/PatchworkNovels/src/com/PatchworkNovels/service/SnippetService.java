@@ -117,6 +117,8 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 		if(connect()) {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;

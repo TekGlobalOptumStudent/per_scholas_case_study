@@ -207,6 +207,8 @@ public class UserService extends AbstractDAO implements UserI {
 		if(connect()) {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;

@@ -167,6 +167,8 @@ public class StoryService extends AbstractDAO implements StoryI {
 		if(connect()) {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;
