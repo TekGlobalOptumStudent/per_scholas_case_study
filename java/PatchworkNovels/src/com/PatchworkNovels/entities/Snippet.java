@@ -11,6 +11,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -27,9 +29,9 @@ public class Snippet {
 	@Column(name = "snippetId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int snippetId;
 	
-	@Basic
-	@Column(name = "authorId", nullable = false, columnDefinition = "INT NOT NULL")
-	private int authorId;
+	@ManyToOne
+	@JoinColumn(name = "snippetAuthorId", referencedColumnName = "userId")
+	private User snippetAuthor;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "snippetTimePosted", nullable = false)
@@ -49,8 +51,8 @@ public class Snippet {
 	
 	public Snippet() { }
 	
-	public Snippet(int authorId, String snippetText) {
-		this.authorId = authorId;
+	public Snippet(User snippetAuthor, String snippetText) {
+		this.snippetAuthor = snippetAuthor;
 		this.snippetText = snippetText;
 		this.snippetTimePosted = new Date();
 		this.snippetStories = new ArrayList<Story>();
@@ -63,8 +65,8 @@ public class Snippet {
 		return this.snippetId;
 	}
 	
-	public int getAuthorId() {
-		return this.authorId;
+	public User getSnippetAuthor() {
+		return this.snippetAuthor;
 	}
 	
 	public Date getSnippetTimePosted() {
@@ -89,8 +91,8 @@ public class Snippet {
 		this.snippetId = snippetId;
 	}
 	
-	public void setAuthorId(int authorId) {
-		this.authorId = authorId;
+	public void setSnippetAuthorId(User snippetAuthor) {
+		this.snippetAuthor = snippetAuthor;
 	}
 	
 	public void setSnippetTimePosted(Date snippetTimePosted) {
@@ -110,12 +112,12 @@ public class Snippet {
 	}
 	
 	// standard methods
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + authorId;
+		result = prime * result + ((snippetAuthor == null) ? 0 : snippetAuthor.hashCode());
 		result = prime * result + ((snippetComments == null) ? 0 : snippetComments.hashCode());
 		result = prime * result + snippetId;
 		result = prime * result + ((snippetStories == null) ? 0 : snippetStories.hashCode());
@@ -133,7 +135,10 @@ public class Snippet {
 		if (getClass() != obj.getClass())
 			return false;
 		Snippet other = (Snippet) obj;
-		if (authorId != other.authorId)
+		if (snippetAuthor == null) {
+			if (other.snippetAuthor != null)
+				return false;
+		} else if (!snippetAuthor.equals(other.snippetAuthor))
 			return false;
 		if (snippetComments == null) {
 			if (other.snippetComments != null)
@@ -159,10 +164,10 @@ public class Snippet {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Snippet [snippetId=" + snippetId + ", authorId=" + authorId + ", snippetTimePosted=" + snippetTimePosted
+		return "Snippet [snippetId=" + snippetId + ", snippetAuthor=" + snippetAuthor + ", snippetTimePosted=" + snippetTimePosted
 				+ ", snippetText=" + snippetText + ", snippetStories=" + snippetStories + ", snippetComments="
 				+ snippetComments + "]";
 	}

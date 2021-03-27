@@ -90,7 +90,10 @@ public class PatchworkNovelsSetup extends AbstractDAO {
 	private static boolean loadTables() {
 		try {
 			String path = "./resources/sql/";
-			return runSQLFile(path + "user.sql") && runSQLFile(path + "story.sql") && runSQLFile(path + "snippet.sql");
+			boolean user = runSQLFile(path + "user.sql");
+			boolean story = runSQLFile(path + "story.sql");
+			boolean snippet = runSQLFile(path + "snippet.sql");
+			return user && story && snippet;
 		} catch(Exception e) {
 			System.out.println("Unexpected error while reading in files.");
 			e.printStackTrace();

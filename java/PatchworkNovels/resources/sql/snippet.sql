@@ -1,4 +1,4 @@
-INSERT INTO Snippet (snippetId, authorId, snippetTimePosted, snippetText) VALUES
+INSERT INTO Snippet (snippetId, snippetAuthorId, snippetTimePosted, snippetText) VALUES
 (1, 1, '2001-01-01', 'snippetTest1'),
 (2, 2, '2002-02-02', 'snippetTest2'),
 (3, 3, '2003-03-03', 'snippetTest3'),

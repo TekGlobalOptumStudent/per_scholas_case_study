@@ -29,9 +29,9 @@ public class Story {
 	@Column(name = "storyId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int storyId;
 	
-	@Basic
-	@Column(name = "storyAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
-	private int storyAuthorId;
+	@ManyToOne
+	@JoinColumn(name = "storyAuthorId", referencedColumnName = "userId")
+	private User storyAuthor;
 	
 	@Basic
 	@Column(name = "storyTitle", nullable = false, columnDefinition = "VARCHAR(50) NOT NULL")
@@ -55,8 +55,8 @@ public class Story {
 	
 	public Story() { }
 	
-	public Story(int storyAuthorId, String storyTitle) {
-		this.storyAuthorId = storyAuthorId;
+	public Story(User storyAuthor, String storyTitle) {
+		this.storyAuthor = storyAuthor;
 		this.storyTitle = storyTitle;
 		this.storyTimePosted = new Date();
 		this.storyText = new ArrayList<Snippet>();
@@ -70,8 +70,8 @@ public class Story {
 		return this.storyId;
 	}
 	
-	public int getStoryAuthorId() {
-		return this.storyAuthorId;
+	public User getStoryAuthor() {
+		return this.storyAuthor;
 	}
 	
 	public String getStoryTitle() {
@@ -100,8 +100,8 @@ public class Story {
 		this.storyId = storyId;
 	}
 	
-	public void setStoryAuthorId(int storyAuthorId) {
-		this.storyAuthorId = storyAuthorId;
+	public void setStoryAuthorId(User storyAuthor) {
+		this.storyAuthor = storyAuthor;
 	}
 	
 	public void setStoryTitle(String storyTitle) {
@@ -130,7 +130,7 @@ public class Story {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + storyAuthorId;
+		result = prime * result + ((storyAuthor == null) ? 0 : storyAuthor.hashCode());
 		result = prime * result + ((storyComments == null) ? 0 : storyComments.hashCode());
 		result = prime * result + storyId;
 		result = prime * result + storyRating;
@@ -149,7 +149,10 @@ public class Story {
 		if (getClass() != obj.getClass())
 			return false;
 		Story other = (Story) obj;
-		if (storyAuthorId != other.storyAuthorId)
+		if (storyAuthor == null) {
+			if (other.storyAuthor != null)
+				return false;
+		} else if (!storyAuthor.equals(other.storyAuthor))
 			return false;
 		if (storyComments == null) {
 			if (other.storyComments != null)
@@ -177,14 +180,14 @@ public class Story {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Story [storyId=" + storyId + ", storyAuthorId=" + storyAuthorId + ", storyTitle=" + storyTitle
+		return "Story [storyId=" + storyId + ", storyAuthor=" + storyAuthor + ", storyTitle=" + storyTitle
 				+ ", storyTimePosted=" + storyTimePosted + ", storyText=" + storyText + ", storyComments="
 				+ storyComments + ", storyRating=" + storyRating + "]";
 	}
-	
+
 	// other methods
 	
 	public void setStoryTimePostedNow() {
