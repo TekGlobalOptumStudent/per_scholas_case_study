@@ -1,8 +1,12 @@
 package com.PatchworkNovels.dao;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
+import org.apache.ibatis.jdbc.ScriptRunner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -76,13 +80,12 @@ public abstract class AbstractDAO {
 		}
 	}
 	
-	public static void runQuery(String query) {
-		try {
-			statement = connection.createStatement();
-			statement.execute(query);
+	public static void runSQLFile(String filePath) {
+		ScriptRunner scriptRunner = new ScriptRunner(connection);
+		try(Reader reader = new BufferedReader(new FileReader(filePath))) {
+			scriptRunner.runScript(reader);
 		} catch(Exception e) {
-			System.out.println("Duplicate entry found, ignored query: " + query);
-			//e.printStackTrace();
+			e.printStackTrace();
 		}
 	}
 }
