@@ -49,31 +49,121 @@ public class UserService extends AbstractDAO implements UserI {
 
 	@Override
 	public boolean addPublishedStory(int userId, Story story) {
-		return false;
+		if(userId < 0 || story == null) return false;
+		if(connect()) {
+			User user = em.find(User.class, userId);
+			if(user == null) {
+				dispose();
+				return false;
+			}
+			em.getTransaction().begin();
+			user.getPublishedStories().add(story);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public boolean deletePublishedStory(int userId, int storyId) {
+		if(userId < 0 || storyId < 0) return false;
+		if(connect()) {
+			User user = em.find(User.class, userId);
+			if(user == null) {
+				dispose();
+				return false;
+			}
+			for(Story s : user.getPublishedStories()) {
+				if(s.getStoryId() == storyId) {
+					em.getTransaction().begin();
+					user.getPublishedStories().remove(storyId);
+					em.getTransaction().commit();
+					dispose();
+					return true;
+				}
+			}
+		}
+		dispose();
 		return false;
 	}
 
 	@Override
 	public boolean addPublishedSnippet(int userId, Snippet snippet) {
-		return false;
+		if(userId < 0 || snippet == null) return false;
+		if(connect()) {
+			User user = em.find(User.class, userId);
+			if(user == null) {
+				dispose();
+				return false;
+			}
+			em.getTransaction().begin();
+			user.getPublishedSnippets().add(snippet);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public boolean deletePublishedSnippet(int userId, int snippetId) {
+		if(userId < 0 || snippetId < 0) return false;
+		if(connect()) {
+			User user = em.find(User.class, userId);
+			if(user == null) {
+				dispose();
+				return false;
+			}
+			for(Snippet s : user.getPublishedSnippets()) {
+				if(s.getSnippetId() == snippetId) {
+					em.getTransaction().begin();
+					user.getPublishedSnippets().remove(s);
+					em.getTransaction().commit();
+					dispose();
+					return true;
+				}
+			}
+		}
+		dispose();
 		return false;
 	}
 
 	@Override
 	public boolean addFavoriteStory(int userId, Story story) {
-		return false;
+		if(userId < 0 || story == null) return false;
+		if(connect()) {
+			User user = em.find(User.class, userId);
+			if(user == null) {
+				dispose();
+				return false;
+			}
+			em.getTransaction().begin();
+			user.getFavoriteStories().add(story);
+			em.getTransaction().commit();
+		}
+		dispose();
+		return true;
 	}
 
 	@Override
 	public boolean deleteFavoriteStory(int userId, int storyId) {
+		if(userId < 0 || storyId < 0) return false;
+		if(connect()) {
+			User user = em.find(User.class, userId);
+			if(user == null) {
+				dispose();
+				return false;
+			}
+			for(Story s : user.getFavoriteStories()) {
+				if(s.getStoryId() == storyId) {
+					em.getTransaction().begin();
+					user.getFavoriteStories().remove(s);
+					em.getTransaction().commit();
+					dispose();
+					return true;
+				}
+			}
+		}
+		dispose();
 		return false;
 	}
 
