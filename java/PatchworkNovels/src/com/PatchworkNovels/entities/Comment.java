@@ -2,14 +2,41 @@ package com.PatchworkNovels.entities;
 
 import java.util.Date;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "Comment")
 public class Comment {
 	
 	// private fields
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "commentId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int commentId;
+	
+	@Basic
+	@Column(name = "commentAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int commentAuthorId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "commentTimePosted", nullable = false)
 	private Date commentTimePosted;
+	
+	@Basic
+	@Column(name = "commentText", nullable = false, columnDefinition = "TEXT NOT NULL")
 	private String commentText;
+	
+	@Basic
+	@Column(name = "commentRating", nullable = false, columnDefinition = "INT NOT NULL")
 	private int commentRating;
 	
 	// constructors

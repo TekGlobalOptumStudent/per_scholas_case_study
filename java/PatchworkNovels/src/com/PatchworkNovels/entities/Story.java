@@ -4,16 +4,49 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "Story")
 public class Story {
 	
 	// private fields
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "storyId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int storyId;
+	
+	@Basic
+	@Column(name = "storyAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int storyAuthorId;
+	
+	@Basic
+	@Column(name = "storyTitle", nullable = false, columnDefinition = "VARCHAR(50) NOT NULL")
 	private String storyTitle;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "storyTimePosted", nullable = false)
 	private Date storyTimePosted;
+	
+	@OneToMany(targetEntity = Snippet.class, fetch = FetchType.EAGER)
 	private List<Snippet> storyText;
+	
+	@OneToMany(targetEntity = Comment.class, fetch = FetchType.EAGER)
 	private List<Comment> storyComments;
+	
+	@Basic
+	@Column(name = "storyRating", nullable = false, columnDefinition = "INT NOT NULL")
 	private int storyRating;
 	
 	// constructors

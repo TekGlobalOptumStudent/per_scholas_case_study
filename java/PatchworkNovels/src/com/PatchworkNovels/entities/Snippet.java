@@ -4,15 +4,45 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "Snippet")
 public class Snippet {
 	
 	// private fields
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "snippetId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int snippetId;
+	
+	@Basic
+	@Column(name = "authorId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int authorId;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "snippetTimePosted", nullable = false)
 	private Date snippetTimePosted;
+	
+	@Basic
+	@Column(name = "snippetText", nullable = false, columnDefinition = "TEXT NOT NULL")
 	private String snippetText;
+	
+	@OneToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
 	private List<Story> snippetStories;
+	
+	@OneToMany(targetEntity = Comment.class, fetch = FetchType.EAGER)
 	private List<Comment> snippetComments;
 	
 	// constructors

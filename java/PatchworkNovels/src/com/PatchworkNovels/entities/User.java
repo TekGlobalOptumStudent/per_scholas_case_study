@@ -4,14 +4,46 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@Entity
+@Table(name = "User")
 public class User {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "userId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int userId;
+	
+	@Basic
+	@Column(name = "username", nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
 	private String username;
+	
+	@Basic
+	@Column(name = "password", nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
 	private String password;
+	
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(name = "dateJoined", nullable = false)
 	private Date dateJoined;
+	
+	@OneToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
 	private List<Story> publishedStories;
+	
+	@OneToMany(targetEntity = Snippet.class, fetch = FetchType.EAGER)
 	private List<Snippet> publishedSnippets;
+	
+	@OneToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
 	private List<Story> favoriteStories;
 	
 	// constructors
