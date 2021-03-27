@@ -59,8 +59,8 @@ public abstract class AbstractDAO {
 			}
 			connection = DriverManager.getConnection(dbUrl, user, pass);
 			statement = connection.createStatement();
-			statement.execute("CREATE database IF NOT EXISTS sms");
-			statement.execute("USE sms");
+			statement.execute("CREATE database IF NOT EXISTS patchworknovels");
+			statement.execute("USE patchworknovels");
 			return true;
 		} catch(Exception e) {
 			System.out.println("Please make sure you have configured the persistence.xml file with");
@@ -80,12 +80,14 @@ public abstract class AbstractDAO {
 		}
 	}
 	
-	public static void runSQLFile(String filePath) {
+	public static boolean runSQLFile(String filePath) {
 		ScriptRunner scriptRunner = new ScriptRunner(connection);
 		try(Reader reader = new BufferedReader(new FileReader(filePath))) {
 			scriptRunner.runScript(reader);
+			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+		return false;
 	}
 }
