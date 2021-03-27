@@ -29,10 +29,8 @@ public class Story {
 	@Column(name = "storyId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int storyId;
 	
-	@ManyToOne
-	@JoinColumn(name = "userId")
-	//@Basic
-	//@Column(name = "storyAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
+	@Basic
+	@Column(name = "storyAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int storyAuthorId;
 	
 	@Basic
