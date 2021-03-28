@@ -57,6 +57,15 @@ public class User {
 		this.favoriteStories = new ArrayList<Story>();
 	}
 	
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+		this.dateJoined = new Date();
+		this.publishedStories = new ArrayList<Story>();
+		this.publishedSnippets = new ArrayList<Snippet>();
+		this.favoriteStories = new ArrayList<Story>();
+	}
+	
 	// getters
 	
 	public int getUserId() {

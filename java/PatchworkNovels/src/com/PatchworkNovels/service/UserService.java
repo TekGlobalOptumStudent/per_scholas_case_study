@@ -41,6 +41,7 @@ public class UserService extends AbstractDAO implements UserI {
 				return false;
 			}
 			em.getTransaction().begin();
+			// TODO: implement, may need to change signature
 			em.getTransaction().commit();
 		}
 		dispose();
