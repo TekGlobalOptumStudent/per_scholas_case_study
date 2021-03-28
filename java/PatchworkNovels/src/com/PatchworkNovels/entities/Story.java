@@ -100,7 +100,7 @@ public class Story {
 		this.storyId = storyId;
 	}
 	
-	public void setStoryAuthorId(User storyAuthor) {
+	public void setStoryAuthor(User storyAuthor) {
 		this.storyAuthor = storyAuthor;
 	}
 	

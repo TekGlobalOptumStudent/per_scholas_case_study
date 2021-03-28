@@ -25,7 +25,7 @@ public class Comment {
 	
 	@Basic
 	@Column(name = "commentAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
-	private int commentAuthorId;
+	private int commentAuthor;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "commentTimePosted", nullable = false)
@@ -43,8 +43,8 @@ public class Comment {
 	
 	public Comment() { }
 	
-	public Comment(int commentAuthorId, String commentText) {
-		this.commentAuthorId = commentAuthorId;
+	public Comment(int commentAuthor, String commentText) {
+		this.commentAuthor = commentAuthor;
 		this.commentTimePosted = new Date();
 		this.commentText = commentText;
 		this.commentRating = 0;
@@ -56,8 +56,8 @@ public class Comment {
 		return this.commentId;
 	}
 	
-	public int getCommentAuthorId() {
-		return this.commentAuthorId;
+	public int getCommentAuthor() {
+		return this.commentAuthor;
 	}
 	
 	public Date getCommentTimePosted() {
@@ -78,8 +78,8 @@ public class Comment {
 		this.commentId = commentId;
 	}
 	
-	public void setAuthorCommentId(int commentAuthorId) {
-		this.commentAuthorId = commentAuthorId;
+	public void setAuthorComment(int commentAuthor) {
+		this.commentAuthor = commentAuthor;
 	}
 	
 	public void setCommentTimePosted(Date commentTimePosted) {
@@ -100,7 +100,7 @@ public class Comment {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + commentAuthorId;
+		result = prime * result + commentAuthor;
 		result = prime * result + commentId;
 		result = prime * result + commentRating;
 		result = prime * result + ((commentText == null) ? 0 : commentText.hashCode());
@@ -117,7 +117,7 @@ public class Comment {
 		if (getClass() != obj.getClass())
 			return false;
 		Comment other = (Comment) obj;
-		if (commentAuthorId != other.commentAuthorId)
+		if (commentAuthor != other.commentAuthor)
 			return false;
 		if (commentId != other.commentId)
 			return false;
@@ -138,7 +138,7 @@ public class Comment {
 	
 	@Override
 	public String toString() {
-		return "Comment [commentId=" + commentId + ", commentAuthorId=" + commentAuthorId + ", commentTimePosted="
+		return "Comment [commentId=" + commentId + ", commentAuthorId=" + commentAuthor + ", commentTimePosted="
 				+ commentTimePosted + ", commentText=" + commentText + ", commentRating=" + commentRating + "]";
 	}
 	

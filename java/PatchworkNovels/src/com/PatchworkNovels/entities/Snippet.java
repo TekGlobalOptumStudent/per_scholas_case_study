@@ -91,7 +91,7 @@ public class Snippet {
 		this.snippetId = snippetId;
 	}
 	
-	public void setSnippetAuthorId(User snippetAuthor) {
+	public void setSnippetAuthor(User snippetAuthor) {
 		this.snippetAuthor = snippetAuthor;
 	}
 	
