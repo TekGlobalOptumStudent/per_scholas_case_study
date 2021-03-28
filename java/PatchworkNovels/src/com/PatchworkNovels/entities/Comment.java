@@ -25,7 +25,7 @@ public class Comment {
 	
 	@Basic
 	@Column(name = "commentAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
-	private int commentAuthor;
+	private User commentAuthor;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "commentTimePosted", nullable = false)
@@ -43,7 +43,7 @@ public class Comment {
 	
 	public Comment() { }
 	
-	public Comment(int commentAuthor, String commentText) {
+	public Comment(User commentAuthor, String commentText) {
 		this.commentAuthor = commentAuthor;
 		this.commentTimePosted = new Date();
 		this.commentText = commentText;
@@ -56,7 +56,7 @@ public class Comment {
 		return this.commentId;
 	}
 	
-	public int getCommentAuthor() {
+	public User getCommentAuthor() {
 		return this.commentAuthor;
 	}
 	
@@ -78,7 +78,7 @@ public class Comment {
 		this.commentId = commentId;
 	}
 	
-	public void setAuthorComment(int commentAuthor) {
+	public void setAuthorComment(User commentAuthor) {
 		this.commentAuthor = commentAuthor;
 	}
 	
@@ -95,12 +95,12 @@ public class Comment {
 	}
 	
 	// standard methods
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + commentAuthor;
+		result = prime * result + ((commentAuthor == null) ? 0 : commentAuthor.hashCode());
 		result = prime * result + commentId;
 		result = prime * result + commentRating;
 		result = prime * result + ((commentText == null) ? 0 : commentText.hashCode());
@@ -117,7 +117,10 @@ public class Comment {
 		if (getClass() != obj.getClass())
 			return false;
 		Comment other = (Comment) obj;
-		if (commentAuthor != other.commentAuthor)
+		if (commentAuthor == null) {
+			if (other.commentAuthor != null)
+				return false;
+		} else if (!commentAuthor.equals(other.commentAuthor))
 			return false;
 		if (commentId != other.commentId)
 			return false;
@@ -135,10 +138,10 @@ public class Comment {
 			return false;
 		return true;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Comment [commentId=" + commentId + ", commentAuthorId=" + commentAuthor + ", commentTimePosted="
+		return "Comment [commentId=" + commentId + ", commentAuthor=" + commentAuthor + ", commentTimePosted="
 				+ commentTimePosted + ", commentText=" + commentText + ", commentRating=" + commentRating + "]";
 	}
 	
@@ -147,4 +150,5 @@ public class Comment {
 	public void setCommentTimePostedNow() {
 		this.commentTimePosted = new Date();
 	}
+
 }
