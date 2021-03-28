@@ -22,6 +22,7 @@ public abstract class AbstractDAO {
 	
 	// JDBC variables
 	
+	private static final String DATABASE_NAME = "patchworknovels";
 	private static Connection connection;
 	private static Statement statement;
 	
@@ -52,15 +53,15 @@ public abstract class AbstractDAO {
 			String dbUrl;
 			if(databaseType == 1) {
 				DriverManager.registerDriver(new org.mariadb.jdbc.Driver());
-				dbUrl =  "jdbc:mariadb://localhost:3306/";
+				dbUrl = "jdbc:mariadb://localhost:3306/";
 			} else {
 				DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 				dbUrl = "jdbc:mysql://localhost:3306/";
 			}
 			connection = DriverManager.getConnection(dbUrl, user, pass);
 			statement = connection.createStatement();
-			statement.execute("CREATE database IF NOT EXISTS patchworknovels");
-			statement.execute("USE patchworknovels");
+			statement.execute("CREATE database IF NOT EXISTS " + DATABASE_NAME);
+			statement.execute("USE " + DATABASE_NAME);
 			return true;
 		} catch(Exception e) {
 			System.out.println("Please make sure you have configured the persistence.xml file with");
@@ -84,6 +85,26 @@ public abstract class AbstractDAO {
 		ScriptRunner scriptRunner = new ScriptRunner(connection);
 		try(Reader reader = new BufferedReader(new FileReader(filePath))) {
 			scriptRunner.runScript(reader);
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean dropTable(String tableName) {
+		try {
+			statement.execute("DROP " + tableName + " IF EXISTS");
+			return true;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean dropDatabase() {
+		try {
+			statement.execute("DROP " + DATABASE_NAME + " IF EXISTS");
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
