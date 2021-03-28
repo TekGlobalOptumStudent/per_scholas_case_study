@@ -8,37 +8,56 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class SnippetServiceTest {
+import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.entities.Snippet;
+import com.PatchworkNovels.service.SnippetService;
+import com.PatchworkNovels.service.UserService;
 
+class SnippetServiceTest extends AbstractDAO {
+
+	static SnippetService snippetService = null;
+	static UserService userService = null;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		dropTable("Snippet");
+		snippetService = new SnippetService();
+		userService = new UserService();
+		userService.createTable();
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		snippetService = null;
+		userService = null;
+		dropTable("User");
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
+		snippetService.createTable();
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
+		dropTable("Snippet");
 	}
 
 	@Test
 	void testAddSnippet() {
-		fail("Not yet implemented");
+		Snippet toAdd = new Snippet();
+		toAdd.setSnippetAuthor(userService.getUser(1));
+		assertTrue(snippetService.addSnippet(toAdd));
 	}
 
 	@Test
 	void testReadSnippet() {
-		fail("Not yet implemented");
+		assertNotNull(snippetService.readSnippet(1));
 	}
 
 	@Test
 	void testEditSnippet() {
-		fail("Not yet implemented");
+		assertTrue(snippetService.editSnippet(1, "testSnippetText"));
 	}
 
 	@Test
@@ -53,12 +72,12 @@ class SnippetServiceTest {
 
 	@Test
 	void testDeleteSnippet() {
-		fail("Not yet implemented");
+		assertTrue(snippetService.deleteSnippet(1));
 	}
 
 	@Test
 	void testGetAllSnippets() {
-		fail("Not yet implemented");
+		assertTrue(!snippetService.getAllSnippets().isEmpty());
 	}
 
 }

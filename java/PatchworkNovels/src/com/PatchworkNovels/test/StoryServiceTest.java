@@ -32,6 +32,7 @@ class StoryServiceTest extends AbstractDAO {
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
 		storyService = null;
+		userService = null;
 		dropTable("User");
 	}
 

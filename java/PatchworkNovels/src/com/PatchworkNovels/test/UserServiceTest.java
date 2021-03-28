@@ -56,7 +56,7 @@ class UserServiceTest extends AbstractDAO {
 			fail("ParseException");
 		}
 		User actual = userService.getUser(1);
-		assertEquals(expected, actual);
+		assertEquals(expected.getUsername(), actual.getUsername());
 	}
 
 	@Test
