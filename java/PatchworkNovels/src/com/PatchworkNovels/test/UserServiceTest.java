@@ -2,8 +2,6 @@ package com.PatchworkNovels.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.text.SimpleDateFormat;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -34,6 +32,7 @@ class UserServiceTest extends AbstractDAO {
 	@BeforeEach
 	void setUp() throws Exception {
 		userService.createTable();
+		runSQLFile("user.sql");
 	}
 
 	@AfterEach
@@ -50,11 +49,6 @@ class UserServiceTest extends AbstractDAO {
 	@Test
 	void testGetUser() {
 		User expected = new User("user1", "pass1");
-		try {
-			expected.setDateJoined(new SimpleDateFormat("yyyy-MM-dd").parse("2001-01-01"));
-		} catch(Exception e) {
-			fail("ParseException");
-		}
 		User actual = userService.getUser(1);
 		assertEquals(expected.getUsername(), actual.getUsername());
 	}

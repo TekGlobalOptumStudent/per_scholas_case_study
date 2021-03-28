@@ -8,57 +8,93 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class CommentServiceTest {
+import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.entities.Comment;
+import com.PatchworkNovels.service.CommentService;
+import com.PatchworkNovels.service.SnippetService;
+import com.PatchworkNovels.service.StoryService;
+import com.PatchworkNovels.service.UserService;
 
+class CommentServiceTest extends AbstractDAO {
+
+	static CommentService commentService = null;
+	static SnippetService snippetService = null;
+	static StoryService storyService = null;
+	static UserService userService = null;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
+		dropTable("Comment");
+		commentService = new CommentService();
+		snippetService = new SnippetService();
+		storyService = new StoryService();
+		userService = new UserService();
+		snippetService.createTable();
+		storyService.createTable();
+		userService.createTable();
+		runSQLFile("user.sql");
+		runSQLFile("snippet.sql");
+		runSQLFile("story.sql");
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		commentService = null;
+		snippetService = null;
+		storyService = null;
+		userService = null;
+		dropTable("Snippet");
+		dropTable("Story");
+		dropTable("User");
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
+		commentService.createTable();
+		runSQLFile("comment.sql");
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
+		dropTable("Comment");
 	}
 
 	@Test
 	void testAddComment() {
-		fail("Not yet implemented");
+		Comment toAdd = new Comment(userService.getUser(1) ,"testComment");
+		assertTrue(commentService.addComment(toAdd));
 	}
 
 	@Test
 	void testReadComment() {
-		fail("Not yet implemented");
+		Comment expected = new Comment(userService.getUser(1), "user1comment1");
+		Comment actual = commentService.readComment(1);
+		assertEquals(expected.getCommentText(), actual.getCommentText());
 	}
 
 	@Test
 	void testEditComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.editComment(1, "testCommentText"));
 	}
 
 	@Test
 	void testLikeComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.likeComment(1));
 	}
 
 	@Test
 	void testDislikeComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.dislikeComment(1));
 	}
 
 	@Test
 	void testDeleteComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.deleteComment(1));
 	}
 
 	@Test
 	void testGetAllComments() {
-		fail("Not yet implemented");
+		assertTrue(!commentService.getAllComments().isEmpty());
 	}
 
 }

@@ -78,7 +78,7 @@ public class Comment {
 		this.commentId = commentId;
 	}
 	
-	public void setAuthorComment(User commentAuthor) {
+	public void setCommentAuthor(User commentAuthor) {
 		this.commentAuthor = commentAuthor;
 	}
 	

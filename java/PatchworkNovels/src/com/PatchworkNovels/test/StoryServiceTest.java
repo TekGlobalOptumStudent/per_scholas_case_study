@@ -27,6 +27,7 @@ class StoryServiceTest extends AbstractDAO {
 		storyService = new StoryService();
 		userService = new UserService();
 		userService.createTable();
+		runSQLFile("user.sql");
 	}
 
 	@AfterAll
@@ -39,6 +40,7 @@ class StoryServiceTest extends AbstractDAO {
 	@BeforeEach
 	void setUp() throws Exception {
 		storyService.createTable();
+		runSQLFile("story.sql");
 	}
 
 	@AfterEach
