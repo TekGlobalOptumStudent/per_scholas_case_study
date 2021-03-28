@@ -32,8 +32,8 @@ public class UserService extends AbstractDAO implements UserI {
 	}
 
 	@Override
-	public boolean editUser(int userId, User newUserInfo) {
-		if(userId < 0 || newUserInfo == null) return false;
+	public boolean editUser(int userId, String newUsername, String newPassword) {
+		if(userId < 0 || newUsername == null || newPassword == null) return false;
 		if(connect()) {
 			User toEdit = em.find(User.class, userId);
 			if(toEdit == null) {
@@ -41,7 +41,8 @@ public class UserService extends AbstractDAO implements UserI {
 				return false;
 			}
 			em.getTransaction().begin();
-			// TODO: implement, may need to change signature
+			toEdit.setUsername(newUsername);
+			toEdit.setPassword(newPassword);
 			em.getTransaction().commit();
 		}
 		dispose();
