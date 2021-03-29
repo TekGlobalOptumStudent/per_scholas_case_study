@@ -1,4 +1,5 @@
 INSERT INTO User (userId, username, password, dateJoined) VALUES
+(-1, 'deleted', '', '2000-01-01'),
 (11, 'user1', 'pass1', '2001-01-01'),
 (12, 'user2', 'pass2', '2002-02-02'),
 (13, 'user3', 'pass3', '2003-03-03'),

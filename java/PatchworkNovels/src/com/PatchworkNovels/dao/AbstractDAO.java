@@ -58,13 +58,18 @@ public abstract class AbstractDAO {
 			try(BufferedReader bufferedReader = new BufferedReader(new FileReader("./resources/sql/" + filePath))) {
 				StringBuffer query = new StringBuffer();
 				String line;
-				while((line = bufferedReader.readLine()) != null) query.append(line);
-				em.getTransaction().begin();
-				em.createNativeQuery(query.toString()).executeUpdate();
-				em.getTransaction().commit();
+				while((line = bufferedReader.readLine()) != null) {
+					query.append(line);
+					if(line.contains(";")) {
+						em.getTransaction().begin();
+						em.createNativeQuery(query.toString()).executeUpdate();
+						em.getTransaction().commit();
+						query = new StringBuffer();
+					}
+				}
 				return true;
 			} catch(Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
 			}
 		}
 		dispose();

@@ -115,17 +115,21 @@ public class Snippet {
 	public void setSnippetComments(List<Comment> snippetComments) {
 		this.snippetComments = snippetComments;
 	}
+
+	// mutator methods
+	
+	public void setSnippetTimePostedNow() {
+		this.snippetTimePosted = new Date();
+	}
 	
 	// standard methods
-
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((snippetAuthor == null) ? 0 : snippetAuthor.hashCode());
-		result = prime * result + ((snippetComments == null) ? 0 : snippetComments.hashCode());
 		result = prime * result + snippetId;
-		result = prime * result + ((snippetStories == null) ? 0 : snippetStories.hashCode());
 		result = prime * result + ((snippetText == null) ? 0 : snippetText.hashCode());
 		result = prime * result + ((snippetTimePosted == null) ? 0 : snippetTimePosted.hashCode());
 		return result;
@@ -145,17 +149,7 @@ public class Snippet {
 				return false;
 		} else if (!snippetAuthor.equals(other.snippetAuthor))
 			return false;
-		if (snippetComments == null) {
-			if (other.snippetComments != null)
-				return false;
-		} else if (!snippetComments.equals(other.snippetComments))
-			return false;
 		if (snippetId != other.snippetId)
-			return false;
-		if (snippetStories == null) {
-			if (other.snippetStories != null)
-				return false;
-		} else if (!snippetStories.equals(other.snippetStories))
 			return false;
 		if (snippetText == null) {
 			if (other.snippetText != null)
@@ -169,18 +163,11 @@ public class Snippet {
 			return false;
 		return true;
 	}
-
+	
 	@Override
 	public String toString() {
-		return "Snippet [snippetId=" + snippetId + ", snippetAuthor=" + snippetAuthor + ", snippetTimePosted=" + snippetTimePosted
-				+ ", snippetText=" + snippetText + ", snippetStories=" + snippetStories + ", snippetComments="
-				+ snippetComments + "]";
-	}
-	
-	// other methods
-	
-	public void setSnippetTimePostedNow() {
-		this.snippetTimePosted = new Date();
+		return "Snippet [snippetId=" + snippetId + ", snippetAuthor=" + snippetAuthor + ", snippetTimePosted="
+				+ snippetTimePosted + ", snippetText=" + snippetText + "]";
 	}
 
 }

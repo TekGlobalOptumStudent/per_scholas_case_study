@@ -6,6 +6,7 @@ import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.dao.SnippetI;
 import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
+import com.PatchworkNovels.entities.User;
 
 public class SnippetService extends AbstractDAO implements SnippetI {
 
@@ -88,8 +89,16 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 		if(snippetId < 0) return false;
 		if(connect()) {
 			Snippet toRemove = em.find(Snippet.class, snippetId);
-			if(toRemove == null) return false;
+			if(toRemove == null) {
+				dispose();
+				return false;
+			}
+			Snippet replacement = new Snippet(em.find(User.class, -1), toRemove.getSnippetText());
 			em.getTransaction().begin();
+			em.persist(replacement);
+			toRemove.getSnippetStories().forEach(s -> {
+				s.getStoryText().set(s.getStoryText().indexOf(toRemove), replacement);
+			});
 			em.remove(toRemove);
 			em.getTransaction().commit();
 			dispose();

@@ -39,11 +39,11 @@ public class User {
 	@Column(name = "dateJoined", nullable = false)
 	private Date dateJoined;
 	
-	@OneToMany(targetEntity = Story.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Story.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_publishedStories")
 	private List<Story> publishedStories;
 	
-	@OneToMany(targetEntity = Snippet.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Snippet.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
 	@JoinTable(name = "user_publishedSnippets")
 	private List<Snippet> publishedSnippets;
 	
@@ -130,7 +130,7 @@ public class User {
 	public void setFavoriteStories(List<Story> favoriteStories) {
 		this.favoriteStories = favoriteStories;
 	}
-	
+
 	// standard methods
 	
 	@Override
@@ -138,10 +138,7 @@ public class User {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((dateJoined == null) ? 0 : dateJoined.hashCode());
-		result = prime * result + ((favoriteStories == null) ? 0 : favoriteStories.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((publishedSnippets == null) ? 0 : publishedSnippets.hashCode());
-		result = prime * result + ((publishedStories == null) ? 0 : publishedStories.hashCode());
 		result = prime * result + userId;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -161,25 +158,10 @@ public class User {
 				return false;
 		} else if (!dateJoined.equals(other.dateJoined))
 			return false;
-		if (favoriteStories == null) {
-			if (other.favoriteStories != null)
-				return false;
-		} else if (!favoriteStories.equals(other.favoriteStories))
-			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
-			return false;
-		if (publishedSnippets == null) {
-			if (other.publishedSnippets != null)
-				return false;
-		} else if (!publishedSnippets.equals(other.publishedSnippets))
-			return false;
-		if (publishedStories == null) {
-			if (other.publishedStories != null)
-				return false;
-		} else if (!publishedStories.equals(other.publishedStories))
 			return false;
 		if (userId != other.userId)
 			return false;

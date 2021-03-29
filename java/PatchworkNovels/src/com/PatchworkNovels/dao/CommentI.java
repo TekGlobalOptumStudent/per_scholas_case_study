@@ -3,6 +3,7 @@ package com.PatchworkNovels.dao;
 import java.util.List;
 
 import com.PatchworkNovels.entities.Comment;
+import com.PatchworkNovels.entities.User;
 
 public interface CommentI {
 	
@@ -13,5 +14,6 @@ public interface CommentI {
 	public boolean dislikeComment(int commentId);
 	public boolean deleteComment(int commentId);
 	public List<Comment> getAllComments();
+	public boolean updateAllComments(User user);
 	
 }

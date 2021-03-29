@@ -140,7 +140,15 @@ public class StoryService extends AbstractDAO implements StoryI {
 		if(storyId < 0) return false;
 		if(connect()) {
 			Story toRemove = em.find(Story.class, storyId);
-			if(toRemove == null) return false;
+			if(toRemove == null) {
+				dispose();
+				return false;
+			}
+			toRemove.getStoryText().forEach(s -> {
+				em.getTransaction().begin();
+				s.getSnippetStories().remove(toRemove);
+				em.getTransaction().commit();
+			});
 			em.getTransaction().begin();
 			em.remove(toRemove);
 			em.getTransaction().commit();

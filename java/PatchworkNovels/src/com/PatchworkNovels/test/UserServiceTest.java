@@ -3,21 +3,21 @@ package com.PatchworkNovels.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
+import com.PatchworkNovels.service.CommentService;
 import com.PatchworkNovels.service.SnippetService;
 import com.PatchworkNovels.service.StoryService;
 import com.PatchworkNovels.service.UserService;
 
 class UserServiceTest extends AbstractDAO {
 
+	static CommentService commentService = null;
 	static SnippetService snippetService = null;
 	static StoryService storyService = null;
 	static UserService userService = null;
@@ -25,33 +25,27 @@ class UserServiceTest extends AbstractDAO {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		createDatabase(1, "root", "password");
+		commentService = new CommentService();
 		snippetService = new SnippetService();
 		storyService = new StoryService();
 		userService = new UserService();
+		commentService.createTable();
 		snippetService.createTable();
 		storyService.createTable();
 		userService.createTable();
+		runSQLFile("user.sql");
+		runSQLFile("story.sql");
+		runSQLFile("snippet.sql");
+		runSQLFile("comment.sql");
+		runSQLFile("relations.sql");
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		commentService = null;
 		snippetService = null;
 		storyService = null;
 		userService = null;
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-		runSQLFile("user.sql");
-		runSQLFile("story.sql");
-		runSQLFile("snippet.sql");
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-		truncateTable("User");
-		truncateTable("Story");
-		truncateTable("Snippet");
 	}
 
 	@Test
@@ -69,7 +63,7 @@ class UserServiceTest extends AbstractDAO {
 
 	@Test
 	void testEditUser() {
-		assertTrue(userService.editUser(11, "testUsername", "testPassword"));
+		assertTrue(userService.editUser(12, "testUsername", "testPassword"));
 	}
 
 	@Test
@@ -102,21 +96,29 @@ class UserServiceTest extends AbstractDAO {
 
 	@Test
 	void testAddFavoriteStory() {
-		User user = userService.getUser(11);
-		assertTrue(userService.addFavoriteStory(11, new Story(user, "testFavoriteStory")));
+		assertTrue(userService.addFavoriteStory(11, storyService.readStory(11)));
 	}
 
 	@Test
 	void testDeleteFavoriteStory() {
-		User user = userService.getUser(11);
-		Story toRemove = new Story(user, "testFavoriteStoryToRemove");
-		userService.addPublishedStory(11, toRemove);
-		assertTrue(userService.deleteFavoriteStory(11, toRemove));
+		Story toRemove = storyService.readStory(12);
+		userService.addFavoriteStory(11, toRemove);
+		assertTrue(userService.deleteFavoriteStory(12, toRemove));
 	}
 
 	@Test
 	void testDeleteUser() {
-		assertTrue(userService.deleteUser(11));
+		User toDelete = userService.getUser(13);
+		commentService.updateAllComments(toDelete);
+		toDelete.getPublishedSnippets().forEach(ps -> {
+			userService.deletePublishedSnippet(toDelete.getUserId(), ps);
+			snippetService.deleteSnippet(ps.getSnippetId());
+		});
+		toDelete.getPublishedStories().forEach(ps -> {
+			userService.deletePublishedStory(toDelete.getUserId(), ps);
+			storyService.deleteStory(ps.getStoryId());
+		});
+		assertTrue(userService.deleteUser(13));
 	}
 
 	@Test

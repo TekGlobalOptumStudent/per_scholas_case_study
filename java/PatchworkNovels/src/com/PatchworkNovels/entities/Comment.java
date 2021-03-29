@@ -3,6 +3,7 @@ package com.PatchworkNovels.entities;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Comment {
 	@Column(name = "commentId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int commentId;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.PERSIST)
 	@JoinColumn(name = "commentAuthorId", referencedColumnName = "userId")
 	private User commentAuthor;
 	
@@ -96,6 +97,12 @@ public class Comment {
 		this.commentRating = commentRating;
 	}
 	
+	// mutator methods
+	
+	public void setCommentTimePostedNow() {
+		this.commentTimePosted = new Date();
+	}
+	
 	// standard methods
 
 	@Override
@@ -145,12 +152,6 @@ public class Comment {
 	public String toString() {
 		return "Comment [commentId=" + commentId + ", commentAuthor=" + commentAuthor + ", commentTimePosted="
 				+ commentTimePosted + ", commentText=" + commentText + ", commentRating=" + commentRating + "]";
-	}
-	
-	// other methods
-	
-	public void setCommentTimePostedNow() {
-		this.commentTimePosted = new Date();
 	}
 
 }

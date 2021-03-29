@@ -5,6 +5,7 @@ import java.util.List;
 import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.dao.CommentI;
 import com.PatchworkNovels.entities.Comment;
+import com.PatchworkNovels.entities.User;
 
 public class CommentService extends AbstractDAO implements CommentI {
 
@@ -100,6 +101,20 @@ public class CommentService extends AbstractDAO implements CommentI {
 		if(connect()) ret = em.createQuery("SELECT c FROM Comment c", Comment.class).getResultList();
 		dispose();
 		return ret;
+	}
+	
+	@Override
+	public boolean updateAllComments(User user) {
+		if(connect()) {
+			List<Comment> allComments = em.createQuery("SELECT c FROM Comment c", Comment.class).getResultList();
+			allComments.forEach(c -> {
+				em.getTransaction().begin();
+				if(c.getCommentAuthor().equals(user)) c.setCommentAuthor(em.find(User.class, -1));
+				em.getTransaction().commit();
+			});
+			return true;
+		}
+		return false;
 	}
 	
 	// database initializer function
