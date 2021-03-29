@@ -5,12 +5,14 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -37,13 +39,16 @@ public class User {
 	@Column(name = "dateJoined", nullable = false)
 	private Date dateJoined;
 	
-	@OneToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Story.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_publishedStories")
 	private List<Story> publishedStories;
 	
-	@OneToMany(targetEntity = Snippet.class, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Snippet.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_publishedSnippets")
 	private List<Snippet> publishedSnippets;
 	
-	@OneToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Story.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@JoinTable(name = "user_favoriteStories")
 	private List<Story> favoriteStories;
 	
 	// constructors
@@ -189,8 +194,7 @@ public class User {
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", dateJoined="
-				+ dateJoined + ", publishedStories=" + publishedStories + ", publishedSnippets=" + publishedSnippets
-				+ ", favoriteStories=" + favoriteStories + "]";
+				+ dateJoined + "]";
 	}
 
 }

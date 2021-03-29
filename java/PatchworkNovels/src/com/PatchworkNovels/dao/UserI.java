@@ -12,11 +12,11 @@ public interface UserI {
 	public User getUser(int userId);
 	public boolean editUser(int userId, String newUsername, String newPassword);
 	public boolean addPublishedStory(int userId, Story story);
-	public boolean deletePublishedStory(int userId, int storyId);
+	public boolean deletePublishedStory(int userId, Story story);
 	public boolean addPublishedSnippet(int userId, Snippet snippet);
-	public boolean deletePublishedSnippet(int userId, int snippetId);
+	public boolean deletePublishedSnippet(int userId, Snippet snippet);
 	public boolean addFavoriteStory(int userId, Story story);
-	public boolean deleteFavoriteStory(int userId, int storyId);
+	public boolean deleteFavoriteStory(int userId, Story story);
 	public boolean deleteUser(int userId);
 	public List<User> getAllUsers();
 	public boolean validateUser(String username, String password);

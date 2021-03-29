@@ -67,23 +67,19 @@ public class UserService extends AbstractDAO implements UserI {
 	}
 
 	@Override
-	public boolean deletePublishedStory(int userId, int storyId) {
-		if(userId < 0 || storyId < 0) return false;
+	public boolean deletePublishedStory(int userId, Story story) {
+		if(userId < 0 || story == null) return false;
 		if(connect()) {
 			User user = em.find(User.class, userId);
 			if(user == null) {
 				dispose();
 				return false;
 			}
-			for(Story s : user.getPublishedStories()) {
-				if(s.getStoryId() == storyId) {
-					em.getTransaction().begin();
-					user.getPublishedStories().remove(storyId);
-					em.getTransaction().commit();
-					dispose();
-					return true;
-				}
-			}
+			em.getTransaction().begin();
+			user.getPublishedStories().remove(story);
+			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;
@@ -107,23 +103,19 @@ public class UserService extends AbstractDAO implements UserI {
 	}
 
 	@Override
-	public boolean deletePublishedSnippet(int userId, int snippetId) {
-		if(userId < 0 || snippetId < 0) return false;
+	public boolean deletePublishedSnippet(int userId, Snippet snippet) {
+		if(userId < 0 || snippet == null) return false;
 		if(connect()) {
 			User user = em.find(User.class, userId);
 			if(user == null) {
 				dispose();
 				return false;
 			}
-			for(Snippet s : user.getPublishedSnippets()) {
-				if(s.getSnippetId() == snippetId) {
-					em.getTransaction().begin();
-					user.getPublishedSnippets().remove(s);
-					em.getTransaction().commit();
-					dispose();
-					return true;
-				}
-			}
+			em.getTransaction().begin();
+			user.getPublishedSnippets().remove(snippet);
+			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;
@@ -147,23 +139,19 @@ public class UserService extends AbstractDAO implements UserI {
 	}
 
 	@Override
-	public boolean deleteFavoriteStory(int userId, int storyId) {
-		if(userId < 0 || storyId < 0) return false;
+	public boolean deleteFavoriteStory(int userId, Story story) {
+		if(userId < 0 || story == null) return false;
 		if(connect()) {
 			User user = em.find(User.class, userId);
 			if(user == null) {
 				dispose();
 				return false;
 			}
-			for(Story s : user.getFavoriteStories()) {
-				if(s.getStoryId() == storyId) {
-					em.getTransaction().begin();
-					user.getFavoriteStories().remove(s);
-					em.getTransaction().commit();
-					dispose();
-					return true;
-				}
-			}
+			em.getTransaction().begin();
+			user.getFavoriteStories().remove(story);
+			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;
@@ -174,7 +162,10 @@ public class UserService extends AbstractDAO implements UserI {
 		if(userId < 0) return false;
 		if(connect()) {
 			User toRemove = em.find(User.class, userId);
-			if(toRemove == null) return false;
+			if(toRemove == null) {
+				dispose();
+				return false;
+			}
 			em.getTransaction().begin();
 			em.remove(toRemove);
 			em.getTransaction().commit();
@@ -196,8 +187,8 @@ public class UserService extends AbstractDAO implements UserI {
 		if(username == null || password == null) return false;
 		boolean ret = false;
 		if(connect()) {
-			String query = "SELECT u FROM User u WHERE u.username = ? AND u.password = ?";
-			ret = em.createQuery(query, User.class).setParameter(1, username).setParameter(2, password).getResultList().isEmpty();
+			String query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password";
+			ret = !em.createQuery(query, User.class).setParameter("username", username).setParameter("password", password).getResultList().isEmpty();
 		}
 		dispose();
 		return ret;
