@@ -20,7 +20,8 @@ class UserServiceTest extends AbstractDAO {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		dropTable("User");
+		createDatabase(1, "root", "password");
+		truncateTable("User");
 		userService = new UserService();
 	}
 
@@ -37,7 +38,7 @@ class UserServiceTest extends AbstractDAO {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		dropTable("User");
+		truncateTable("User");
 	}
 
 	@Test

@@ -20,7 +20,8 @@ class SnippetServiceTest extends AbstractDAO {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		dropTable("Snippet");
+		createDatabase(1, "root", "password");
+		truncateTable("Snippet");
 		snippetService = new SnippetService();
 		userService = new UserService();
 		userService.createTable();
@@ -31,7 +32,7 @@ class SnippetServiceTest extends AbstractDAO {
 	static void tearDownAfterClass() throws Exception {
 		snippetService = null;
 		userService = null;
-		dropTable("User");
+		truncateTable("User");
 	}
 
 	@BeforeEach
@@ -42,7 +43,7 @@ class SnippetServiceTest extends AbstractDAO {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		dropTable("Snippet");
+		truncateTable("Snippet");
 	}
 
 	@Test

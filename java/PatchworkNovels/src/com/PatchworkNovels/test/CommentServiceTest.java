@@ -24,7 +24,8 @@ class CommentServiceTest extends AbstractDAO {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		dropTable("Comment");
+		createDatabase(1, "root", "password");
+		truncateTable("Comment");
 		commentService = new CommentService();
 		snippetService = new SnippetService();
 		storyService = new StoryService();
@@ -43,9 +44,9 @@ class CommentServiceTest extends AbstractDAO {
 		snippetService = null;
 		storyService = null;
 		userService = null;
-		dropTable("Snippet");
-		dropTable("Story");
-		dropTable("User");
+		truncateTable("Snippet");
+		truncateTable("Story");
+		truncateTable("User");
 	}
 
 	@BeforeEach
@@ -56,7 +57,7 @@ class CommentServiceTest extends AbstractDAO {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		dropTable("Comment");
+		truncateTable("Comment");
 	}
 
 	@Test

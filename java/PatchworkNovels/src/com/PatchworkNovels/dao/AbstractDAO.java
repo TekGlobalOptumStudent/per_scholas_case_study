@@ -42,10 +42,12 @@ public abstract class AbstractDAO {
 		if(emf != null && emf.isOpen()) emf.close();
 	}
 	
-	public static void dropTable(String tableName) {
+	public static void truncateTable(String tableName) {
 		if(connect()) {
 			em.getTransaction().begin();
-			em.createNativeQuery("DROP TABLE IF EXISTS " + tableName).executeUpdate();
+			em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0;").executeUpdate();
+			em.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
+			em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1;").executeUpdate();
 			em.getTransaction().commit();
 		}
 		dispose();

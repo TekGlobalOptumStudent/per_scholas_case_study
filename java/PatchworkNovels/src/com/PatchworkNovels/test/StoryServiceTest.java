@@ -23,7 +23,8 @@ class StoryServiceTest extends AbstractDAO {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		dropTable("Story");
+		createDatabase(1, "root", "password");
+		truncateTable("Story");
 		storyService = new StoryService();
 		userService = new UserService();
 		userService.createTable();
@@ -34,7 +35,7 @@ class StoryServiceTest extends AbstractDAO {
 	static void tearDownAfterClass() throws Exception {
 		storyService = null;
 		userService = null;
-		dropTable("User");
+		truncateTable("User");
 	}
 
 	@BeforeEach
@@ -45,7 +46,7 @@ class StoryServiceTest extends AbstractDAO {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		dropTable("Story");
+		truncateTable("Story");
 	}
 
 	@Test
