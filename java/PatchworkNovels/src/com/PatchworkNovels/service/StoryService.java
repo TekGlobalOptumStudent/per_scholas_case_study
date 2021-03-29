@@ -144,12 +144,10 @@ public class StoryService extends AbstractDAO implements StoryI {
 				dispose();
 				return false;
 			}
-			toRemove.getStoryText().forEach(s -> {
-				em.getTransaction().begin();
-				s.getSnippetStories().remove(toRemove);
-				em.getTransaction().commit();
-			});
 			em.getTransaction().begin();
+			toRemove.getStoryText().forEach(s -> {
+				s.getSnippetStories().remove(toRemove);
+			});
 			em.remove(toRemove);
 			em.getTransaction().commit();
 		}
