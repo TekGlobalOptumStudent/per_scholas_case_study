@@ -1,4 +1,4 @@
-INSERT INTO comment (commentId, commentAuthorId, commentTimePosted, commentText, commentRating) VALUES
+INSERT INTO Comment (commentId, commentAuthorId, commentTimePosted, commentText, commentRating) VALUES
 (1, 1, '2001-01-01', 'user1comment1', 1),
 (2, 1, '2001-01-02', 'user1comment2', 2),
 (3, 1, '2001-01-03', 'user1comment3', 3),

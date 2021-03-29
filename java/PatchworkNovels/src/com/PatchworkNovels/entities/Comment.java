@@ -8,6 +8,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,8 +25,8 @@ public class Comment {
 	@Column(name = "commentId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int commentId;
 	
-	@Basic
-	@Column(name = "commentAuthorId", nullable = false, columnDefinition = "INT NOT NULL")
+	@ManyToOne
+	@JoinColumn(name = "commentAuthorId", referencedColumnName = "userId")
 	private User commentAuthor;
 	
 	@Temporal(TemporalType.TIMESTAMP)

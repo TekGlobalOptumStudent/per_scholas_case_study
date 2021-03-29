@@ -83,7 +83,7 @@ public abstract class AbstractDAO {
 	
 	public static boolean runSQLFile(String filePath) {
 		ScriptRunner scriptRunner = new ScriptRunner(connection);
-		try(Reader reader = new BufferedReader(new FileReader(filePath))) {
+		try(Reader reader = new BufferedReader(new FileReader("./resources/sql/" + filePath))) {
 			scriptRunner.runScript(reader);
 			return true;
 		} catch(Exception e) {
@@ -94,7 +94,7 @@ public abstract class AbstractDAO {
 	
 	public static boolean dropTable(String tableName) {
 		try {
-			statement.execute("DROP " + tableName + " IF EXISTS");
+			statement.execute("DROP TABLE IF EXISTS " + tableName);
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -104,7 +104,7 @@ public abstract class AbstractDAO {
 	
 	public static boolean dropDatabase() {
 		try {
-			statement.execute("DROP " + DATABASE_NAME + " IF EXISTS");
+			statement.execute("DROP DATABASE IF EXISTS " + DATABASE_NAME);
 			return true;
 		} catch(Exception e) {
 			e.printStackTrace();
