@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -41,10 +44,12 @@ public class Snippet {
 	@Column(name = "snippetText", nullable = false, columnDefinition = "TEXT NOT NULL")
 	private String snippetText;
 	
-	@OneToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
+	@JoinTable(name = "snippet_snippetStories")
 	private List<Story> snippetStories;
 	
-	@OneToMany(targetEntity = Comment.class, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "snippet_snippetComments")
 	private List<Comment> snippetComments;
 	
 	// constructors

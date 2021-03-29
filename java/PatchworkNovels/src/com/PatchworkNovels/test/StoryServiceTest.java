@@ -11,8 +11,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
+import com.PatchworkNovels.entities.User;
 import com.PatchworkNovels.service.StoryService;
 import com.PatchworkNovels.service.UserService;
 
@@ -52,49 +54,53 @@ class StoryServiceTest extends AbstractDAO {
 	@Test
 	void testAddStory() {
 		Story toAdd = new Story();
-		toAdd.setStoryAuthor(userService.getUser(1));
+		toAdd.setStoryAuthor(userService.getUser(11));
 		assertTrue(storyService.addStory(toAdd));
 	}
 
 	@Test
 	void testReadStory() {
-		assertNotNull(storyService.readStory(1));
+		assertNotNull(storyService.readStory(11));
 	}
 
 	@Test
 	void testEditStory() {
-		Snippet snippet = new Snippet(userService.getUser(1), "testSnippetText");
-		assertTrue(storyService.editStory(1, Arrays.asList(snippet)));
+		Snippet snippet = new Snippet(userService.getUser(11), "testSnippetText");
+		assertTrue(storyService.editStory(11, Arrays.asList(snippet)));
 	}
 
 	@Test
 	void testRenameStory() {
-		assertTrue(storyService.renameStory(1, "testStoryName"));
+		assertTrue(storyService.renameStory(11, "testStoryName"));
 	}
 
 	@Test
 	void testLikeStory() {
-		assertTrue(storyService.likeStory(1));
+		assertTrue(storyService.likeStory(11));
 	}
 
 	@Test
 	void testDislikeStory() {
-		assertTrue(storyService.dislikeStory(1));
+		assertTrue(storyService.dislikeStory(11));
 	}
 
 	@Test
 	void testAddComment() {
-		fail("Not yet implemented");
+		User user = userService.getUser(11);
+		assertTrue(storyService.addComment(user.getUserId(), new Comment(user, "testComment")));
 	}
 
 	@Test
 	void testDeleteComment() {
-		fail("Not yet implemented");
+		User user = userService.getUser(11);
+		Comment toRemove = new Comment(user, "testCommentToRemove");
+		storyService.addComment(user.getUserId(), toRemove);
+		assertTrue(storyService.deleteComment(11, toRemove));
 	}
 
 	@Test
 	void testDeleteStory() {
-		assertTrue(storyService.deleteStory(1));
+		assertTrue(storyService.deleteStory(11));
 	}
 
 	@Test

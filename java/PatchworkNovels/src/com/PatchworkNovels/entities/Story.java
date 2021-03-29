@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -42,9 +44,11 @@ public class Story {
 	private Date storyTimePosted;
 	
 	@OneToMany(targetEntity = Snippet.class, fetch = FetchType.EAGER)
+	@JoinTable(name = "story_storyText")
 	private List<Snippet> storyText;
 	
-	@OneToMany(targetEntity = Comment.class, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@JoinTable(name = "story_storyComments")
 	private List<Comment> storyComments;
 	
 	@Basic
