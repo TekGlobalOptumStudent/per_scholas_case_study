@@ -16,7 +16,7 @@ public interface StoryI {
 	public boolean dislikeStory(int storyId);
 	public boolean deleteStory(int storyId);
 	public boolean addComment(int storyId, Comment comment);
-	public boolean deleteComment(int storyId, int commentId);
+	public boolean deleteComment(int storyId, Comment comment);
 	public List<Story> getAllStories();
 	
 }

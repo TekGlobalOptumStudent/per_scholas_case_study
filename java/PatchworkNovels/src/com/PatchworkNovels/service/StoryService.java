@@ -117,23 +117,19 @@ public class StoryService extends AbstractDAO implements StoryI {
 	}
 
 	@Override
-	public boolean deleteComment(int storyId, int commentId) {
-		if(storyId < 0 || commentId < 0) return false;
+	public boolean deleteComment(int storyId, Comment comment) {
+		if(storyId < 0 || comment == null) return false;
 		if(connect()) {
 			Story story = em.find(Story.class, storyId);
 			if(story == null) {
 				dispose();
 				return false;
 			}
-			for(Comment c : story.getStoryComments()) {
-				if(c.getCommentId() == commentId) {
-					em.getTransaction().begin();
-					story.getStoryComments().remove(c);
-					em.getTransaction().commit();
-					dispose();
-					return true;
-				}
-			}
+			em.getTransaction().begin();
+			story.getStoryComments().remove(comment);
+			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;

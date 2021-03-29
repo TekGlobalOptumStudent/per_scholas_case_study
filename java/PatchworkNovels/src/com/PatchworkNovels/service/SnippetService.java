@@ -65,23 +65,19 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 	}
 
 	@Override
-	public boolean deleteComment(int snippetId, int commentId) {
-		if(snippetId < 0 || commentId < 0) return false;
+	public boolean deleteComment(int snippetId, Comment comment) {
+		if(snippetId < 0 || comment == null) return false;
 		if(connect()) {
 			Snippet snippet = em.find(Snippet.class, snippetId);
 			if(snippet == null) {
 				dispose();
 				return false;
 			}
-			for(Comment c : snippet.getSnippetComments()) {
-				if(c.getCommentId() == commentId) {
-					em.getTransaction().begin();
-					snippet.getSnippetComments().remove(c);
-					em.getTransaction().commit();
-					dispose();
-					return true;
-				}
-			}
+			em.getTransaction().begin();
+			snippet.getSnippetComments().remove(comment);
+			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;
