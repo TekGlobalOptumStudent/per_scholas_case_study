@@ -76,8 +76,8 @@ class UserServiceTest extends AbstractDAO {
 	void testDeletePublishedStory() {
 		User user = userService.getUser(11);
 		Story toRemove = new Story(user, "testPublishedStoryToRemove");
-		userService.addPublishedStory(11, toRemove);
-		assertTrue(userService.deletePublishedStory(11, toRemove));
+		userService.addPublishedStory(user.getUserId(), toRemove);
+		assertTrue(userService.deletePublishedStory(user.getUserId(), toRemove));
 	}
 
 	@Test
@@ -90,8 +90,8 @@ class UserServiceTest extends AbstractDAO {
 	void testDeletePublishedSnippet() {
 		User user = userService.getUser(11);
 		Snippet toRemove = new Snippet(user, "testPublishedSnippetToRemove");
-		userService.addPublishedSnippet(11, toRemove);
-		assertTrue(userService.deletePublishedSnippet(11, toRemove));
+		userService.addPublishedSnippet(user.getUserId(), toRemove);
+		assertTrue(userService.deletePublishedSnippet(user.getUserId(), toRemove));
 	}
 
 	@Test
@@ -103,7 +103,7 @@ class UserServiceTest extends AbstractDAO {
 	void testDeleteFavoriteStory() {
 		Story toRemove = storyService.readStory(12);
 		userService.addFavoriteStory(11, toRemove);
-		assertTrue(userService.deleteFavoriteStory(12, toRemove));
+		assertTrue(userService.deleteFavoriteStory(11, toRemove));
 	}
 
 	@Test

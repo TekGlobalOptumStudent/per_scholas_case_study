@@ -17,9 +17,11 @@ public class StoryService extends AbstractDAO implements StoryI {
 			em.getTransaction().begin();
 			em.persist(story);
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
-		return true;
+		return false;
 	}
 
 	@Override
@@ -43,9 +45,11 @@ public class StoryService extends AbstractDAO implements StoryI {
 			em.getTransaction().begin();
 			toEdit.setStoryText(newStoryText);
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
-		return true;
+		return false;
 	}
 
 	@Override
@@ -60,6 +64,8 @@ public class StoryService extends AbstractDAO implements StoryI {
 			em.getTransaction().begin();
 			toEdit.setStoryTitle(newStoryTitle);
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
 		return false;
@@ -77,9 +83,11 @@ public class StoryService extends AbstractDAO implements StoryI {
 			em.getTransaction().begin();
 			toLike.setStoryRating(toLike.getStoryRating() + 1);
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
-		return true;
+		return false;
 	}
 
 	@Override
@@ -94,9 +102,11 @@ public class StoryService extends AbstractDAO implements StoryI {
 			em.getTransaction().begin();
 			toLike.setStoryRating(toLike.getStoryRating() - 1);
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
-		return true;
+		return false;
 	}
 
 	@Override
@@ -111,9 +121,11 @@ public class StoryService extends AbstractDAO implements StoryI {
 			em.getTransaction().begin();
 			story.getStoryComments().add(comment);
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
-		return true;
+		return false;
 	}
 
 	@Override
@@ -150,9 +162,11 @@ public class StoryService extends AbstractDAO implements StoryI {
 			});
 			em.remove(toRemove);
 			em.getTransaction().commit();
+			dispose();
+			return true;
 		}
 		dispose();
-		return true;
+		return false;
 	}
 
 	@Override
