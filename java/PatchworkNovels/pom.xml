@@ -29,6 +29,7 @@
 		</plugins>
 	</build>
 	<dependencies>
+	
 		<!-- MariaDB JConnect JDBC -->
 		<!-- https://mvnrepository.com/artifact/org.mariadb.jdbc/mariadb-java-client -->
 		<dependency>
@@ -43,13 +44,6 @@
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
 		    <version>8.0.23</version>
-		</dependency>
-
-		<!-- IBATIS SQL Script runner from Apache (https://mvnrepository.com/artifact/org.apache.ibatis/ibatis-core) -->
-		<dependency>
-		    <groupId>org.apache.ibatis</groupId>
-		    <artifactId>ibatis-core</artifactId>
-		    <version>3.0</version>
 		</dependency>
 
 		<!-- EclipseLink / Hibernate -->

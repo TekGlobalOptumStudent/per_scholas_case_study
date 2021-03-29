@@ -2,11 +2,9 @@ package com.PatchworkNovels.dao;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
-import java.io.Reader;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
-import org.apache.ibatis.jdbc.ScriptRunner;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,9 +14,9 @@ public abstract class AbstractDAO {
 
 	// JPA variables
 	
-	private final String PERSISTENCE_UNIT_NAME = "PatchworkNovels";
-	protected EntityManagerFactory emf = null;
-	protected EntityManager em = null;
+	private static final String PERSISTENCE_UNIT_NAME = "PatchworkNovels";
+	protected static EntityManagerFactory emf = null;
+	protected static EntityManager em = null;
 	
 	// JDBC variables
 	
@@ -28,7 +26,7 @@ public abstract class AbstractDAO {
 	
 	// JPA connect methods
 	
-	public boolean connect() {
+	public static boolean connect() {
 		try {
 			emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 			em = emf.createEntityManager();
@@ -39,14 +37,41 @@ public abstract class AbstractDAO {
 		return false;
 	}
 	
-	public void dispose() {
+	public static void dispose() {
 		if(em != null && em.isOpen()) em.close();
 		if(emf != null && emf.isOpen()) emf.close();
 	}
 	
-	// JDBC database initializer methods
+	public static void dropTable(String tableName) {
+		if(connect()) {
+			em.getTransaction().begin();
+			em.createNativeQuery("DROP TABLE IF EXISTS " + tableName).executeUpdate();
+			em.getTransaction().commit();
+		}
+		dispose();
+	}
 	
-	public static boolean startJDBC(int databaseType, String user, String pass) {
+	public static boolean runSQLFile(String filePath) {
+		if(connect()) {
+			try(BufferedReader bufferedReader = new BufferedReader(new FileReader("./resources/sql/" + filePath))) {
+				StringBuffer query = new StringBuffer();
+				String line;
+				while((line = bufferedReader.readLine()) != null) query.append(line);
+				em.getTransaction().begin();
+				em.createNativeQuery(query.toString()).executeUpdate();
+				em.getTransaction().commit();
+				return true;
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		dispose();
+		return false;
+	}
+
+	// JDBC methods
+	
+	public static boolean createDatabase(int databaseType, String user, String pass) {
 		try {
 			// 1. mariadb
 			// 2. mysql
@@ -66,49 +91,8 @@ public abstract class AbstractDAO {
 		} catch(Exception e) {
 			System.out.println("Please make sure you have configured the persistence.xml file with");
 			System.out.println("your database details and that your database program is running.");
-			//e.printStackTrace();
 		}
 		return false;
 	}
 	
-	public static void closeJDBC() {
-		try {
-			if(statement != null) statement.close();
-			if(connection != null) connection.close();
-		} catch(Exception e) {
-			System.out.println("Error found when attempting to close JDBC connections.");
-			//e.printStackTrace();
-		}
-	}
-	
-	public static boolean runSQLFile(String filePath) {
-		ScriptRunner scriptRunner = new ScriptRunner(connection);
-		try(Reader reader = new BufferedReader(new FileReader("./resources/sql/" + filePath))) {
-			scriptRunner.runScript(reader);
-			return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	public static boolean dropTable(String tableName) {
-		try {
-			statement.execute("DROP TABLE IF EXISTS " + tableName);
-			return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
-	
-	public static boolean dropDatabase() {
-		try {
-			statement.execute("DROP DATABASE IF EXISTS " + DATABASE_NAME);
-			return true;
-		} catch(Exception e) {
-			e.printStackTrace();
-		}
-		return false;
-	}
 }
