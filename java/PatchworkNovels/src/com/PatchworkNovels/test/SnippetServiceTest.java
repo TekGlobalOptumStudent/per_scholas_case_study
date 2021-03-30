@@ -7,7 +7,9 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import com.PatchworkNovels.dao.AbstractDAO;
+import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
+import com.PatchworkNovels.entities.User;
 import com.PatchworkNovels.service.CommentService;
 import com.PatchworkNovels.service.SnippetService;
 import com.PatchworkNovels.service.StoryService;
@@ -45,34 +47,38 @@ class SnippetServiceTest extends AbstractDAO {
 
 	@Test
 	void testAddSnippet() {
-		Snippet toAdd = new Snippet();
-		toAdd.setSnippetAuthor(userService.getUser(1));
+		User user = userService.getUser(11);
+		Snippet toAdd = new Snippet(user, "testSnippet");
 		assertTrue(snippetService.addSnippet(toAdd));
 	}
 
 	@Test
 	void testReadSnippet() {
-		assertNotNull(snippetService.readSnippet(1));
+		assertNotNull(snippetService.readSnippet(11));
 	}
 
 	@Test
 	void testEditSnippet() {
-		assertTrue(snippetService.editSnippet(1, "testSnippetText"));
+		assertTrue(snippetService.editSnippet(12, "testSnippetText"));
 	}
 
 	@Test
 	void testAddComment() {
-		fail("Not yet implemented");
+		User user = userService.getUser(11);
+		assertTrue(snippetService.addComment(13, new Comment(user, "testComment")));
 	}
 
 	@Test
 	void testDeleteComment() {
-		fail("Not yet implemented");
+		User user = userService.getUser(11);
+		Comment toRemove = new Comment(user, "testCommentToRemove");
+		snippetService.addComment(user.getUserId(), toRemove);
+		assertTrue(snippetService.deleteComment(11, toRemove));
 	}
 
 	@Test
 	void testDeleteSnippet() {
-		assertTrue(snippetService.deleteSnippet(1));
+		assertTrue(snippetService.deleteSnippet(11));
 	}
 
 	@Test
