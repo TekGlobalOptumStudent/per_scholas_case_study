@@ -178,7 +178,10 @@ public class UserService extends AbstractDAO implements UserI {
 		boolean ret = false;
 		if(connect()) {
 			String query = "SELECT u FROM User u WHERE u.username = :username AND u.password = :password";
-			ret = !em.createQuery(query, User.class).setParameter("username", username).setParameter("password", password).getResultList().isEmpty();
+			ret = !em.createQuery(query, User.class)
+					.setParameter("username", username)
+					.setParameter("password", password)
+					.getResultList().isEmpty();
 		}
 		dispose();
 		return ret;

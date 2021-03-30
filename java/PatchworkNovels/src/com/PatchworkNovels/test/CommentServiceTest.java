@@ -51,8 +51,8 @@ class CommentServiceTest extends AbstractDAO {
 
 	@Test
 	void testReadComment() {
-		Comment expected = new Comment(userService.getUser(1), "user1comment1");
-		Comment actual = commentService.readComment(1);
+		Comment expected = new Comment(userService.getUser(11), "user1comment1");
+		Comment actual = commentService.readComment(11);
 		assertEquals(expected.getCommentText(), actual.getCommentText());
 	}
 
