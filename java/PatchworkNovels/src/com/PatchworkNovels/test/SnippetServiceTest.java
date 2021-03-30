@@ -3,46 +3,44 @@ package com.PatchworkNovels.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.entities.Snippet;
+import com.PatchworkNovels.service.CommentService;
 import com.PatchworkNovels.service.SnippetService;
+import com.PatchworkNovels.service.StoryService;
 import com.PatchworkNovels.service.UserService;
 
 class SnippetServiceTest extends AbstractDAO {
 
+	static CommentService commentService = null;
 	static SnippetService snippetService = null;
+	static StoryService storyService = null;
 	static UserService userService = null;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		createDatabase(1, "root", "password");
-		truncateTable("Snippet");
-		snippetService = new SnippetService();
-		userService = new UserService();
 		createTables();
 		runSQLFile("user.sql");
+		runSQLFile("story.sql");
+		runSQLFile("snippet.sql");
+		runSQLFile("comment.sql");
+		runSQLFile("relations.sql");
+		commentService = new CommentService();
+		snippetService = new SnippetService();
+		storyService = new StoryService();
+		userService = new UserService();
 	}
 
 	@AfterAll
 	static void tearDownAfterClass() throws Exception {
+		commentService = null;
 		snippetService = null;
+		storyService = null;
 		userService = null;
-		truncateTable("User");
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-		runSQLFile("snippet.sql");
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-		truncateTable("Snippet");
 	}
 
 	@Test

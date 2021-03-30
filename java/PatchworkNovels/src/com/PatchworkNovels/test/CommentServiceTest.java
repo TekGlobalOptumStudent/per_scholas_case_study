@@ -3,9 +3,7 @@ package com.PatchworkNovels.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.PatchworkNovels.dao.AbstractDAO;
@@ -25,15 +23,16 @@ class CommentServiceTest extends AbstractDAO {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		createDatabase(1, "root", "password");
-		truncateTable("Comment");
+		createTables();
+		runSQLFile("user.sql");
+		runSQLFile("story.sql");
+		runSQLFile("snippet.sql");
+		runSQLFile("comment.sql");
+		runSQLFile("relations.sql");
 		commentService = new CommentService();
 		snippetService = new SnippetService();
 		storyService = new StoryService();
 		userService = new UserService();
-		createTables();
-		runSQLFile("user.sql");
-		runSQLFile("snippet.sql");
-		runSQLFile("story.sql");
 	}
 
 	@AfterAll
@@ -42,19 +41,6 @@ class CommentServiceTest extends AbstractDAO {
 		snippetService = null;
 		storyService = null;
 		userService = null;
-		truncateTable("Snippet");
-		truncateTable("Story");
-		truncateTable("User");
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-		runSQLFile("comment.sql");
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-		truncateTable("Comment");
 	}
 
 	@Test

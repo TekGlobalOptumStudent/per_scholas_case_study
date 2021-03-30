@@ -27,16 +27,16 @@ class StoryServiceTest extends AbstractDAO {
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		createDatabase(1, "root", "password");
-		commentService = new CommentService();
-		snippetService = new SnippetService();
-		storyService = new StoryService();
-		userService = new UserService();
 		createTables();
 		runSQLFile("user.sql");
 		runSQLFile("story.sql");
 		runSQLFile("snippet.sql");
 		runSQLFile("comment.sql");
 		runSQLFile("relations.sql");
+		commentService = new CommentService();
+		snippetService = new SnippetService();
+		storyService = new StoryService();
+		userService = new UserService();
 	}
 
 	@AfterAll
