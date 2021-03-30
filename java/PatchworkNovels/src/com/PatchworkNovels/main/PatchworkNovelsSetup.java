@@ -3,7 +3,6 @@ package com.PatchworkNovels.main;
 import java.util.Scanner;
 
 import com.PatchworkNovels.dao.AbstractDAO;
-import com.PatchworkNovels.service.*;
 
 public class PatchworkNovelsSetup extends AbstractDAO {
 	
