@@ -41,18 +41,7 @@ public abstract class AbstractDAO {
 		if(em != null && em.isOpen()) em.close();
 		if(emf != null && emf.isOpen()) emf.close();
 	}
-	
-	public static void truncateTable(String tableName) {
-		if(connect()) {
-			em.getTransaction().begin();
-			em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 0;").executeUpdate();
-			em.createNativeQuery("TRUNCATE TABLE " + tableName).executeUpdate();
-			em.createNativeQuery("SET FOREIGN_KEY_CHECKS = 1;").executeUpdate();
-			em.getTransaction().commit();
-		}
-		dispose();
-	}
-	
+
 	public static boolean runSQLFile(String filePath) {
 		if(connect()) {
 			try(BufferedReader bufferedReader = new BufferedReader(new FileReader("./resources/sql/" + filePath))) {
