@@ -48,7 +48,7 @@ class CommentServiceTest extends AbstractDAO {
 
 	@Test
 	void testAddComment() {
-		Comment toAdd = new Comment(userService.getUser(1) ,"testComment");
+		Comment toAdd = new Comment(userService.getUser(11) ,"testComment");
 		assertTrue(commentService.addComment(toAdd));
 	}
 
@@ -61,22 +61,25 @@ class CommentServiceTest extends AbstractDAO {
 
 	@Test
 	void testEditComment() {
-		assertTrue(commentService.editComment(1, "testCommentText"));
+		assertTrue(commentService.editComment(14, "testCommentText"));
 	}
 
 	@Test
 	void testLikeComment() {
-		assertTrue(commentService.likeComment(1));
+		assertTrue(commentService.likeComment(12));
 	}
 
 	@Test
 	void testDislikeComment() {
-		assertTrue(commentService.dislikeComment(1));
+		assertTrue(commentService.dislikeComment(12));
 	}
 
 	@Test
 	void testDeleteComment() {
-		assertTrue(commentService.deleteComment(1));
+		Comment toDelete = commentService.readComment(13);
+		snippetService.getAllSnippets().forEach(s -> snippetService.deleteComment(s.getSnippetId(), toDelete));
+		storyService.getAllStories().forEach(s -> storyService.deleteComment(s.getStoryId(), toDelete));
+		assertTrue(commentService.deleteComment(13));
 	}
 
 	@Test
