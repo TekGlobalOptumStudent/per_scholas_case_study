@@ -90,15 +90,20 @@ class StoryServiceTest extends AbstractDAO {
 
 	@Test
 	void testDeleteComment() {
-		User user = userService.getUser(11);
-		Comment toRemove = new Comment(user, "testCommentToRemove");
-		storyService.addComment(11, toRemove);
-		assertTrue(storyService.deleteComment(11, toRemove));
+		Comment toDelete = commentService.readComment(17);
+		storyService.getAllStories().forEach(s -> s.getStoryComments().remove(toDelete));
+		assertTrue(storyService.deleteComment(17, toDelete));
 	}
 
 	@Test
 	void testDeleteStory() {
-		assertTrue(storyService.deleteStory(14));
+		Story toDelete = storyService.readStory(16);
+		snippetService.getAllSnippets().forEach(s -> snippetService.deleteStory(s.getSnippetId(), toDelete));
+		userService.getAllUsers().forEach(u -> {
+			userService.deleteFavoriteStory(u.getUserId(), toDelete);
+			userService.deletePublishedStory(u.getUserId(), toDelete);
+		});
+		assertTrue(storyService.deleteStory(16));
 	}
 
 	@Test

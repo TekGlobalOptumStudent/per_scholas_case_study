@@ -6,6 +6,7 @@ import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.dao.SnippetI;
 import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
+import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
 
 public class SnippetService extends AbstractDAO implements SnippetI {
@@ -50,6 +51,38 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 		return ret;
 	}
 
+	@Override
+	public boolean addStory(int snippetId, Story story) {
+		if(snippetId < 0 || story == null) return false;
+		boolean ret = false;
+		if(connect()) {
+			Snippet snippet = em.find(Snippet.class, snippetId);
+			if(snippet != null) {
+				em.getTransaction().begin();
+				ret = snippet.getSnippetStories().add(story);
+				em.getTransaction().commit();
+			}
+		}
+		dispose();
+		return ret;
+	}
+	
+	@Override
+	public boolean deleteStory(int snippetId, Story story) {
+		if(snippetId < 0 || story == null) return false;
+		boolean ret = false;
+		if(connect()) {
+			Snippet snippet = em.find(Snippet.class, snippetId);
+			if(snippet != null) {
+				em.getTransaction().begin();
+				ret = snippet.getSnippetStories().remove(story);
+				em.getTransaction().commit();
+			}
+		}
+		dispose();
+		return ret;
+	}
+	
 	@Override
 	public boolean addComment(int snippetId, Comment comment) {
 		if(snippetId < 0 || comment == null) return false;
