@@ -13,13 +13,15 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 	@Override
 	public boolean addSnippet(Snippet snippet) {
 		if(snippet == null) return false;
+		boolean ret = false;
 		if(connect()) {
 			em.getTransaction().begin();
 			em.persist(snippet);
 			em.getTransaction().commit();
+			ret = true;
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
@@ -34,78 +36,70 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 	@Override
 	public boolean editSnippet(int snippetId, String newSnippetText) {
 		if(snippetId < 0 || newSnippetText == null) return false;
+		boolean ret = false;
 		if(connect()) {
 			Snippet toEdit = em.find(Snippet.class, snippetId);
-			if(toEdit == null) {
-				dispose();
-				return false;
+			if(toEdit != null) {
+				em.getTransaction().begin();
+				toEdit.setSnippetText(newSnippetText);
+				em.getTransaction().commit();
+				ret = true;
 			}
-			em.getTransaction().begin();
-			toEdit.setSnippetText(newSnippetText);
-			em.getTransaction().commit();
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
 	public boolean addComment(int snippetId, Comment comment) {
 		if(snippetId < 0 || comment == null) return false;
+		boolean ret = false;
 		if(connect()) {
 			Snippet snippet = em.find(Snippet.class, snippetId);
-			if(snippet == null) {
-				dispose();
-				return false;
+			if(snippet != null) {
+				em.getTransaction().begin();
+				ret = snippet.getSnippetComments().add(comment);
+				em.getTransaction().commit();
 			}
-			em.getTransaction().begin();
-			snippet.getSnippetComments().add(comment);
-			em.getTransaction().commit();
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
 	public boolean deleteComment(int snippetId, Comment comment) {
 		if(snippetId < 0 || comment == null) return false;
+		boolean ret = false;
 		if(connect()) {
 			Snippet snippet = em.find(Snippet.class, snippetId);
-			if(snippet == null) {
-				dispose();
-				return false;
+			if(snippet != null) {
+				em.getTransaction().begin();
+				ret = snippet.getSnippetComments().remove(comment);
+				em.getTransaction().commit();
 			}
-			em.getTransaction().begin();
-			snippet.getSnippetComments().remove(comment);
-			em.getTransaction().commit();
-			dispose();
-			return true;
 		}
 		dispose();
-		return false;
+		return ret;
 	}
 
 	@Override
 	public boolean deleteSnippet(int snippetId) {
 		if(snippetId < 0) return false;
+		boolean ret = false;
 		if(connect()) {
 			Snippet toRemove = em.find(Snippet.class, snippetId);
-			if(toRemove == null) {
-				dispose();
-				return false;
+			if(toRemove != null) {
+				Snippet replacement = new Snippet(em.find(User.class, -1), toRemove.getSnippetText());
+				em.getTransaction().begin();
+				em.persist(replacement);
+				toRemove.getSnippetStories().forEach(s -> s.getStoryText().set(s.getStoryText().indexOf(toRemove), replacement));
+				em.remove(toRemove);
+				em.getTransaction().commit();
+				ret = true;
 			}
-			Snippet replacement = new Snippet(em.find(User.class, -1), toRemove.getSnippetText());
-			em.getTransaction().begin();
-			em.persist(replacement);
-			toRemove.getSnippetStories().forEach(s -> {
-				s.getStoryText().set(s.getStoryText().indexOf(toRemove), replacement);
-			});
-			em.remove(toRemove);
-			em.getTransaction().commit();
-			dispose();
-			return true;
 		}
 		dispose();
-		return false;
+		return ret;
 	}
 
 	@Override
@@ -119,14 +113,14 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 	// database initializer function
 	
 	public boolean createTable() {
+		boolean ret = false;
 		if(connect()) {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
-			dispose();
-			return true;
+			ret = true;
 		}
 		dispose();
-		return false;
+		return ret;
 	}
 	
 }

@@ -164,14 +164,14 @@ public class StoryService extends AbstractDAO implements StoryI {
 	// database initializer function
 	
 	public boolean createTable() {
+		boolean ret = false;
 		if(connect()) {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
-			dispose();
-			return true;
+			ret = true;
 		}
 		dispose();
-		return false;
+		return ret;
 	}
 	
 }

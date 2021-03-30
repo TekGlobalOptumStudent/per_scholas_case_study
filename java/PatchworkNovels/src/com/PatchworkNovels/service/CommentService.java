@@ -12,13 +12,15 @@ public class CommentService extends AbstractDAO implements CommentI {
 	@Override
 	public boolean addComment(Comment comment) {
 		if(comment == null) return false;
+		boolean ret = false;
 		if(connect()) {
 			em.getTransaction().begin();
 			em.persist(comment);
 			em.getTransaction().commit();
+			ret = true;
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
@@ -33,66 +35,69 @@ public class CommentService extends AbstractDAO implements CommentI {
 	@Override
 	public boolean editComment(int commentId, String newCommentText) {
 		if(commentId < 0 || newCommentText == null) return false;
+		boolean ret = false;
 		if(connect()) {
 			Comment toEdit = em.find(Comment.class, commentId);
-			if(toEdit == null) {
-				dispose();
-				return false;
+			if(toEdit != null) {
+				em.getTransaction().begin();
+				toEdit.setCommenText(newCommentText);
+				em.getTransaction().commit();
+				ret = true;
 			}
-			em.getTransaction().begin();
-			toEdit.setCommenText(newCommentText);
-			em.getTransaction().commit();
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
 	public boolean likeComment(int commentId) {
 		if(commentId < 0) return false;
+		boolean ret = false;
 		if(connect()) {
 			Comment toLike = em.find(Comment.class, commentId);
-			if(toLike == null) {
-				dispose();
-				return false;
-			}
-			em.getTransaction().begin();
-			toLike.setCommentRating(toLike.getCommentRating() + 1);
-			em.getTransaction().commit();
+			if(toLike != null) {
+				em.getTransaction().begin();
+				toLike.setCommentRating(toLike.getCommentRating() + 1);
+				em.getTransaction().commit();
+				ret = true;
+			}	
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
 	public boolean dislikeComment(int commentId) {
 		if(commentId < 0) return false;
+		boolean ret = false;
 		if(connect()) {
 			Comment toLike = em.find(Comment.class, commentId);
-			if(toLike == null) {
-				dispose();
-				return false;
+			if(toLike != null) {
+				em.getTransaction().begin();
+				toLike.setCommentRating(toLike.getCommentRating() - 1);
+				em.getTransaction().commit();
+				ret = true;
 			}
-			em.getTransaction().begin();
-			toLike.setCommentRating(toLike.getCommentRating() - 1);
-			em.getTransaction().commit();
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
 	public boolean deleteComment(int commentId) {
 		if(commentId < 0) return false;
+		boolean ret = false;
 		if(connect()) {
 			Comment toRemove = em.find(Comment.class, commentId);
-			if(toRemove == null) return false;
-			em.getTransaction().begin();
-			em.remove(toRemove);
-			em.getTransaction().commit();
+			if(toRemove != null) {
+				em.getTransaction().begin();
+				em.remove(toRemove);
+				em.getTransaction().commit();
+				ret = true;
+			}
 		}
 		dispose();
-		return true;
+		return ret;
 	}
 
 	@Override
@@ -105,29 +110,34 @@ public class CommentService extends AbstractDAO implements CommentI {
 	
 	@Override
 	public boolean updateAllComments(User user) {
+		if(user == null) return false;
+		boolean ret = false;
 		if(connect()) {
 			List<Comment> allComments = em.createQuery("SELECT c FROM Comment c", Comment.class).getResultList();
-			allComments.forEach(c -> {
-				em.getTransaction().begin();
-				if(c.getCommentAuthor().equals(user)) c.setCommentAuthor(em.find(User.class, -1));
-				em.getTransaction().commit();
-			});
-			return true;
+			if(allComments != null) {
+				allComments.forEach(c -> {
+					em.getTransaction().begin();
+					if(c.getCommentAuthor().equals(user)) c.setCommentAuthor(em.find(User.class, -1));
+					em.getTransaction().commit();
+				});
+				ret = true;
+			}
 		}
-		return false;
+		dispose();
+		return ret;
 	}
 	
 	// database initializer function
 	
 	public boolean createTable() {
+		boolean ret = false;
 		if(connect()) {
 			em.getTransaction().begin();
 			em.getTransaction().commit();
-			dispose();
-			return true;
+			ret = true;
 		}
 		dispose();
-		return false;
+		return ret;
 	}
 	
 }
