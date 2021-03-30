@@ -31,7 +31,7 @@ public class Story {
 	@Column(name = "storyId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int storyId;
 	
-	@ManyToOne
+	@ManyToOne(targetEntity = User.class)
 	@JoinColumn(name = "storyAuthorId", referencedColumnName = "userId")
 	private User storyAuthor;
 	
