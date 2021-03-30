@@ -8,5 +8,6 @@
 </head>
 <body>
 <h1>Hello world</h1>
+<a href="home">Click here to go to home</a>
 </body>
 </html>

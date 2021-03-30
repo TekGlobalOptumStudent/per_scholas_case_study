@@ -18,7 +18,7 @@
         crossorigin="anonymous"></script>
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="./../styles/global.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/styles/global.css"/>
 
     <title>Stories</title>
 </head>

@@ -18,8 +18,8 @@
         crossorigin="anonymous"></script>
 
     <!-- External CSS -->
-    <link rel="stylesheet" href="./../styles/global.css">
-
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/resources/styles/global.css"/>
+	
     <title>Home</title>
 </head>
 
@@ -105,7 +105,7 @@
 
                 <!-- TODO: dynamically fill with data on carousel swap -->
                 <div class="media">
-                    <img class="align-self-start mr-3" src="..." alt="Generic placeholder image">
+                    <img class="align-self-start mr-3" src="<%=request.getContextPath()%>/resources/img/test.PNG" alt="Generic placeholder image">
                     <div class="media-body">
                         <h5 class="mt-0">Top-aligned media</h5>
                         <p>Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin.
