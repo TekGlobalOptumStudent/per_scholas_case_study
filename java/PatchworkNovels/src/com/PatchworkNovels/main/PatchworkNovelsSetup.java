@@ -61,7 +61,10 @@ public class PatchworkNovelsSetup extends AbstractDAO {
 			String user = scanner.nextLine();
 			System.out.println("Please enter your database password.");
 			String pass = scanner.nextLine();
-			if(createDatabase(databaseType, user, pass)) return true;
+			if(startJDBC(databaseType, user, pass)) {
+				createDatabase();
+				return true;
+			}
 			while(true) {
 				System.out.print("Continue trying?\n1. Yes\n2. No\n");
 				String input = scanner.nextLine();

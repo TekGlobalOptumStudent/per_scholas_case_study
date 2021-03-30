@@ -89,23 +89,20 @@ public abstract class AbstractDAO {
 
 	// JDBC methods
 	
-	public static boolean createDatabase(int databaseType, String user, String pass) {
+	public static boolean startJDBC(int databaseType, String user, String pass) {
 		try {
-			// 1. mariadb
-			// 2. mysql
-			String dbUrl;
-			if(databaseType == 1) {
-				DriverManager.registerDriver(new org.mariadb.jdbc.Driver());
-				dbUrl = "jdbc:mariadb://localhost:3306/";
-			} else {
-				DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
-				dbUrl = "jdbc:mysql://localhost:3306/";
-			}
-			connection = DriverManager.getConnection(dbUrl, user, pass);
-			statement = connection.createStatement();
-			statement.execute("CREATE database IF NOT EXISTS " + DATABASE_NAME);
-			statement.execute("USE " + DATABASE_NAME);
-			return true;
+		String dbUrl;
+		// 1. mariadb
+		// 2. mysql
+		if(databaseType == 1) {
+			DriverManager.registerDriver(new org.mariadb.jdbc.Driver());
+			dbUrl = "jdbc:mariadb://localhost:3306/";
+		} else {
+			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			dbUrl = "jdbc:mysql://localhost:3306/";
+		}
+		connection = DriverManager.getConnection(dbUrl, user, pass);
+		return true;
 		} catch(Exception e) {
 			System.out.println("Please make sure you have configured the persistence.xml file with");
 			System.out.println("your database details and that your database program is running.");
@@ -113,4 +110,37 @@ public abstract class AbstractDAO {
 		return false;
 	}
 	
+	public static boolean stopJDBC() {
+		try {
+			statement.close();
+			connection.close();
+			return true;
+		} catch(Exception e) {
+			//e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean createDatabase() {
+		try {
+			statement = connection.createStatement();
+			statement.execute("CREATE database IF NOT EXISTS " + DATABASE_NAME);
+			statement.execute("USE " + DATABASE_NAME);
+			return true;
+		} catch(Exception e) {
+			//e.printStackTrace();
+		}
+		return false;
+	}
+	
+	public static boolean dropDatabase() {
+		try {
+			statement = connection.createStatement();
+			statement.execute("DROP database IF EXISTS " + DATABASE_NAME);
+			return true;
+		} catch(Exception e) {
+			//e.printStackTrace();
+		}
+		return false;
+	}
 }

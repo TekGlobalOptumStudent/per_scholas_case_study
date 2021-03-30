@@ -26,7 +26,9 @@ class StoryServiceTest extends AbstractDAO {
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		createDatabase(1, "root", "password");
+		startJDBC(1, "root", "password");
+		dropDatabase();
+		createDatabase();
 		createTables();
 		runSQLFile("user.sql");
 		runSQLFile("story.sql");
@@ -45,6 +47,7 @@ class StoryServiceTest extends AbstractDAO {
 		snippetService = null;
 		storyService = null;
 		userService = null;
+		stopJDBC();
 	}
 
 	@Test
