@@ -75,6 +75,17 @@ public abstract class AbstractDAO {
 		dispose();
 		return false;
 	}
+	
+	public static boolean createTables() {
+		boolean ret = false;
+		if(connect()) {
+			em.getTransaction().begin();
+			em.getTransaction().commit();
+			ret = true;
+		}
+		dispose();
+		return ret;
+	}
 
 	// JDBC methods
 	

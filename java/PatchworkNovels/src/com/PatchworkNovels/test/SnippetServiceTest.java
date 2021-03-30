@@ -24,7 +24,7 @@ class SnippetServiceTest extends AbstractDAO {
 		truncateTable("Snippet");
 		snippetService = new SnippetService();
 		userService = new UserService();
-		userService.createTable();
+		createTables();
 		runSQLFile("user.sql");
 	}
 
@@ -37,7 +37,6 @@ class SnippetServiceTest extends AbstractDAO {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		snippetService.createTable();
 		runSQLFile("snippet.sql");
 	}
 

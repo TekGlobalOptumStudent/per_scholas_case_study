@@ -24,7 +24,7 @@ public class PatchworkNovelsSetup extends AbstractDAO {
 			switch(choice) {
 			case 1:
 				System.out.println("Loading database...");
-				if(loadDB(scanner) && createTables() && loadTables()) {
+				if(loadDB(scanner) && makeTables() && loadTables()) {
 					System.out.println("Database loaded successfully, proceeding to program.");
 					return;
 				}
@@ -77,8 +77,8 @@ public class PatchworkNovelsSetup extends AbstractDAO {
 	}
 	
 	// creates the tables using JPA
-	private static boolean createTables() {
-		if(new UserService().createTable() && new StoryService().createTable() && new SnippetService().createTable() && new CommentService().createTable()) {
+	private static boolean makeTables() {
+		if(createTables()) {
 			return true;
 		}
 		System.out.println("Something went wrong when trying to create the tables.");

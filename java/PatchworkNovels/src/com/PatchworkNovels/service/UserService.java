@@ -184,17 +184,4 @@ public class UserService extends AbstractDAO implements UserI {
 		return ret;
 	}
 
-	// database initializer function
-	
-	public boolean createTable() {
-		boolean ret = false;
-		if(connect()) {
-			em.getTransaction().begin();
-			em.getTransaction().commit();
-			ret = true;
-		}
-		dispose();
-		return ret;
-	}
-
 }

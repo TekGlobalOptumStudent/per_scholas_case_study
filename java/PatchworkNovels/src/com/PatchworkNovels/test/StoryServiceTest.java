@@ -31,10 +31,7 @@ class StoryServiceTest extends AbstractDAO {
 		snippetService = new SnippetService();
 		storyService = new StoryService();
 		userService = new UserService();
-		commentService.createTable();
-		snippetService.createTable();
-		storyService.createTable();
-		userService.createTable();
+		createTables();
 		runSQLFile("user.sql");
 		runSQLFile("story.sql");
 		runSQLFile("snippet.sql");

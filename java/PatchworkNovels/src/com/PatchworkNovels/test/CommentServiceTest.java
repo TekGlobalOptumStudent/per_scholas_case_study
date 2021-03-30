@@ -30,9 +30,7 @@ class CommentServiceTest extends AbstractDAO {
 		snippetService = new SnippetService();
 		storyService = new StoryService();
 		userService = new UserService();
-		snippetService.createTable();
-		storyService.createTable();
-		userService.createTable();
+		createTables();
 		runSQLFile("user.sql");
 		runSQLFile("snippet.sql");
 		runSQLFile("story.sql");
@@ -51,7 +49,6 @@ class CommentServiceTest extends AbstractDAO {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		commentService.createTable();
 		runSQLFile("comment.sql");
 	}
 
