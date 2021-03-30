@@ -73,14 +73,15 @@ class SnippetServiceTest extends AbstractDAO {
 
 	@Test
 	void testDeleteComment() {
-		User user = userService.getUser(11);
-		Comment toRemove = new Comment(user, "testCommentToRemove");
-		snippetService.addComment(11, toRemove);
-		assertTrue(snippetService.deleteComment(11, toRemove));
+		Comment toRemove = commentService.readComment(13);
+		snippetService.getAllSnippets().forEach(s -> s.getSnippetComments().remove(toRemove));
+		assertTrue(snippetService.deleteComment(13, toRemove));
 	}
 
 	@Test
 	void testDeleteSnippet() {
+		Snippet toDelete = snippetService.readSnippet(14);
+		userService.getAllUsers().forEach(u -> userService.deletePublishedSnippet(u.getUserId(), toDelete));
 		assertTrue(snippetService.deleteSnippet(14));
 	}
 
