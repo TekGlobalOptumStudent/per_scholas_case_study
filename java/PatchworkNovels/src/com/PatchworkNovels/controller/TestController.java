@@ -1,10 +1,24 @@
 package com.PatchworkNovels.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.PatchworkNovels.entities.Story;
+import com.PatchworkNovels.service.CommentService;
+import com.PatchworkNovels.service.SnippetService;
+import com.PatchworkNovels.service.StoryService;
+import com.PatchworkNovels.service.UserService;
 
 @Controller
 public class TestController {
+	
+	private CommentService commentService = new CommentService();
+	private SnippetService snippetService = new SnippetService();
+	private StoryService storyService = new StoryService();
+	private UserService userService = new UserService();
 	
 	@RequestMapping("/")
 	public String indexHandler() {
@@ -12,8 +26,11 @@ public class TestController {
 	}
 	
 	@RequestMapping("/home")
-	public String homeHandler() {
-		return "home";
+	public ModelAndView homeHandler() {
+		ModelAndView mav = new ModelAndView("home");
+		mav.addObject("popularStoryList", storyService.getAllStories());
+		mav.addObject("recentStoryList", storyService.getAllStories());
+		return mav;
 	}
 	
 	@RequestMapping("/create")
