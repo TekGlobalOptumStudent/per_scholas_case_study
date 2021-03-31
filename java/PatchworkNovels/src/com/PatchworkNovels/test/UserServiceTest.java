@@ -2,6 +2,8 @@ package com.PatchworkNovels.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
@@ -30,11 +32,13 @@ class UserServiceTest extends AbstractDAO {
 		dropDatabase();
 		createDatabase();
 		createTables();
+		TimeUnit.SECONDS.sleep(5);
 		runSQLFile("user.sql");
 		runSQLFile("story.sql");
 		runSQLFile("snippet.sql");
 		runSQLFile("comment.sql");
 		runSQLFile("relations.sql");
+		TimeUnit.SECONDS.sleep(5);
 	}
 
 	@AfterAll
