@@ -26,7 +26,7 @@ public class Comment {
 	@Column(name = "commentId", nullable = false, columnDefinition = "INT NOT NULL")
 	private int commentId;
 	
-	@ManyToOne(cascade = CascadeType.PERSIST)
+	@ManyToOne
 	@JoinColumn(name = "commentAuthorId", referencedColumnName = "userId")
 	private User commentAuthor;
 	
