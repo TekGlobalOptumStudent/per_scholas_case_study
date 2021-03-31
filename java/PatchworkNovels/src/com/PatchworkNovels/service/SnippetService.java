@@ -122,16 +122,12 @@ public class SnippetService extends AbstractDAO implements SnippetI {
 		if(connect()) {
 			Snippet toRemove = em.find(Snippet.class, snippetId);
 			if(toRemove != null) {
-				Snippet replacement = new Snippet(em.find(User.class, -1), toRemove.getSnippetText());
 				em.getTransaction().begin();
-				toRemove.getSnippetStories().forEach(s -> {
-					int index = -1;
-					if((index = s.getStoryText().indexOf(toRemove)) > -1) {
-						em.persist(replacement);
-						s.getStoryText().set(index, replacement);
-					}
-				});
-				em.remove(toRemove);
+				if(toRemove.getSnippetStories().isEmpty()) {
+					em.remove(toRemove);
+				} else {
+					toRemove.setSnippetAuthor(em.find(User.class, -1));
+				}
 				em.getTransaction().commit();
 				ret = true;
 			}

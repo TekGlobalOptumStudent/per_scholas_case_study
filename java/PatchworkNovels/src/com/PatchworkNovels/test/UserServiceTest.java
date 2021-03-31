@@ -3,7 +3,9 @@ package com.PatchworkNovels.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.PatchworkNovels.dao.AbstractDAO;
@@ -17,10 +19,10 @@ import com.PatchworkNovels.service.UserService;
 
 class UserServiceTest extends AbstractDAO {
 
-	static CommentService commentService = null;
-	static SnippetService snippetService = null;
-	static StoryService storyService = null;
-	static UserService userService = null;
+	private CommentService commentService = null;
+	private SnippetService snippetService = null;
+	private StoryService storyService = null;
+	private UserService userService = null;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -33,19 +35,27 @@ class UserServiceTest extends AbstractDAO {
 		runSQLFile("snippet.sql");
 		runSQLFile("comment.sql");
 		runSQLFile("relations.sql");
+	}
+
+	@AfterAll
+	static void tearDownAfterClass() throws Exception {
+		stopJDBC();
+	}
+	
+	@BeforeEach
+	void setUp() throws Exception {
 		commentService = new CommentService();
 		snippetService = new SnippetService();
 		storyService = new StoryService();
 		userService = new UserService();
 	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
+	
+	@AfterEach
+	void tearDown() throws Exception {
 		commentService = null;
 		snippetService = null;
 		storyService = null;
 		userService = null;
-		stopJDBC();
 	}
 
 	@Test
@@ -88,10 +98,10 @@ class UserServiceTest extends AbstractDAO {
 
 	@Test
 	void testDeletePublishedSnippet() {
-		User user = userService.getUser(11);
+		User user = userService.getUser(16);
 		Snippet toRemove = new Snippet(user, "testPublishedSnippetToRemove");
-		userService.addPublishedSnippet(user.getUserId(), toRemove);
-		assertTrue(userService.deletePublishedSnippet(user.getUserId(), toRemove));
+		userService.addPublishedSnippet(16, toRemove);
+		assertTrue(userService.deletePublishedSnippet(16, toRemove));
 	}
 
 	@Test
