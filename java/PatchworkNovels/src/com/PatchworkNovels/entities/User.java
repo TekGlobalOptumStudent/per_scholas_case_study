@@ -156,7 +156,7 @@ public class User {
 		if (dateJoined == null) {
 			if (other.dateJoined != null)
 				return false;
-		} else if (!dateJoined.equals(other.dateJoined))
+		} else if (!dateJoined.toString().equals(other.dateJoined.toString()))
 			return false;
 		if (password == null) {
 			if (other.password != null)

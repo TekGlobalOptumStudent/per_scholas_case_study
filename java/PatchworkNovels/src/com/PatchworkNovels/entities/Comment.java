@@ -143,7 +143,7 @@ public class Comment {
 		if (commentTimePosted == null) {
 			if (other.commentTimePosted != null)
 				return false;
-		} else if (!commentTimePosted.equals(other.commentTimePosted))
+		} else if (!commentTimePosted.toString().equals(other.commentTimePosted.toString()))
 			return false;
 		return true;
 	}

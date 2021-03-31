@@ -169,7 +169,7 @@ public class Story {
 		if (storyTimePosted == null) {
 			if (other.storyTimePosted != null)
 				return false;
-		} else if (!storyTimePosted.equals(other.storyTimePosted))
+		} else if (!storyTimePosted.toString().equals(other.storyTimePosted.toString()))
 			return false;
 		if (storyTitle == null) {
 			if (other.storyTitle != null)

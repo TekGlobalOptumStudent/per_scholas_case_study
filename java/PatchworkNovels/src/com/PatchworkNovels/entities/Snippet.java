@@ -159,7 +159,7 @@ public class Snippet {
 		if (snippetTimePosted == null) {
 			if (other.snippetTimePosted != null)
 				return false;
-		} else if (!snippetTimePosted.equals(other.snippetTimePosted))
+		} else if (!snippetTimePosted.toString().equals(other.snippetTimePosted.toString()))
 			return false;
 		return true;
 	}
