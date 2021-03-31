@@ -3,7 +3,6 @@ package com.PatchworkNovels.dao;
 import java.util.List;
 
 import com.PatchworkNovels.entities.Comment;
-import com.PatchworkNovels.entities.User;
 
 public interface CommentI {
 	
