@@ -93,7 +93,7 @@ class SnippetServiceTest extends AbstractDAO {
 
 	@Test
 	void testGetAllSnippets() {
-		assertTrue(!snippetService.getAllSnippets().isEmpty());
+		assertFalse(snippetService.getAllSnippets().isEmpty());
 	}
 
 }

@@ -94,7 +94,7 @@ class CommentServiceTest extends AbstractDAO {
 
 	@Test
 	void testGetAllComments() {
-		assertTrue(!commentService.getAllComments().isEmpty());
+		assertFalse(commentService.getAllComments().isEmpty());
 	}
 	
 	@Test

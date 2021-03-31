@@ -133,7 +133,7 @@ class UserServiceTest extends AbstractDAO {
 
 	@Test
 	void testGetAllUsers() {
-		assertTrue(!userService.getAllUsers().isEmpty());
+		assertFalse(userService.getAllUsers().isEmpty());
 	}
 
 	@Test

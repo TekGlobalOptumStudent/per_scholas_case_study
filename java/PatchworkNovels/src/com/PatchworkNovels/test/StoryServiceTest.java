@@ -118,7 +118,7 @@ class StoryServiceTest extends AbstractDAO {
 
 	@Test
 	void testGetAllStories() {
-		assertTrue(!storyService.getAllStories().isEmpty());
+		assertFalse(storyService.getAllStories().isEmpty());
 	}
 
 }
