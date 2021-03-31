@@ -5,15 +5,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TestController {
+
+	@Autowired
+	private CommentService commentService;
 	
+	@Autowired
+	private SnippetService snippetService;
+	
+	@Autowired
+	private StoryService storyService;
+	
+	@Autowired
+	private UserService userServices;
+
 	@RequestMapping("/")
 	public String indexHandler() {
 		return "index";
 	}
-	
+
 	@RequestMapping("/home")
-	public String homeHandler() {
-		return "home";
+	public ModelAndView homeHandler() {
+		ModelAndView mav = new ModelAndView("home");
+		//mav.addObject("popularStoryList", storyService.getAllStories());
+		//mav.addObject("recentStoryList", storyService.getAllStories());
+		return mav;
 	}
 	
 	@RequestMapping("/create")

@@ -39,11 +39,11 @@ public class User {
 	@Column(name = "dateJoined", nullable = false)
 	private Date dateJoined;
 	
-	@OneToMany(targetEntity = Story.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Story.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinTable(name = "user_publishedStories")
 	private List<Story> publishedStories;
 	
-	@OneToMany(targetEntity = Snippet.class, cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Snippet.class, cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
 	@JoinTable(name = "user_publishedSnippets")
 	private List<Snippet> publishedSnippets;
 	

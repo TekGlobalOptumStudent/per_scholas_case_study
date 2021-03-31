@@ -43,11 +43,11 @@ public class Story {
 	@Column(name = "storyTimePosted", nullable = false)
 	private Date storyTimePosted;
 	
-	@OneToMany(targetEntity = Snippet.class, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Snippet.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "story_storyText")
 	private List<Snippet> storyText;
 	
-	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "story_storyComments")
 	private List<Comment> storyComments;
 	

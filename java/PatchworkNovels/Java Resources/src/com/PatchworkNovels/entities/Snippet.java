@@ -44,11 +44,11 @@ public class Snippet {
 	@Column(name = "snippetText", nullable = false, columnDefinition = "TEXT NOT NULL")
 	private String snippetText;
 	
-	@ManyToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Story.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "snippet_snippetStories")
 	private List<Story> snippetStories;
 	
-	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinTable(name = "snippet_snippetComments")
 	private List<Comment> snippetComments;
 	

@@ -6,10 +6,6 @@
 	<persistence-unit name="PatchworkNovels">
 		
 		<!-- Entities -->
-		<class>com.PatchworkNovels.entities.Comment</class>
-		<class>com.PatchworkNovels.entities.Snippet</class>
-		<class>com.PatchworkNovels.entities.Story</class>
-		<class>com.PatchworkNovels.entities.User</class>
 		
 		<properties>
 		
