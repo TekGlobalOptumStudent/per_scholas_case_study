@@ -14,6 +14,6 @@ public interface CommentI {
 	public boolean dislikeComment(int commentId);
 	public boolean deleteComment(int commentId);
 	public List<Comment> getAllComments();
-	public boolean updateAllComments(User user);
+	public boolean updateAllComments(int userId);
 	
 }

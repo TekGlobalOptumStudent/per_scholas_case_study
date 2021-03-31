@@ -109,12 +109,12 @@ public class CommentService extends AbstractDAO implements CommentI {
 	}
 	
 	@Override
-	public boolean updateAllComments(User user) {
-		if(user == null) return false;
+	public boolean updateAllComments(int userId) {
+		if(userId < 0) return false;
 		boolean ret = false;
 		if(connect()) {
 			String query = "SELECT c FROM Comment c WHERE c.commentAuthor.userId = :userId";
-			List<Comment> allComments = em.createQuery(query, Comment.class).setParameter("userId", user.getUserId()).getResultList();
+			List<Comment> allComments = em.createQuery(query, Comment.class).setParameter("userId", userId).getResultList();
 			if(allComments != null) {
 				em.getTransaction().begin();
 				allComments.forEach(c -> c.setCommentAuthor(em.find(User.class, -1)));

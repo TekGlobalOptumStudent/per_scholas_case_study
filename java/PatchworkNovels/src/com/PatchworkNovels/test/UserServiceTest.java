@@ -119,7 +119,7 @@ class UserServiceTest extends AbstractDAO {
 	@Test
 	void testDeleteUser() {
 		User toDelete = userService.getUser(13);
-		commentService.updateAllComments(toDelete);
+		commentService.updateAllComments(toDelete.getUserId());
 		toDelete.getPublishedSnippets().forEach(ps -> {
 			userService.deletePublishedSnippet(toDelete.getUserId(), ps);
 			snippetService.deleteSnippet(ps.getSnippetId());
