@@ -40,7 +40,7 @@ public class CommentServiceOld extends AbstractDAO implements CommentI {
 			Comment toEdit = em.find(Comment.class, commentId);
 			if(toEdit != null) {
 				em.getTransaction().begin();
-				toEdit.setCommenText(newCommentText);
+				toEdit.setCommentText(newCommentText);
 				em.getTransaction().commit();
 				ret = true;
 			}

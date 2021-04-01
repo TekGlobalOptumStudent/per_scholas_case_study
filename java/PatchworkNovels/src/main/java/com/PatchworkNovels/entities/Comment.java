@@ -88,7 +88,7 @@ public class Comment {
 		this.commentTimePosted = commentTimePosted;
 	}
 	
-	public void setCommenText(String commentText) {
+	public void setCommentText(String commentText) {
 		this.commentText = commentText;
 	}
 	
