@@ -14,17 +14,17 @@ import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
-import com.PatchworkNovels.service.CommentService;
-import com.PatchworkNovels.service.SnippetService;
-import com.PatchworkNovels.service.StoryService;
-import com.PatchworkNovels.service.UserService;
+import com.PatchworkNovels.service.CommentServiceOld;
+import com.PatchworkNovels.service.SnippetServiceOld;
+import com.PatchworkNovels.service.StoryServiceOld;
+import com.PatchworkNovels.service.UserServiceOld;
 
 class UserServiceTest extends AbstractDAO {
 
-	private CommentService commentService = null;
-	private SnippetService snippetService = null;
-	private StoryService storyService = null;
-	private UserService userService = null;
+	private CommentServiceOld commentService = null;
+	private SnippetServiceOld snippetService = null;
+	private StoryServiceOld storyService = null;
+	private UserServiceOld userService = null;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -48,10 +48,10 @@ class UserServiceTest extends AbstractDAO {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		commentService = new CommentService();
-		snippetService = new SnippetService();
-		storyService = new StoryService();
-		userService = new UserService();
+		commentService = new CommentServiceOld();
+		snippetService = new SnippetServiceOld();
+		storyService = new StoryServiceOld();
+		userService = new UserServiceOld();
 	}
 	
 	@AfterEach

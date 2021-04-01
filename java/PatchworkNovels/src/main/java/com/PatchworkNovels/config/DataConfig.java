@@ -1,4 +1,4 @@
-package com.SpringDataJpaPlayground.config;
+package com.PatchworkNovels.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

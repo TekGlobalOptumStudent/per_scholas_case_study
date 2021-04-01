@@ -7,7 +7,7 @@ import com.PatchworkNovels.dao.CommentI;
 import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.User;
 
-public class CommentService extends AbstractDAO implements CommentI {
+public class CommentServiceOld extends AbstractDAO implements CommentI {
 
 	@Override
 	public boolean addComment(Comment comment) {

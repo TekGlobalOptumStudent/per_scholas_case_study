@@ -1,7 +1,14 @@
 package com.PatchworkNovels.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.PatchworkNovels.service.CommentService;
+import com.PatchworkNovels.service.SnippetService;
+import com.PatchworkNovels.service.StoryService;
+import com.PatchworkNovels.service.UserService;
 
 @Controller
 public class TestController {

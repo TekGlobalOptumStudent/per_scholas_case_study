@@ -9,7 +9,7 @@ import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
 
-public class SnippetService extends AbstractDAO implements SnippetI {
+public class SnippetServiceOld extends AbstractDAO implements SnippetI {
 
 	@Override
 	public boolean addSnippet(Snippet snippet) {

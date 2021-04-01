@@ -8,7 +8,7 @@ import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
 
-public class UserService extends AbstractDAO implements UserI {
+public class UserServiceOld extends AbstractDAO implements UserI {
 
 	@Override
 	public boolean addUser(User user) {

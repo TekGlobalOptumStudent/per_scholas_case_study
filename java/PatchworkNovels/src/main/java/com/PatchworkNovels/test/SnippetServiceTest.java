@@ -14,15 +14,15 @@ import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.User;
-import com.PatchworkNovels.service.CommentService;
-import com.PatchworkNovels.service.SnippetService;
-import com.PatchworkNovels.service.UserService;
+import com.PatchworkNovels.service.CommentServiceOld;
+import com.PatchworkNovels.service.SnippetServiceOld;
+import com.PatchworkNovels.service.UserServiceOld;
 
 class SnippetServiceTest extends AbstractDAO {
 
-	private CommentService commentService = null;
-	private SnippetService snippetService = null;
-	private UserService userService = null;
+	private CommentServiceOld commentService = null;
+	private SnippetServiceOld snippetService = null;
+	private UserServiceOld userService = null;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -46,9 +46,9 @@ class SnippetServiceTest extends AbstractDAO {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		commentService = new CommentService();
-		snippetService = new SnippetService();
-		userService = new UserService();
+		commentService = new CommentServiceOld();
+		snippetService = new SnippetServiceOld();
+		userService = new UserServiceOld();
 	}
 	
 	@AfterEach

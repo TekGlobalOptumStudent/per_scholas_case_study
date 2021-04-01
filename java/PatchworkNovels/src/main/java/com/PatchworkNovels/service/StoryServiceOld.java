@@ -8,7 +8,7 @@ import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 
-public class StoryService extends AbstractDAO implements StoryI {
+public class StoryServiceOld extends AbstractDAO implements StoryI {
 
 	@Override
 	public boolean addStory(Story story) {
