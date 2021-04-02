@@ -9,7 +9,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.PatchworkNovels.dao.AbstractDAO;
@@ -22,8 +25,8 @@ import com.PatchworkNovels.service.StoryService;
 import com.PatchworkNovels.service.UserService;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = { ApplicationConfig.class })
-@WebAppConfiguration
+@ContextConfiguration(classes = { ApplicationConfig.class }, locations = {""})
+@WebAppConfiguration(value = "")
 public class UserServiceTest extends AbstractDAO {
 
 	@Autowired(required = true)
