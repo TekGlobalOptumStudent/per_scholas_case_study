@@ -74,17 +74,16 @@
 
     <div class="signup-body">
         <div class="form-outer-container">
-            <form>
+            <form action="newUser" method="post">
                 <!-- TODO: check if email already exists in database -->
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input type="email" class="form-control" id="username" name="username" aria-describedby="emailHelp"
                         placeholder="Enter email">
                 </div>
-                <!-- TODO: check if passwords are the same -->
                 <div class="form-group">
                     <label for="exampleInputPassword1">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password">
                 </div>
                 <div class="form-group">
                     <label for="exampleInputPassword1">Confirm Password</label>

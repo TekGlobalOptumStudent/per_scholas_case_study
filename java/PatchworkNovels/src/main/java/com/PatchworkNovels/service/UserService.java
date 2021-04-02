@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.PatchworkNovels.dao.UserI;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
@@ -141,6 +140,10 @@ public class UserService {
 
 	public List<User> getAllUsers() {
 		return userRepository.findAll();
+	}
+	
+	public boolean checkUsername(String username) {
+		return userRepository.existsByUsername(username);
 	}
 
 	public boolean validateUser(String username, String password) {

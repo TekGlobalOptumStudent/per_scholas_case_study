@@ -25,7 +25,7 @@ public class ViewController {
 	StoryService storyService;
 	
 	@Autowired
-	UserService userServices;
+	UserService userService;
 
 	@RequestMapping("/")
 	public String indexHandler() {
@@ -55,13 +55,13 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/profile")
-	public ModelAndView profileHandler() {
+	public ModelAndView profileHandler(@ModelAttribute User user) {
 		ModelAndView mav = new ModelAndView("profile");
 		return mav;
 	}
 	
 	@RequestMapping("/signup")
-	public ModelAndView signupHandler(@ModelAttribute User user) {
+	public ModelAndView signupHandler() {
 		ModelAndView mav = new ModelAndView("signup");
 		return mav;
 	}
