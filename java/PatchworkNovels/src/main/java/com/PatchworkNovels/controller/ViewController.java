@@ -2,7 +2,10 @@ package com.PatchworkNovels.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -54,16 +57,23 @@ public class ViewController {
 		return mav;
 	}
 	
-	@RequestMapping("/profile")
+	@GetMapping("/profile")
 	public ModelAndView profileHandler(@ModelAttribute User user) {
 		ModelAndView mav = new ModelAndView("profile");
 		return mav;
 	}
 	
-	@RequestMapping("/signup")
+	@GetMapping("/signup")
 	public ModelAndView signupHandler() {
-		ModelAndView mav = new ModelAndView("signup");
+		ModelAndView mav = new ModelAndView("signup", "user", new User());
 		return mav;
+	}
+	
+	@PostMapping("/signup")
+	public String submitUser(@ModelAttribute User user, ModelMap model) {
+		if(userService.checkUsername(user.getUsername())) return "signup";
+		model.addAttribute("username", user.getUsername());
+		return "redirect:/profile";
 	}
 	
 	@RequestMapping("/snippets")

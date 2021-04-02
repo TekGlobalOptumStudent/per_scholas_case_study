@@ -74,7 +74,7 @@
 
     <div class="signup-body">
         <div class="form-outer-container">
-            <form action="newUser" method="post">
+            <form action="signup" method="post">
                 <!-- TODO: check if email already exists in database -->
                 <div class="form-group">
                     <label for="exampleInputEmail1">Email address</label>
