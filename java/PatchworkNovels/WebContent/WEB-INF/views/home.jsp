@@ -161,7 +161,6 @@
 
 			</div>
 			<div class="col-sm-5">
-				<!-- TODO: dynamically fill with data on load -->
 				<div class="list-group">
 					<c:forEach var="i" begin="0" end="${recentStoryList.size() - 1}">
 						<a href="#"

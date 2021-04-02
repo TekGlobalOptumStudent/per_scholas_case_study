@@ -2,9 +2,11 @@ package com.PatchworkNovels.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.PatchworkNovels.entities.User;
 import com.PatchworkNovels.service.CommentService;
 import com.PatchworkNovels.service.SnippetService;
 import com.PatchworkNovels.service.StoryService;
@@ -47,6 +49,8 @@ public class ViewController {
 	@RequestMapping("/list")
 	public ModelAndView listHandler() {
 		ModelAndView mav = new ModelAndView("list");
+		mav.addObject("allStories", storyService.getAllStories());
+		mav.addObject("allSnippets", snippetService.getAllSnippets());
 		return mav;
 	}
 	
@@ -57,7 +61,7 @@ public class ViewController {
 	}
 	
 	@RequestMapping("/signup")
-	public ModelAndView signupHandler() {
+	public ModelAndView signupHandler(@ModelAttribute User user) {
 		ModelAndView mav = new ModelAndView("signup");
 		return mav;
 	}

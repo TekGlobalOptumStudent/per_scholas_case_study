@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html lang="en">
 
 <head>
@@ -75,61 +76,33 @@
         <div class="row">
             <div class="col">
                 <h1>Snippets</h1>
-                <!-- TODO: populate using snippets and stories from database -->
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small>3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget
-                            risus
-                            varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                    <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                    <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+                	<c:forEach var="i" begin="0" end="${allSnippets.size() - 1}">
+						<a href="#"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<small><c:out value="${allSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
+							</div>
+							<small><c:out value="${allSnippets.get(i).getSnippetAuthor().getUsername()}"></c:out></small>
+							<p class="mb-1">Nothing here yet</p>
+						</a> 
+					</c:forEach>
                 </div>
             </div>
             <div class="col">
                 <h1>Stories</h1>
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small>3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget
-                            risus
-                            varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                    <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
-                    <a href="#" class="list-group-item list-group-item-action">Cras justo odio</a>
-                    <a href="#" class="list-group-item list-group-item-action">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item list-group-item-action">Morbi leo risus</a>
-                    <a href="#" class="list-group-item list-group-item-action">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
+                    <c:forEach var="i" begin="0" end="${allStories.size() - 1}">
+						<a href="#"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1"><c:out value="${allStories.get(i).getStoryTitle()}"></c:out></h5>
+								<small><c:out value="${allStories.get(i).getStoryTimePosted()}"></c:out></small>
+							</div>
+							<small><c:out value="${allStories.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+							<p class="mb-1">Nothing here yet</p>
+						</a> 
+					</c:forEach>
                 </div>
             </div>
         </div>
