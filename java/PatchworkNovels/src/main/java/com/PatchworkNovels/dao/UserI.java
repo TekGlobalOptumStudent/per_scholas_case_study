@@ -2,10 +2,13 @@ package com.PatchworkNovels.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
 
+@Service
 public interface UserI {
 	
 	public boolean addUser(User user);

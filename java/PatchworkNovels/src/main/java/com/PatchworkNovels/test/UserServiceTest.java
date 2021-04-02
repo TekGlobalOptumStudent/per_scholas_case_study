@@ -9,22 +9,34 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.PatchworkNovels.dao.AbstractDAO;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
-import com.PatchworkNovels.service.CommentServiceOld;
-import com.PatchworkNovels.service.SnippetServiceOld;
-import com.PatchworkNovels.service.StoryServiceOld;
-import com.PatchworkNovels.service.UserServiceOld;
+import com.PatchworkNovels.service.CommentService;
+import com.PatchworkNovels.service.SnippetService;
+import com.PatchworkNovels.service.StoryService;
+import com.PatchworkNovels.service.UserService;
 
-class UserServiceTest extends AbstractDAO {
+@ExtendWith(SpringExtension.class)
+@ContextConfiguration(classes = { ApplicationConfig.class })
+@WebAppConfiguration
+public class UserServiceTest extends AbstractDAO {
 
-	private CommentServiceOld commentService = null;
-	private SnippetServiceOld snippetService = null;
-	private StoryServiceOld storyService = null;
-	private UserServiceOld userService = null;
+	@Autowired(required = true)
+	CommentService commentService;
+	
+	@Autowired(required = true)
+	SnippetService snippetService;
+	
+	@Autowired(required = true)
+	StoryService storyService;
+	
+	@Autowired(required = true)
+	UserService userService;
 	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -48,27 +60,21 @@ class UserServiceTest extends AbstractDAO {
 	
 	@BeforeEach
 	void setUp() throws Exception {
-		commentService = new CommentServiceOld();
-		snippetService = new SnippetServiceOld();
-		storyService = new StoryServiceOld();
-		userService = new UserServiceOld();
 	}
 	
 	@AfterEach
 	void tearDown() throws Exception {
-		commentService = null;
-		snippetService = null;
-		storyService = null;
-		userService = null;
 	}
 
 	@Test
+	@Transactional
 	void testAddUser() {
 		User toAdd = new User("testUsername", "testPassword");
 		assertTrue(userService.addUser(toAdd));
 	}
 
 	@Test
+	@Transactional
 	void testGetUser() {
 		User expected = new User("user1", "pass1");
 		User actual = userService.getUser(11);
@@ -76,17 +82,20 @@ class UserServiceTest extends AbstractDAO {
 	}
 
 	@Test
+	@Transactional
 	void testEditUser() {
 		assertTrue(userService.editUser(12, "testUsername", "testPassword"));
 	}
 
 	@Test
+	@Transactional
 	void testAddPublishedStory() {
 		User user = userService.getUser(11);
 		assertTrue(userService.addPublishedStory(11, new Story(user, "testPublishedStory")));
 	}
 
 	@Test
+	@Transactional
 	void testDeletePublishedStory() {
 		User user = userService.getUser(11);
 		Story toRemove = new Story(user, "testPublishedStoryToRemove");
@@ -95,12 +104,14 @@ class UserServiceTest extends AbstractDAO {
 	}
 
 	@Test
+	@Transactional
 	void testAddPublishedSnippet() {
 		User user = userService.getUser(11);
 		assertTrue(userService.addPublishedSnippet(11, new Snippet(user, "testPublishedSnippet")));
 	}
 
 	@Test
+	@Transactional
 	void testDeletePublishedSnippet() {
 		User user = userService.getUser(16);
 		Snippet toRemove = new Snippet(user, "testPublishedSnippetToRemove");
@@ -109,11 +120,13 @@ class UserServiceTest extends AbstractDAO {
 	}
 
 	@Test
+	@Transactional
 	void testAddFavoriteStory() {
 		assertTrue(userService.addFavoriteStory(11, storyService.readStory(11)));
 	}
 
 	@Test
+	@Transactional
 	void testDeleteFavoriteStory() {
 		Story toRemove = storyService.readStory(12);
 		userService.addFavoriteStory(11, toRemove);
@@ -121,7 +134,9 @@ class UserServiceTest extends AbstractDAO {
 	}
 
 	@Test
+	@Transactional
 	void testDeleteUser() {
+		/*
 		User toDelete = userService.getUser(13);
 		commentService.updateAllComments(toDelete.getUserId());
 		toDelete.getPublishedSnippets().forEach(ps -> {
@@ -132,15 +147,18 @@ class UserServiceTest extends AbstractDAO {
 			userService.deletePublishedStory(toDelete.getUserId(), ps);
 			storyService.deleteStory(ps.getStoryId());
 		});
+		*/
 		assertTrue(userService.deleteUser(13));
 	}
 
 	@Test
+	@Transactional
 	void testGetAllUsers() {
 		assertFalse(userService.getAllUsers().isEmpty());
 	}
 
 	@Test
+	@Transactional
 	void testValidateUser() {
 		assertTrue(userService.validateUser("user1", "pass1"));
 	}

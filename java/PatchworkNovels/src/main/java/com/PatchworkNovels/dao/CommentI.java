@@ -2,8 +2,11 @@ package com.PatchworkNovels.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.PatchworkNovels.entities.Comment;
 
+@Service
 public interface CommentI {
 	
 	public boolean addComment(Comment comment);

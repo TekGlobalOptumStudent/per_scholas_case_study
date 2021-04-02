@@ -1,7 +1,5 @@
 package com.PatchworkNovels.controller;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,19 +11,19 @@ import com.PatchworkNovels.service.StoryService;
 import com.PatchworkNovels.service.UserService;
 
 @Controller
-public class TestController {
+public class ViewController {
 
 	@Autowired
-	private CommentService commentService;
+	CommentService commentService;
 	
 	@Autowired
-	private SnippetService snippetService;
+	SnippetService snippetService;
 	
 	@Autowired
-	private StoryService storyService;
+	StoryService storyService;
 	
 	@Autowired
-	private UserService userServices;
+	UserService userServices;
 
 	@RequestMapping("/")
 	public String indexHandler() {
@@ -35,39 +33,45 @@ public class TestController {
 	@RequestMapping("/home")
 	public ModelAndView homeHandler() {
 		ModelAndView mav = new ModelAndView("home");
-		//mav.addObject("popularStoryList", storyService.getAllStories());
-		//mav.addObject("recentStoryList", storyService.getAllStories());
+		mav.addObject("popularStoryList", storyService.getAllStories());
+		mav.addObject("recentStoryList", storyService.getAllStories());
 		return mav;
 	}
 	
 	@RequestMapping("/create")
-	public String createHandler() {
-		return "create";
+	public ModelAndView createHandler() {
+		ModelAndView mav = new ModelAndView("create");
+		return mav;
 	}
 	
 	@RequestMapping("/list")
-	public String listHandler() {
-		return "list";
+	public ModelAndView listHandler() {
+		ModelAndView mav = new ModelAndView("list");
+		return mav;
 	}
 	
 	@RequestMapping("/profile")
-	public String profileHandler() {
-		return "profile";
+	public ModelAndView profileHandler() {
+		ModelAndView mav = new ModelAndView("profile");
+		return mav;
 	}
 	
 	@RequestMapping("/signup")
-	public String signupHandler() {
-		return "signup";
+	public ModelAndView signupHandler() {
+		ModelAndView mav = new ModelAndView("signup");
+		return mav;
 	}
 	
 	@RequestMapping("/snippets")
-	public String snippetsHandler() {
-		return "snippets";
+	public ModelAndView snippetsHandler() {
+		ModelAndView mav = new ModelAndView("snippets");
+		return mav;
 	}
 	
 	@RequestMapping("/stories")
-	public String storiesHandler() {
-		return "stories";
+	public ModelAndView storiesHandler() {
+		ModelAndView mav = new ModelAndView("stories");
+		return mav;
 	}
 	
 }

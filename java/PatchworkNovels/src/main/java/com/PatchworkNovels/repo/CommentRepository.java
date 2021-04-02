@@ -12,6 +12,6 @@ import org.springframework.stereotype.Repository;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	
 	public Comment getByCommentId(int commentId);
-	public List<Comment> findAllByUserId(int userId);
+	public List<Comment> findAllByCommentAuthor(int userId);
 	
 }

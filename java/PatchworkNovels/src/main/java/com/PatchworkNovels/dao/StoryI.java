@@ -2,10 +2,13 @@ package com.PatchworkNovels.dao;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 
+@Service
 public interface StoryI {
 	
 	public boolean addStory(Story story);

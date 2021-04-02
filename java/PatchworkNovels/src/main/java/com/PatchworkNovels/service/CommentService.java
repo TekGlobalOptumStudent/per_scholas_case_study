@@ -11,33 +11,30 @@ import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.repo.CommentRepository;
 
 @Service
-public class CommentService implements CommentI {
+public class CommentService {
 
 	@Autowired
-	CommentRepository cr;
-	
-	@Autowired
-	UserService us;
+	CommentRepository commentRepository;
 
-	@Override
+	@Autowired
+	UserService userService;
+
 	@Transactional
 	public boolean addComment(Comment comment) {
 		if(comment == null) return false;
-		cr.save(comment);
+		commentRepository.save(comment);
 		return true;
 	}
 
-	@Override
 	public Comment readComment(int commentId) {
 		if(commentId < 0) return null;
-		return cr.getByCommentId(commentId);
+		return commentRepository.getByCommentId(commentId);
 	}
 
-	@Override
 	@Transactional
 	public boolean editComment(int commentId, String newCommentText) {
 		if(commentId < 0 || newCommentText == null) return false;
-		Comment comment = cr.getByCommentId(commentId);
+		Comment comment = commentRepository.getByCommentId(commentId);
 		if(comment != null) {
 			comment.setCommentText(newCommentText);
 			return true;
@@ -45,11 +42,10 @@ public class CommentService implements CommentI {
 		return false;
 	}
 
-	@Override
 	@Transactional
 	public boolean likeComment(int commentId) {
 		if(commentId < 0) return false;
-		Comment comment = cr.getByCommentId(commentId);
+		Comment comment = commentRepository.getByCommentId(commentId);
 		if(comment != null) {
 			comment.setCommentRating(comment.getCommentId() + 1);
 			return true;
@@ -57,11 +53,10 @@ public class CommentService implements CommentI {
 		return false;
 	}
 
-	@Override
 	@Transactional
 	public boolean dislikeComment(int commentId) {
 		if(commentId < 0) return false;
-		Comment comment = cr.getByCommentId(commentId);
+		Comment comment = commentRepository.getByCommentId(commentId);
 		if(comment != null) {
 			comment.setCommentRating(comment.getCommentId() - 1);
 			return true;
@@ -69,30 +64,27 @@ public class CommentService implements CommentI {
 		return false;
 	}
 
-	@Override
 	@Transactional
 	public boolean deleteComment(int commentId) {
 		if(commentId < 0) return false;
-		Comment comment = cr.getByCommentId(commentId);
+		Comment comment = commentRepository.getByCommentId(commentId);
 		if(comment != null) {
-			cr.delete(comment);
+			commentRepository.delete(comment);
 			return true;
 		}
 		return false;
 	}
 
-	@Override
 	public List<Comment> getAllComments() {
-		return cr.findAll();
+		return commentRepository.findAll();
 	}
 
-	@Override
 	@Transactional
 	public boolean updateAllComments(int userId) {
 		if(userId < 0) return false;
-		List<Comment> userComments = cr.findAllByUserId(userId);
+		List<Comment> userComments = commentRepository.findAllByCommentAuthor(userId);
 		if(userComments != null && !userComments.isEmpty())
-			userComments.forEach(c -> c.setCommentAuthor(us.getUser(-1)));
+			userComments.forEach(c -> c.setCommentAuthor(userService.getUser(-1)));
 		return false;
 	}
 	
