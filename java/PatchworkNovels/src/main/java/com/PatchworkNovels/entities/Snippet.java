@@ -33,7 +33,7 @@ public class Snippet {
 	private int snippetId;
 	
 	@ManyToOne
-	@JoinColumn(name = "snippetAuthorId", referencedColumnName = "userId")
+	@JoinColumn(name = "snippetAuthor", referencedColumnName = "username")
 	private User snippetAuthor;
 	
 	@Temporal(TemporalType.TIMESTAMP)

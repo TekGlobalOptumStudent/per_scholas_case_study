@@ -26,7 +26,7 @@ public class Comment {
 	private int commentId;
 	
 	@ManyToOne
-	@JoinColumn(name = "commentAuthorId", referencedColumnName = "userId")
+	@JoinColumn(name = "commentAuthor", referencedColumnName = "username")
 	private User commentAuthor;
 	
 	@Temporal(TemporalType.TIMESTAMP)
