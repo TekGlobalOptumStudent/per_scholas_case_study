@@ -54,23 +54,24 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> Login/Sign Up </a>
 					<div class="dropdown-menu dropdown-menu-right">
-						<form class="px-4 py-3">
+						<form class="px-4 py-3" action="signup" method="post">
 							<div class="form-group">
-								<label for="exampleDropdownFormEmail1">Email address</label> <input
+								<label for="username">Email address</label> <input
 									type="email" class="form-control"
-									id="exampleDropdownFormEmail1" placeholder="email@example.com">
+									id="username" name="username" placeholder="email@example.com">
 							</div>
 							<div class="form-group">
-								<label for="exampleDropdownFormPassword1">Password</label> <input
+								<label for="password">Password</label> <input
 									type="password" class="form-control"
-									id="exampleDropdownFormPassword1" placeholder="Password">
+									id="password" name="password" placeholder="Password">
 							</div>
 							<button type="submit" class="btn btn-primary">Sign in</button>
 						</form>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="signup">New around here? Sign
 							up</a>
-					</div></li>
+					</div>
+				</li>
 			</ul>
 		</div>
 	</nav>
