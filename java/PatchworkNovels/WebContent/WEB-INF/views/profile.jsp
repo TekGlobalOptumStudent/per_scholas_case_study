@@ -27,7 +27,7 @@
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="home">Patchwork Novels</a>
+        <a class="navbar-brand" href="../home">Patchwork Novels</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -36,11 +36,11 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="list">Browse Library</a>
+                    <a class="nav-link" href="../list">Browse Library</a>
                 </li>
                 <!-- TODO: hide if not logged in -->
                 <li class="nav-item">
-                    <a class="nav-link" href="create">Make New</a>
+                    <a class="nav-link" href="../create">Make New</a>
                 </li>
             </ul>
             <ul class="navbar-nav justify-content-end">
@@ -65,7 +65,7 @@
                             <button type="submit" class="btn btn-primary">Sign in</button>
                         </form>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="signup">New around here? Sign up</a>
+                        <a class="dropdown-item" href="../signup">New around here? Sign up</a>
                     </div>
                 </li>
             </ul>

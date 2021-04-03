@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -32,9 +33,11 @@ public class ViewController {
 
 	@RequestMapping("/")
 	public String indexHandler() {
-		return "index";
+		return "redirect:/home";
 	}
 
+	// home
+	
 	@RequestMapping("/home")
 	public ModelAndView homeHandler() {
 		ModelAndView mav = new ModelAndView("home");
@@ -43,11 +46,15 @@ public class ViewController {
 		return mav;
 	}
 	
+	// create
+	
 	@RequestMapping("/create")
 	public ModelAndView createHandler() {
 		ModelAndView mav = new ModelAndView("create");
 		return mav;
 	}
+	
+	// list
 	
 	@RequestMapping("/list")
 	public ModelAndView listHandler() {
@@ -57,30 +64,37 @@ public class ViewController {
 		return mav;
 	}
 	
-	@GetMapping("/profile")
-	public ModelAndView profileHandler(@ModelAttribute User user) {
+	// profile
+	
+	@RequestMapping("/profile/{username}")
+	public ModelAndView profileHandler(@PathVariable String username) {
 		ModelAndView mav = new ModelAndView("profile");
 		return mav;
 	}
 	
-	@GetMapping("/signup")
+	// signup
+	
+	@GetMapping("/signup") // gets called first
 	public ModelAndView signupHandler() {
 		ModelAndView mav = new ModelAndView("signup", "user", new User());
 		return mav;
 	}
 	
 	@PostMapping("/signup")
-	public String submitUser(@ModelAttribute User user, ModelMap model) {
+	public String submitUser(@ModelAttribute User user) {
 		if(userService.checkUsername(user.getUsername())) return "signup";
-		model.addAttribute("username", user.getUsername());
-		return "redirect:/profile";
+		return "redirect:/profile/" + user.getUsername();
 	}
+	
+	// snippets
 	
 	@RequestMapping("/snippets")
 	public ModelAndView snippetsHandler() {
 		ModelAndView mav = new ModelAndView("snippets");
 		return mav;
 	}
+	
+	// stories
 	
 	@RequestMapping("/stories")
 	public ModelAndView storiesHandler() {
