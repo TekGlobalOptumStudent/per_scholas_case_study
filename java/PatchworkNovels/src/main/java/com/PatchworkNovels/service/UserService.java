@@ -48,6 +48,30 @@ public class UserService {
 		}
 		return false;
 	}
+	
+	@Transactional
+	public boolean addProfileImage(String username, byte[] profileImage) {
+		if(username == null || profileImage == null) return false;
+		User user = userRepository.getByUsername(username);
+		if(user != null) {
+			user.setProfileImage(profileImage);
+			userRepository.save(user);
+			return true;
+		}
+		return false;
+	}
+	
+	@Transactional
+	public boolean deleteProfileImage(String username) {
+		if(username == null) return false;
+		User user = userRepository.getByUsername(username);
+		if(user != null) {
+			user.setProfileImage(null);
+			userRepository.save(user);
+			return true;
+		}
+		return false;
+	}
 
 	@Transactional
 	public boolean addPublishedStory(String username, Story story) {

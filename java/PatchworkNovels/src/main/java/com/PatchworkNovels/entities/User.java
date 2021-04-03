@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -29,6 +30,10 @@ public class User {
 	@Basic
 	@Column(name = "password", nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
 	private String password;
+	
+	@Lob
+	@Column(name = "profileImage", nullable = true)
+	private byte[] profileImage;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dateJoined", nullable = false)
@@ -51,6 +56,7 @@ public class User {
 	public User() {
 		this.username = null;
 		this.password = null;
+		this.profileImage = null;
 		this.dateJoined = new Date();
 		this.publishedStories = new ArrayList<Story>();
 		this.publishedSnippets = new ArrayList<Snippet>();
@@ -60,6 +66,7 @@ public class User {
 	public User(String username, String password) {
 		this.username = username;
 		this.password = password;
+		this.profileImage = null;
 		this.dateJoined = new Date();
 		this.publishedStories = new ArrayList<Story>();
 		this.publishedSnippets = new ArrayList<Snippet>();
@@ -74,6 +81,10 @@ public class User {
 	
 	public String getPassword() {
 		return this.password;
+	}
+	
+	public byte[] getProfileImage() {
+		return this.profileImage;
 	}
 	
 	public Date getDateJoined() {
@@ -100,6 +111,10 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setProfileImage(byte[] profileImage) {
+		this.profileImage = profileImage;
 	}
 	
 	public void setDateJoined(Date dateJoined) {
