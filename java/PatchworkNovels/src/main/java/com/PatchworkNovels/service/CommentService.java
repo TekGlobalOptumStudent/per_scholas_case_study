@@ -83,7 +83,7 @@ public class CommentService {
 		if(userId < 0) return false;
 		List<Comment> userComments = commentRepository.findAllByCommentAuthor(userId);
 		if(userComments != null && !userComments.isEmpty())
-			userComments.forEach(c -> c.setCommentAuthor(userService.getUser(-1)));
+			userComments.forEach(c -> c.setCommentAuthor(userService.getUser("")));
 		return false;
 	}
 	

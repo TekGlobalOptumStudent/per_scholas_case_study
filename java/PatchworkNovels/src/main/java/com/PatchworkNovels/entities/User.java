@@ -22,12 +22,9 @@ import javax.persistence.TemporalType;
 @Table(name = "User")
 public class User {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "userId", nullable = false, columnDefinition = "INT NOT NULL")
-	private int userId;
+	// private fields
 	
-	@Basic
+	@Id
 	@Column(name = "username", nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
 	private String username;
 	
@@ -73,10 +70,6 @@ public class User {
 	
 	// getters
 	
-	public int getUserId() {
-		return this.userId;
-	}
-	
 	public String getUsername() {
 		return this.username;
 	}
@@ -102,10 +95,6 @@ public class User {
 	}
 	
 	// setters
-	
-	public void setUserId(int userId) {
-		this.userId = userId;
-	}
 	
 	public void setUsername(String username) {
 		this.username = username;
@@ -139,7 +128,6 @@ public class User {
 		int result = 1;
 		result = prime * result + ((dateJoined == null) ? 0 : dateJoined.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + userId;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -163,8 +151,6 @@ public class User {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
-		if (userId != other.userId)
-			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -175,8 +161,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [userId=" + userId + ", username=" + username + ", password=" + password + ", dateJoined="
-				+ dateJoined + "]";
+		return "User [username=" + username + ", password=" + password + ", dateJoined=" + dateJoined + "]";
 	}
 
+	
 }

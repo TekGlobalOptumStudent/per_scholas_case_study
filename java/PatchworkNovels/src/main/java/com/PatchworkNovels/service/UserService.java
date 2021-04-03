@@ -31,15 +31,15 @@ public class UserService {
 	}
 
 	@Transactional
-	public User getUser(int userId) {
-		if(userId < 0) return null;
-		return userRepository.getByUserId(userId);
+	public User getUser(String username) {
+		if(username == null) return null;
+		return userRepository.getByUsername(username);
 	}
 
 	@Transactional
-	public boolean editUser(int userId, String newUsername, String newPassword) {
-		if(userId < 0 || newUsername == null || newPassword == null) return false;
-		User user = userRepository.getByUserId(userId);
+	public boolean editUser(String username, String newUsername, String newPassword) {
+		if(username == null || newUsername == null || newPassword == null) return false;
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			user.setUsername(newUsername);
 			user.setPassword(newPassword);
@@ -50,10 +50,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean addPublishedStory(int userId, Story story) {
-		if(userId < 0 || story == null) return false;
+	public boolean addPublishedStory(String username, Story story) {
+		if(username == null || story == null) return false;
 		boolean ret = false;
-		User user = userRepository.getByUserId(userId);
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			ret = user.getPublishedStories().add(story);
 			userRepository.save(user);
@@ -62,12 +62,12 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean deletePublishedStory(int userId, Story story) {
-		if(userId < 0 || story == null) return false;
+	public boolean deletePublishedStory(String username, Story story) {
+		if(username == null || story == null) return false;
 		boolean ret = false;
-		User user = userRepository.getByUserId(userId);
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
-			getAllUsers().forEach(u -> deleteFavoriteStory(u.getUserId(), story));
+			getAllUsers().forEach(u -> deleteFavoriteStory(u.getUsername(), story));
 			ret = user.getPublishedStories().remove(story);
 			userRepository.save(user);
 		}
@@ -75,10 +75,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean addPublishedSnippet(int userId, Snippet snippet) {
-		if(userId < 0 || snippet == null) return false;
+	public boolean addPublishedSnippet(String username, Snippet snippet) {
+		if(username == null || snippet == null) return false;
 		boolean ret = false;
-		User user = userRepository.getByUserId(userId);
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			ret = user.getPublishedSnippets().add(snippet);
 			userRepository.save(user);
@@ -87,16 +87,16 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean deletePublishedSnippet(int userId, Snippet snippet) {
-		if(userId < 0 || snippet == null) return false;
+	public boolean deletePublishedSnippet(String username, Snippet snippet) {
+		if(username == null || snippet == null) return false;
 		boolean ret = false;
-		User user = userRepository.getByUserId(userId);
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			if(snippet.getSnippetStories().isEmpty()) {
 				ret = user.getPublishedSnippets().remove(snippet);
 				userRepository.save(user);
 			} else {
-				snippet.setSnippetAuthor(getUser(-1));
+				snippet.setSnippetAuthor(getUser(""));
 				ret = true;
 			}
 		}
@@ -104,10 +104,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean addFavoriteStory(int userId, Story story) {
-		if(userId < 0 || story == null) return false;
+	public boolean addFavoriteStory(String username, Story story) {
+		if(username == null || story == null) return false;
 		boolean ret = false;
-		User user = userRepository.getByUserId(userId);
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			ret = user.getFavoriteStories().add(story);
 			userRepository.save(user);
@@ -116,10 +116,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean deleteFavoriteStory(int userId, Story story) {
-		if(userId < 0 || story == null) return false;
+	public boolean deleteFavoriteStory(String username, Story story) {
+		if(username == null || story == null) return false;
 		boolean ret = false;
-		User user = userRepository.getByUserId(userId);
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			ret = user.getFavoriteStories().remove(story);
 			userRepository.save(user);
@@ -128,9 +128,9 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean deleteUser(int userId) {
-		if(userId < 0) return false;
-		User user = userRepository.getByUserId(userId);
+	public boolean deleteUser(String username) {
+		if(username == null) return false;
+		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			userRepository.delete(user);
 			return true;

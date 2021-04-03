@@ -100,7 +100,7 @@ public class SnippetService {
 			if(snippet.getSnippetStories().isEmpty()) {
 				snippetRepository.delete(snippet);
 			} else {
-				snippet.setSnippetAuthor(userService.getUser(-1));
+				snippet.setSnippetAuthor(userService.getUser(""));
 			}
 			return true;
 		}

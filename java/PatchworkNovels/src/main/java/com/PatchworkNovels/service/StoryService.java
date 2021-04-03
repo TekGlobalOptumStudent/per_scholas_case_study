@@ -24,15 +24,15 @@ public class StoryService {
 		return false;
 	}
 
-	public Story readStory(int storyId) {
-		if(storyId < 0) return null;
-		return storyRepository.getByStoryId(storyId);
+	public Story readStory(String storyTitle) {
+		if(storyTitle == null) return null;
+		return storyRepository.getByStoryTitle(storyTitle);
 	}
 
 	@Transactional
-	public boolean editStory(int storyId, List<Snippet> newStoryText) {
-		if(storyId < 0 || newStoryText == null) return false;
-		Story story = storyRepository.getByStoryId(storyId);
+	public boolean editStory(String storyTitle, List<Snippet> newStoryText) {
+		if(storyTitle == null || newStoryText == null) return false;
+		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryText(newStoryText);
 			return true;
@@ -41,9 +41,9 @@ public class StoryService {
 	}
 
 	@Transactional
-	public boolean renameStory(int storyId, String newStoryTitle) {
-		if(storyId < 0 || newStoryTitle == null) return false;
-		Story story = storyRepository.getByStoryId(storyId);
+	public boolean renameStory(String storyTitle, String newStoryTitle) {
+		if(storyTitle == null || newStoryTitle == null) return false;
+		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryTitle(newStoryTitle);
 			return true;
@@ -52,9 +52,9 @@ public class StoryService {
 	}
 
 	@Transactional
-	public boolean likeStory(int storyId) {
-		if(storyId < 0) return false;
-		Story story = storyRepository.getByStoryId(storyId);
+	public boolean likeStory(String storyTitle) {
+		if(storyTitle == null) return false;
+		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryRating(story.getStoryRating() + 1);
 			return true;
@@ -63,9 +63,9 @@ public class StoryService {
 	}
 
 	@Transactional
-	public boolean dislikeStory(int storyId) {
-		if(storyId < 0) return false;
-		Story story = storyRepository.getByStoryId(storyId);
+	public boolean dislikeStory(String storyTitle) {
+		if(storyTitle == null) return false;
+		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryRating(story.getStoryRating() - 1);
 			return true;
@@ -74,9 +74,9 @@ public class StoryService {
 	}
 
 	@Transactional
-	public boolean deleteStory(int storyId) {
-		if(storyId < 0) return false;
-		Story story = storyRepository.getByStoryId(storyId);
+	public boolean deleteStory(String storyTitle) {
+		if(storyTitle == null) return false;
+		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			storyRepository.delete(story);
 			return true;
@@ -85,10 +85,10 @@ public class StoryService {
 	}
 
 	@Transactional
-	public boolean addComment(int storyId, Comment comment) {
-		if(storyId < 0 || comment == null) return false;
+	public boolean addComment(String storyTitle, Comment comment) {
+		if(storyTitle == null || comment == null) return false;
 		boolean ret = false;
-		Story story = storyRepository.getByStoryId(storyId);
+		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			ret = story.getStoryComments().add(comment);
 			storyRepository.save(story);
@@ -97,10 +97,10 @@ public class StoryService {
 	}
 
 	@Transactional
-	public boolean deleteComment(int storyId, Comment comment) {
-		if(storyId < 0 || comment == null) return false;
+	public boolean deleteComment(String storyTitle, Comment comment) {
+		if(storyTitle == null || comment == null) return false;
 		boolean ret = false;
-		Story story = storyRepository.getByStoryId(storyId);
+		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			ret = story.getStoryComments().remove(comment);
 			storyRepository.save(story);
