@@ -79,7 +79,7 @@ public class ViewController {
 		if(user != null) {
 			ModelAndView mav = new ModelAndView("profile");
 			mav.addObject("username", username);
-			// TODO: add picture
+			mav.addObject("userProfileImage", user.getProfileImage());
 			mav.addObject("userDateJoined", user.getDateJoined());
 			mav.addObject("userPublishedStories", user.getPublishedStories());
 			mav.addObject("userPublishedSnippets", user.getPublishedSnippets());
@@ -106,9 +106,9 @@ public class ViewController {
 	
 	@RequestMapping("login")
 	public String login(@ModelAttribute User user) {
-		if(userService.validateUser(user.getPassword(), user.getPassword()))
+		if(userService.validateUser(user.getUsername(), user.getPassword()))
 			return "redirect:/profile/" + user.getUsername();
-		return "#";
+		return "signup";
 	}
 	
 	// snippets

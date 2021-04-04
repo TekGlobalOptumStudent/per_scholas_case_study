@@ -167,10 +167,12 @@ public class UserService {
 	}
 	
 	public boolean checkUsername(String username) {
+		if(username == null) return false;
 		return userRepository.existsByUsername(username);
 	}
 
 	public boolean validateUser(String username, String password) {
+		if(username == null || password == null) return false;
 		return userRepository.existsByUsernameAndPassword(username, password);
 	}
 	
