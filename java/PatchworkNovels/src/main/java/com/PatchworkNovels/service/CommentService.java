@@ -79,9 +79,9 @@ public class CommentService {
 	}
 
 	@Transactional
-	public boolean updateAllComments(int userId) {
-		if(userId < 0) return false;
-		List<Comment> userComments = commentRepository.findAllByCommentAuthor(userId);
+	public boolean updateAllComments(String username) {
+		if(username == null) return false;
+		List<Comment> userComments = commentRepository.findAllByCommentAuthor(username);
 		if(userComments != null && !userComments.isEmpty())
 			userComments.forEach(c -> c.setCommentAuthor(userService.getUser("")));
 		return false;
