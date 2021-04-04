@@ -107,11 +107,11 @@ public class ViewController {
 	
 	// snippets
 	
-	@RequestMapping("/snippets/{snippetId}")
+	@RequestMapping("/snippet/{snippetId}")
 	public ModelAndView snippetsHandler(@PathVariable int snippetId) {
 		Snippet snippet = snippetService.readSnippet(snippetId);
 		if(snippet != null) {
-			ModelAndView mav = new ModelAndView("snippets");
+			ModelAndView mav = new ModelAndView("snippet");
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page
@@ -119,11 +119,11 @@ public class ViewController {
 	
 	// stories
 	
-	@RequestMapping("/stories/{storyTitle}")
+	@RequestMapping("/story/{storyTitle}")
 	public ModelAndView storiesHandler(@PathVariable String storyTitle) {
 		Story story = storyService.readStory(storyTitle);
 		if(story != null) {
-			ModelAndView mav = new ModelAndView("stories");
+			ModelAndView mav = new ModelAndView("story");
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page

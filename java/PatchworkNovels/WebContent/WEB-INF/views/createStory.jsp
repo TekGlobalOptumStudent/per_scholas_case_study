@@ -74,8 +74,7 @@
 
     <div class="create-body">
         <div class="row" style="height: 10%">
-            <!-- TODO: add javascript to switch ui -->
-            <button>Toggle Snippet or Story</button>
+            <div class="placeholder1"></div>
         </div>
         <div class="row" style="height: 80%">
             <!-- TODO: create interactive ui with React -->
@@ -86,8 +85,7 @@
             </div>
         </div>
         <div class="row" style="height: 10%">
-            <!-- TODO: may have to tie this button to form -->
-            <button type="submit" class="btn btn-primary">Sign in</button>
+            <div class="placeholder1"></div>
         </div>
     </div>
 
