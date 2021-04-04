@@ -49,9 +49,15 @@ public class ViewController {
 	
 	// create
 	
-	@RequestMapping("/create")
-	public ModelAndView createHandler() {
-		ModelAndView mav = new ModelAndView("create");
+	@RequestMapping("/createSnippet")
+	public ModelAndView createSnippetHandler() {
+		ModelAndView mav = new ModelAndView("createSnippet");
+		return mav;
+	}
+	
+	@RequestMapping("/createStory")
+	public ModelAndView createStoryHandler() {
+		ModelAndView mav = new ModelAndView("createStory");
 		return mav;
 	}
 	
