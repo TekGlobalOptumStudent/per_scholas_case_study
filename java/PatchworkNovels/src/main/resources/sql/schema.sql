@@ -121,6 +121,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(20) NOT NULL,
   `dateJoined` datetime NOT NULL,
   `password` varchar(20) NOT NULL,
+  `profileImage` blob DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

@@ -32,7 +32,7 @@ public class User {
 	private String password;
 	
 	@Lob
-	@Column(name = "profileImage", nullable = true)
+	@Column(name = "profileImage", nullable = true, columnDefinition = "BLOB")
 	private byte[] profileImage;
 	
 	@Temporal(TemporalType.TIMESTAMP)

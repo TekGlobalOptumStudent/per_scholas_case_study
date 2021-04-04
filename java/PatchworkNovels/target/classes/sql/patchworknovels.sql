@@ -202,23 +202,24 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(20) NOT NULL,
   `dateJoined` datetime NOT NULL,
   `password` varchar(20) NOT NULL,
+  `profileImage` blob DEFAULT NULL,
   PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table patchworknovels.user: ~11 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`username`, `dateJoined`, `password`) VALUES
-	('', '2000-01-01 00:00:00', ''),
-	('user1', '2001-01-01 00:00:00', 'pass1'),
-	('user10', '2010-10-10 00:00:00', 'pass10'),
-	('user2', '2002-02-02 00:00:00', 'pass2'),
-	('user3', '2003-03-03 00:00:00', 'pass3'),
-	('user4', '2004-04-04 00:00:00', 'pass4'),
-	('user5', '2005-05-05 00:00:00', 'pass5'),
-	('user6', '2006-06-06 00:00:00', 'pass6'),
-	('user7', '2007-07-07 00:00:00', 'pass7'),
-	('user8', '2008-08-08 00:00:00', 'pass8'),
-	('user9', '2009-09-09 00:00:00', 'pass9');
+INSERT INTO `user` (`username`, `dateJoined`, `password`, `profileImage`) VALUES
+	('', '2000-01-01 00:00:00', '', NULL),
+	('user1', '2001-01-01 00:00:00', 'pass1', NULL),
+	('user10', '2010-10-10 00:00:00', 'pass10', NULL),
+	('user2', '2002-02-02 00:00:00', 'pass2', NULL),
+	('user3', '2003-03-03 00:00:00', 'pass3', NULL),
+	('user4', '2004-04-04 00:00:00', 'pass4', NULL),
+	('user5', '2005-05-05 00:00:00', 'pass5', NULL),
+	('user6', '2006-06-06 00:00:00', 'pass6', NULL),
+	('user7', '2007-07-07 00:00:00', 'pass7', NULL),
+	('user8', '2008-08-08 00:00:00', 'pass8', NULL),
+	('user9', '2009-09-09 00:00:00', 'pass9', NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 -- Dumping structure for table patchworknovels.user_favoritestories
