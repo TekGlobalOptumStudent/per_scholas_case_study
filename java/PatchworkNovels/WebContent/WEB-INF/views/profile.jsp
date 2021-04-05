@@ -86,10 +86,32 @@
 							</div>
 						</div>
 					</div>
-					<a href="#" class="list-group-item list-group-item-action">Remove
-						Profile Image</a> <a
-						href="${pageContext.request.contextPath}/changePassword"
-						class="list-group-item list-group-item-action">Change Password</a>
+					<button type="button"
+						class="list-group-item list-group-item-action" data-toggle="modal"
+						data-target="#deleteProfileImage">Delete Profile Image</button>
+
+					<div class="modal fade" id="deleteProfileImage" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalCenterTitle"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Delete Profile Image</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-footer">
+									<form id="removeImageForm" action="${pageContext.request.contextPath}/deleteImage" method="post">
+									</form>
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Close</button>
+									<input type="submit" class="btn btn-primary" form="removeImageForm" value="Accept"/>
+								</div>
+							</div>
+						</div>
+					</div>
 					<a href="${pageContext.request.contextPath}/deleteUser"
 						class="list-group-item list-group-item-action">Delete Profile</a>
 				</div>

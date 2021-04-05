@@ -120,13 +120,18 @@ public class ViewController {
 	public String uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String username = (String)request.getSession().getAttribute("login_username");
 		try {
-			System.out.println(file.getOriginalFilename());
-			System.out.println(file.getSize());
 			userService.addProfileImage(username, Base64.getEncoder().encode(file.getBytes()));
 		} catch (Exception e) {
 			System.out.println("Error trying to read file");
 			e.printStackTrace();
 		}
+		return "redirect:/profile/" + username;
+	}
+	
+	@PostMapping("deleteImage")
+	public String deleteImage(HttpServletRequest request) {
+		String username = (String)request.getSession().getAttribute("login_username");
+		userService.deleteProfileImage(username);
 		return "redirect:/profile/" + username;
 	}
 	
