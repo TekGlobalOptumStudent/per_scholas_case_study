@@ -12,8 +12,15 @@
 			<li class="nav-item"><a class="nav-link" href="list">Browse
 					Library</a></li>
 			<!-- TODO: hide if not logged in -->
-			<li class="nav-item"><a class="nav-link" href="create">Make
-					New</a></li>
+			<li class="nav-item dropdown">
+			<a class="nav-link dropdown-toggle" href="#"
+				id="navbarDropdownMenuLink" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false">Make New</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+					<a class="dropdown-item" href="createStory">Story</a>
+					<a class="dropdown-item" href="createSnippet">Snippet</a>
+				</div>
+			</li>
 		</ul>
 		<ul class="navbar-nav justify-content-end">
 			<!-- TODO: dynamically change to profile preview if logged in -->
@@ -37,8 +44,7 @@
 					</form>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="signup">New around here? Sign up</a>
-				</div>
-			</li>
+				</div></li>
 		</ul>
 	</div>
 </nav>
