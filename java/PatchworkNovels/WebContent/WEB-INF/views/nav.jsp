@@ -31,9 +31,9 @@
 				<div class="dropdown-menu dropdown-menu-right">
 					<form class="px-4 py-3" action="login" method="post">
 						<div class="form-group">
-							<label for="username">Email address</label> <input type="email"
+							<label for="username">Email address</label> <input
 								class="form-control" id="username" name="username"
-								placeholder="email@example.com">
+								placeholder="Username">
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label> <input type="password"

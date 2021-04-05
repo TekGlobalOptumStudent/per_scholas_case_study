@@ -36,7 +36,7 @@
                 <h1>Snippets</h1>
                 <div class="list-group">
                 	<c:forEach var="i" begin="0" end="${allSnippets.size() - 1}">
-						<a href="#"
+						<a href="snippet/${allSnippets.get(i).getSnippetId()} }"
 							class="list-group-item list-group-item-action flex-column align-items-start">
 							<div class="d-flex w-100 justify-content-between">
 								<small><c:out value="${allSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
@@ -51,7 +51,7 @@
                 <h1>Stories</h1>
                 <div class="list-group">
                     <c:forEach var="i" begin="0" end="${allStories.size() - 1}">
-						<a href="#"
+						<a href="story/${allStories.get(i).getStoryTitle()} }"
 							class="list-group-item list-group-item-action flex-column align-items-start">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-1"><c:out value="${allStories.get(i).getStoryTitle()}"></c:out></h5>

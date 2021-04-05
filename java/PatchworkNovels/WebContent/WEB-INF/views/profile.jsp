@@ -50,42 +50,32 @@
 				</div>
 			</div>
 			<div class="col-sm-4">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-				</ul>
+				<div class="list-group">
+					<c:forEach var="i" begin="0" end="${userPublishedStories.size() - 1}">
+						<a href="../story/${userPublishedStories.get(i).getStoryTitle()}"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1"><c:out value="${userPublishedStories.get(i).getStoryTitle()}"></c:out></h5>
+								<small><c:out value="${userPublishedStories.get(i).getStoryTimePosted()}"></c:out></small>
+							</div>
+							<p class="mb-1">Nothing here yet</p>
+						</a> 
+					</c:forEach>
+				</div>
 			</div>
 			<div class="col-sm-4">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-				</ul>
+				<div class="list-group">
+					<c:forEach var="i" begin="0" end="${userPublishedSnippets.size() - 1}">
+						<a href="../snippet/${userPublishedSnippets.get(i).getSnippetId()}"
+							class="list-group-item list-group-item-action flex-column align-items-start">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1"><c:out value="${userPublishedSnippets.get(i).getSnippetText()}"></c:out></h5>
+								<small><c:out value="${userPublishedSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
+							</div>
+							<p class="mb-1">Nothing here yet</p>
+						</a> 
+					</c:forEach>
+				</div>
 			</div>
 		</div>
 	</div>
