@@ -80,7 +80,12 @@ public class ViewController {
 	// profile
 	
 	@RequestMapping("/profile/{username}")
-	public ModelAndView profileHandler(@PathVariable(required = true) String username) {
+	public ModelAndView profileHandler(@PathVariable(required = true) String username, HttpServletRequest request) {
+		if(username.equals(request.getSession().getAttribute("login_username"))) {
+			request.getSession().setAttribute("isLoggedIn", true);
+		} else {
+			request.getSession().setAttribute("isLoggedIn", false);
+		}
 		User user = userService.getUser(username);
 		if(user != null) {
 			ModelAndView mav = new ModelAndView("profile");

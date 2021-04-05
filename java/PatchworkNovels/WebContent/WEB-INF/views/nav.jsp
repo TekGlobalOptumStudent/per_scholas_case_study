@@ -38,7 +38,7 @@
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false">Login/Sign Up</a>
 						<div class="dropdown-menu dropdown-menu-right">
-							<form class="px-4 py-3" action="login" method="post">
+							<form class="px-4 py-3" action="${pageContext.request.contextPath}/login" method="post">
 								<div class="form-group">
 									<label for="username">Email address</label> <input
 										class="form-control" id="username" name="username"
