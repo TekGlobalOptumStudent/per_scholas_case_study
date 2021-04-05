@@ -37,62 +37,70 @@
 	<div class="home-body">
 		<div class="row">
 			<div class="col-sm-7">
-				<div id="carouselExampleIndicators" class="carousel slide"
-					data-ride="carousel">
-					<div class="carousel-inner">
-						<c:forEach var="i" begin="0" end="${popularStoryList.size() - 1}">
-							<c:choose>
-								<c:when test="${i==0}">
-									<div class="carousel-item active">
-										<div class="placeholder1">
-											<div class="d-flex w-100 justify-content-between">
-												<h5 class="mb-1">
-													<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
-												</h5>
-												<small><c:out
-														value="${popularStoryList.get(i).getStoryTimePosted()}"></c:out></small>
+				<c:choose>
+					<c:when test="${popularStoryList.isEmpty()}">
+						<div class="empty-slot">Nothing To Show</div>
+					</c:when>
+					<c:otherwise>
+						<div id="carouselExampleIndicators" class="carousel slide"
+							data-ride="carousel">
+							<div class="carousel-inner">
+								<c:forEach var="i" begin="0"
+									end="${popularStoryList.size() - 1}">
+									<c:choose>
+										<c:when test="${i==0}">
+											<div class="carousel-item active">
+												<div class="placeholder1">
+													<div class="d-flex w-100 justify-content-between">
+														<h5 class="mb-1">
+															<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
+														</h5>
+														<small><c:out
+																value="${popularStoryList.get(i).getStoryTimePosted()}"></c:out></small>
+													</div>
+													<p class="mb-1">
+														<c:out
+															value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out>
+													</p>
+													<small><c:out
+															value="${popularStoryList.get(i).getStoryRating()}"></c:out></small>
+												</div>
 											</div>
-											<p class="mb-1">
-												<c:out
-													value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out>
-											</p>
-											<small><c:out
-													value="${popularStoryList.get(i).getStoryRating()}"></c:out></small>
-										</div>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="carousel-item">
-										<div class="placeholder1">
-											<div class="d-flex w-100 justify-content-between">
-												<h5 class="mb-1">
-													<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
-												</h5>
-												<small><c:out
-														value="${popularStoryList.get(i).getStoryTimePosted()}"></c:out></small>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<div class="placeholder1">
+													<div class="d-flex w-100 justify-content-between">
+														<h5 class="mb-1">
+															<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
+														</h5>
+														<small><c:out
+																value="${popularStoryList.get(i).getStoryTimePosted()}"></c:out></small>
+													</div>
+													<p class="mb-1">
+														<c:out
+															value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out>
+													</p>
+													<small><c:out
+															value="${popularStoryList.get(i).getStoryRating()}"></c:out></small>
+												</div>
 											</div>
-											<p class="mb-1">
-												<c:out
-													value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out>
-											</p>
-											<small><c:out
-													value="${popularStoryList.get(i).getStoryRating()}"></c:out></small>
-										</div>
-									</div>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</div>
-					<a class="carousel-control-prev" href="#carouselExampleIndicators"
-						role="button" data-slide="prev"> <span
-						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
-						class="sr-only">Previous</span>
-					</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
-						role="button" data-slide="next"> <span
-						class="carousel-control-next-icon" aria-hidden="true"></span> <span
-						class="sr-only">Next</span>
-					</a>
-				</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</div>
+							<a class="carousel-control-prev"
+								href="#carouselExampleIndicators" role="button"
+								data-slide="prev"> <span class="carousel-control-prev-icon"
+								aria-hidden="true"></span> <span class="sr-only">Previous</span>
+							</a> <a class="carousel-control-next"
+								href="#carouselExampleIndicators" role="button"
+								data-slide="next"> <span class="carousel-control-next-icon"
+								aria-hidden="true"></span> <span class="sr-only">Next</span>
+							</a>
+						</div>
+					</c:otherwise>
+				</c:choose>
 
 				<!-- TODO: dynamically fill with data on carousel swap -->
 				<div class="media">
@@ -113,19 +121,30 @@
 
 			</div>
 			<div class="col-sm-5">
-				<div class="list-group">
-					<c:forEach var="i" begin="0" end="${recentStoryList.size() - 1}">
-						<a href="${pageContext.request.contextPath}/story/${recentStoryList.get(i).getStoryTitle()}"
-							class="list-group-item list-group-item-action flex-column align-items-start">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1"><c:out value="${recentStoryList.get(i).getStoryTitle()}"></c:out></h5>
-								<small><c:out value="${recentStoryList.get(i).getStoryTimePosted()}"></c:out></small>
-							</div>
-							<small><c:out value="${recentStoryList.get(i).getStoryAuthor().getUsername()}"></c:out></small>
-							<p class="mb-1">Nothing here yet</p>
-						</a> 
-					</c:forEach>
-				</div>
+				<c:choose>
+					<c:when test="${recentStoryList.isEmpty()}">
+						<div class="empty-slot">Nothing To Show</div>
+					</c:when>
+					<c:otherwise>
+						<div class="list-group">
+							<c:forEach var="i" begin="0" end="${recentStoryList.size() - 1}">
+								<a
+									href="${pageContext.request.contextPath}/story/${recentStoryList.get(i).getStoryTitle()}"
+									class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+										<h5 class="mb-1">
+											<c:out value="${recentStoryList.get(i).getStoryTitle()}"></c:out>
+										</h5>
+										<small><c:out
+												value="${recentStoryList.get(i).getStoryTimePosted()}"></c:out></small>
+									</div> <small><c:out
+											value="${recentStoryList.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+									<p class="mb-1">Nothing here yet</p>
+								</a>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>
