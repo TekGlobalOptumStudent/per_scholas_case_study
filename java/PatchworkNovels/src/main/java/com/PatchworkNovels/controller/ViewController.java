@@ -1,5 +1,7 @@
 package com.PatchworkNovels.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -105,9 +107,11 @@ public class ViewController {
 	}
 	
 	@RequestMapping("login")
-	public String login(@ModelAttribute User user) {
-		if(userService.validateUser(user.getUsername(), user.getPassword()))
+	public String login(@ModelAttribute User user, HttpServletRequest request) {
+		if(userService.validateUser(user.getUsername(), user.getPassword())) {
+			request.getSession().setAttribute("login_username", user.getUsername());
 			return "redirect:/profile/" + user.getUsername();
+		}
 		return "signup";
 	}
 	

@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="home">Patchwork Novels</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -23,29 +27,43 @@
 			</li>
 		</ul>
 		<ul class="navbar-nav justify-content-end">
-			<!-- TODO: dynamically change to profile preview if logged in -->
-			<li class="nav-item dropdown"><a
-				class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-				role="button" data-toggle="dropdown" aria-haspopup="true"
-				aria-expanded="false"> Login/Sign Up </a>
-				<div class="dropdown-menu dropdown-menu-right">
-					<form class="px-4 py-3" action="login" method="post">
-						<div class="form-group">
-							<label for="username">Email address</label> <input
-								class="form-control" id="username" name="username"
-								placeholder="Username">
+			<% String login_username = (String)request.getSession().getAttribute("login_username"); %>
+			<c:choose>
+				<c:when test="${login_username == null}">
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false">Login/Sign Up</a>
+						<div class="dropdown-menu dropdown-menu-right">
+							<form class="px-4 py-3" action="login" method="post">
+								<div class="form-group">
+									<label for="username">Email address</label> <input
+										class="form-control" id="username" name="username"
+										placeholder="Username">
+								</div>
+								<div class="form-group">
+									<label for="password">Password</label> <input type="password"
+										class="form-control" id="password" name="password"
+										placeholder="Password">
+								</div>
+								<button type="submit" class="btn btn-primary">Sign in</button>
+							</form>
+							<div class="dropdown-divider"></div>
+							<a class="dropdown-item" href="signup">New around here? Sign up</a>
 						</div>
-						<div class="form-group">
-							<label for="password">Password</label> <input type="password"
-								class="form-control" id="password" name="password"
-								placeholder="Password">
+					</li>
+				</c:when>
+				<c:otherwise>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"><c:out value="${login_username}"></c:out></a>
+						<div class="dropdown-menu dropdown-menu-right">
+
 						</div>
-						<button type="submit" class="btn btn-primary">Sign in</button>
-					</form>
-					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="signup">New around here? Sign up</a>
-				</div>
-			</li>
+					</li>
+				</c:otherwise>
+			</c:choose>
 		</ul>
 	</div>
 </nav>
