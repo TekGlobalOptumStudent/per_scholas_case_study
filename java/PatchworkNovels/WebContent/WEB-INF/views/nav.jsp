@@ -62,12 +62,16 @@
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"><c:out value="${login_username}"></c:out></a>
 						<div class="dropdown-menu dropdown-menu-right">
-						<!-- TODO: profile image -->
-						<img class="align-self-start mr-3"
-							src="<%=request.getContextPath()%>/resources/img/test.PNG"
-							alt="Generic placeholder image">
-							<a class="btn btn-primary" href="${pageContext.request.contextPath}/profile/${login_username}" role="button">Profile</a>
-							<a class="btn btn-primary" href="${pageContext.request.contextPath}/logout" role="button">Logout</a>
+						<c:choose>
+							<c:when test="${login_profile == null}">
+								
+							</c:when>
+							<c:otherwise>
+								<img class="align-self-start mr-3" src="data:image/png;base64,${login_profile}" alt="Profile Image">
+							</c:otherwise>
+						</c:choose>
+						<a class="btn btn-primary" href="${pageContext.request.contextPath}/profile/${login_username}" role="button">Profile</a>
+						<a class="btn btn-primary" href="${pageContext.request.contextPath}/logout" role="button">Logout</a>
 						</div>
 					</li>
 				</c:otherwise>

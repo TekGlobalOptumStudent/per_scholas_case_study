@@ -42,7 +42,7 @@
 						<div class="empty-slot">No profile picture</div>
 					</c:when>
 					<c:otherwise>
-						<img src="${userProfileImage}" alt="...">
+						<img src="data:image/png;base64,${userProfileImage}" alt="...">
 					</c:otherwise>
 				</c:choose>
 				<h1><c:out value="${username}"></c:out></h1>

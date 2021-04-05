@@ -91,8 +91,7 @@ public class ViewController {
 			mav.addObject("userFavoriteStories", user.getFavoriteStories());
 			if(user.getProfileImage() != null) {
 				try {
-					String encoding = "data:image/png;base64," + new String(user.getProfileImage(), "UTF8");
-					mav.addObject("userProfileImage", encoding);
+					mav.addObject("userProfileImage", new String(user.getProfileImage(), "UTF8"));
 				} catch(Exception e) {
 					System.out.println("Error getting image");
 				}
@@ -121,6 +120,7 @@ public class ViewController {
 		String username = (String)request.getSession().getAttribute("login_username");
 		try {
 			userService.addProfileImage(username, Base64.getEncoder().encode(file.getBytes()));
+			request.getSession().setAttribute("login_profile", new String(Base64.getEncoder().encode(file.getBytes()), "UTF8"));
 		} catch (Exception e) {
 			System.out.println("Error trying to read file");
 			e.printStackTrace();
@@ -158,8 +158,14 @@ public class ViewController {
 			userService.editUser(username, username, user.getPassword());
 			return "redirect:/profile/" + user.getUsername();
 		} else if(userService.validateUser(user.getUsername(), user.getPassword())) {
-			request.getSession().setAttribute("login_username", user.getUsername());
-			return "redirect:/profile/" + user.getUsername();
+			User dbUser = userService.getUser(user.getUsername());
+			request.getSession().setAttribute("login_username", dbUser.getUsername());
+			try {
+				request.getSession().setAttribute("login_profile", new String(dbUser.getProfileImage(), "UTF8"));
+			} catch(Exception e) {
+				System.out.println("Error getting image");
+			}
+			return "redirect:/profile/" + dbUser.getUsername();
 		}
 		return "signup";
 	}
@@ -167,6 +173,7 @@ public class ViewController {
 	@RequestMapping("logout")
 	public String logout(HttpServletRequest request) {
 		request.getSession().setAttribute("login_username", null);
+		request.getSession().setAttribute("login_profile", null);
 		return "redirect:/home";
 	}
 	
