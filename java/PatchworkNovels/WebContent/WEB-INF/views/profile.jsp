@@ -36,46 +36,94 @@
 
 	<div class="profile-body">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<img src="..." class="rounded mx-auto d-block" alt="...">
 				<h1></h1>
 				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">Dapibus
-						ac facilisis in</a> <a href="#"
-						class="list-group-item list-group-item-action">Morbi leo risus</a>
-					<a href="#" class="list-group-item list-group-item-action">Porta
-						ac consectetur ac</a> <a href="#"
-						class="list-group-item list-group-item-action">Vestibulum at
-						eros</a>
+					<a href="#" class="list-group-item list-group-item-action">Add Profile Image</a>
+					<a href="#" class="list-group-item list-group-item-action">Remove Profile Image</a>
+					<a href="${pageContext.request.contextPath}/changePassword" class="list-group-item list-group-item-action">Change Password</a>
+					<a href="${pageContext.request.contextPath}/deleteUser" class="list-group-item list-group-item-action">Delete Profile</a>
 				</div>
 			</div>
-			<div class="col-sm-4">
-				<div class="list-group">
-					<c:forEach var="i" begin="0" end="${userPublishedStories.size() - 1}">
-						<a href="../story/${userPublishedStories.get(i).getStoryTitle()}"
-							class="list-group-item list-group-item-action flex-column align-items-start">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1"><c:out value="${userPublishedStories.get(i).getStoryTitle()}"></c:out></h5>
-								<small><c:out value="${userPublishedStories.get(i).getStoryTimePosted()}"></c:out></small>
-							</div>
-							<p class="mb-1">Nothing here yet</p>
-						</a> 
-					</c:forEach>
-				</div>
+			<div class="col-sm-3">
+				<c:choose>
+					<c:when test="${userPublishedStories.isEmpty()}">
+						<div class="empty-slot">Nothing To Show</div>
+					</c:when>
+					<c:otherwise>
+						<div class="list-group">
+							<c:forEach var="i" begin="0"
+								end="${userPublishedStories.size() - 1}">
+								<a
+									href="${pageContext.request.contextPath}/story/${userPublishedStories.get(i).getStoryTitle()}"
+									class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+										<h5 class="mb-1">
+											<c:out value="${userPublishedStories.get(i).getStoryTitle()}"></c:out>
+										</h5>
+										<small><c:out
+												value="${userPublishedStories.get(i).getStoryTimePosted()}"></c:out></small>
+									</div>
+									<p class="mb-1">Nothing here yet</p>
+								</a>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
-			<div class="col-sm-4">
-				<div class="list-group">
-					<c:forEach var="i" begin="0" end="${userPublishedSnippets.size() - 1}">
-						<a href="../snippet/${userPublishedSnippets.get(i).getSnippetId()}"
-							class="list-group-item list-group-item-action flex-column align-items-start">
-							<div class="d-flex w-100 justify-content-between">
-								<h5 class="mb-1"><c:out value="${userPublishedSnippets.get(i).getSnippetText()}"></c:out></h5>
-								<small><c:out value="${userPublishedSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
-							</div>
-							<p class="mb-1">Nothing here yet</p>
-						</a> 
-					</c:forEach>
-				</div>
+			<div class="col-sm-3">
+				<c:choose>
+					<c:when test="${userPublishedSnippets.isEmpty()}">
+						<div class="empty-slot">Nothing To Show</div>
+					</c:when>
+					<c:otherwise>
+						<div class="list-group">
+							<c:forEach var="i" begin="0"
+								end="${userPublishedSnippets.size() - 1}">
+								<a
+									href="${pageContext.request.contextPath}/snippet/${userPublishedSnippets.get(i).getSnippetId()}"
+									class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+										<h5 class="mb-1">
+											<c:out
+												value="${userPublishedSnippets.get(i).getSnippetText()}"></c:out>
+										</h5>
+										<small><c:out
+												value="${userPublishedSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
+									</div>
+									<p class="mb-1">Nothing here yet</p>
+								</a>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>
+			</div>
+			<div class="col-sm-3">
+				<c:choose>
+					<c:when test="${userFavoriteStories.isEmpty()}">
+						<div class="empty-slot">Nothing To Show</div>
+					</c:when>
+					<c:otherwise>
+						<div class="list-group">
+							<c:forEach var="i" begin="0"
+								end="${userFavoriteStories.size() - 1}">
+								<a
+									href="${pageContext.request.contextPath}/story/${userFavoriteStories.get(i).getSnippetId()}"
+									class="list-group-item list-group-item-action flex-column align-items-start">
+									<div class="d-flex w-100 justify-content-between">
+										<h5 class="mb-1">
+											<c:out value="${userFavoriteStories.get(i).getSnippetText()}"></c:out>
+										</h5>
+										<small><c:out
+												value="${userFavoriteStories.get(i).getSnippetTimePosted()}"></c:out></small>
+									</div>
+									<p class="mb-1">Nothing here yet</p>
+								</a>
+							</c:forEach>
+						</div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 	</div>

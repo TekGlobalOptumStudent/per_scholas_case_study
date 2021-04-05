@@ -10,7 +10,7 @@ body {
     height: 100%;
 }
 
-.col, .col-sm-8, .col-sm-4 {
+.col, .col-sm-8, .col-sm-4 .col-sm-3{
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -58,3 +58,13 @@ body {
     width: 500px;
     background: yellow;
 }
+
+.empty-slot {
+	height: 100%;
+	width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	background: lightgray;
+}
+

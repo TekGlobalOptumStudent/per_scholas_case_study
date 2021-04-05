@@ -3,7 +3,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <% String login_username = (String)request.getSession().getAttribute("login_username"); %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-	<a class="navbar-brand" href="home">Patchwork Novels</a>
+	<a class="navbar-brand" href="${pageContext.request.contextPath}/home">Patchwork Novels</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -13,7 +13,7 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item"><a class="nav-link" href="list">Browse
+			<li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/list">Browse
 					Library</a></li>
 			<c:choose>
 				<c:when test="${login_username != null}">
@@ -22,8 +22,8 @@
 						id="navbarDropdownMenuLink" data-toggle="dropdown"
 						aria-haspopup="true" aria-expanded="false">Make New</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="createStory">Story</a>
-							<a class="dropdown-item" href="createSnippet">Snippet</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/createStory">Story</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/createSnippet">Snippet</a>
 						</div>
 					</li>
 				</c:when>
@@ -52,7 +52,7 @@
 								<button type="submit" class="btn btn-primary">Sign in</button>
 							</form>
 							<div class="dropdown-divider"></div>
-							<a class="dropdown-item" href="signup">New around here? Sign up</a>
+							<a class="dropdown-item" href="${pageContext.request.contextPath}/signup">New around here? Sign up</a>
 						</div>
 					</li>
 				</c:when>
@@ -66,7 +66,8 @@
 						<img class="align-self-start mr-3"
 							src="<%=request.getContextPath()%>/resources/img/test.PNG"
 							alt="Generic placeholder image">
-							<a class="btn btn-primary" href="logout" role="button">Logout</a>
+							<a class="btn btn-primary" href="${pageContext.request.contextPath}/profile/${login_username}" role="button">Profile</a>
+							<a class="btn btn-primary" href="${pageContext.request.contextPath}/logout" role="button">Logout</a>
 						</div>
 					</li>
 				</c:otherwise>

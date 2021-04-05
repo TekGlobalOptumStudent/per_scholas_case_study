@@ -91,6 +91,20 @@ public class ViewController {
 		return new ModelAndView("error"); // TODO: make error page
 	}
 	
+	@RequestMapping("changePassword")
+	public ModelAndView changePassword(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("signup");
+		return mav;
+	}
+	
+	@RequestMapping("deleteUser")
+	public String deleteUser(HttpServletRequest request) {
+		String username = (String)request.getSession().getAttribute("login_username");
+		request.getSession().setAttribute("login_username", null);
+		userService.deleteUser(username);
+		return "redirect:/home";
+	}
+	
 	// signup
 	
 	@GetMapping("/signup")
@@ -108,7 +122,11 @@ public class ViewController {
 	
 	@RequestMapping("login")
 	public String login(@ModelAttribute User user, HttpServletRequest request) {
-		if(userService.validateUser(user.getUsername(), user.getPassword())) {
+		String username = (String)request.getSession().getAttribute("login_username");
+		if(username != null) {
+			userService.editUser(username, username, user.getPassword());
+			return "redirect:/profile/" + user.getUsername();
+		} else if(userService.validateUser(user.getUsername(), user.getPassword())) {
 			request.getSession().setAttribute("login_username", user.getUsername());
 			return "redirect:/profile/" + user.getUsername();
 		}

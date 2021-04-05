@@ -115,7 +115,7 @@
 			<div class="col-sm-5">
 				<div class="list-group">
 					<c:forEach var="i" begin="0" end="${recentStoryList.size() - 1}">
-						<a href="story/${recentStoryList.get(i).getStoryTitle()}"
+						<a href="${pageContext.request.contextPath}/story/${recentStoryList.get(i).getStoryTitle()}"
 							class="list-group-item list-group-item-action flex-column align-items-start">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-1"><c:out value="${recentStoryList.get(i).getStoryTitle()}"></c:out></h5>
