@@ -115,6 +115,12 @@ public class ViewController {
 		return "signup";
 	}
 	
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request) {
+		request.getSession().setAttribute("login_username", null);
+		return "redirect:/home";
+	}
+	
 	// snippets
 	
 	@RequestMapping("/snippet/{snippetId}")

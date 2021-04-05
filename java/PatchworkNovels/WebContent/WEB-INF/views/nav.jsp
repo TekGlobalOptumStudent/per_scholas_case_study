@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<% String login_username = (String)request.getSession().getAttribute("login_username"); %>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="home">Patchwork Novels</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -15,19 +15,22 @@
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link" href="list">Browse
 					Library</a></li>
-			<!-- TODO: hide if not logged in -->
-			<li class="nav-item dropdown">
-			<a class="nav-link dropdown-toggle" href="#"
-				id="navbarDropdownMenuLink" data-toggle="dropdown"
-				aria-haspopup="true" aria-expanded="false">Make New</a>
-				<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-					<a class="dropdown-item" href="createStory">Story</a>
-					<a class="dropdown-item" href="createSnippet">Snippet</a>
-				</div>
-			</li>
+			<c:choose>
+				<c:when test="${login_username != null}">
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#"
+						id="navbarDropdownMenuLink" data-toggle="dropdown"
+						aria-haspopup="true" aria-expanded="false">Make New</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+							<a class="dropdown-item" href="createStory">Story</a>
+							<a class="dropdown-item" href="createSnippet">Snippet</a>
+						</div>
+					</li>
+				</c:when>
+			</c:choose>
 		</ul>
 		<ul class="navbar-nav justify-content-end">
-			<% String login_username = (String)request.getSession().getAttribute("login_username"); %>
+
 			<c:choose>
 				<c:when test="${login_username == null}">
 					<li class="nav-item dropdown"><a
@@ -59,7 +62,11 @@
 						role="button" data-toggle="dropdown" aria-haspopup="true"
 						aria-expanded="false"><c:out value="${login_username}"></c:out></a>
 						<div class="dropdown-menu dropdown-menu-right">
-
+						<!-- TODO: profile image -->
+						<img class="align-self-start mr-3"
+							src="<%=request.getContextPath()%>/resources/img/test.PNG"
+							alt="Generic placeholder image">
+							<a class="btn btn-primary" href="logout" role="button">Logout</a>
 						</div>
 					</li>
 				</c:otherwise>
