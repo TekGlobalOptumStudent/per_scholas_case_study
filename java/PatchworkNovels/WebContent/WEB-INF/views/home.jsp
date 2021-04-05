@@ -39,12 +39,6 @@
 			<div class="col-sm-7">
 				<div id="carouselExampleIndicators" class="carousel slide"
 					data-ride="carousel">
-					<ol class="carousel-indicators">
-						<li data-target="#carouselExampleIndicators" data-slide-to="0"
-							class="active"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-						<li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-					</ol>
 					<div class="carousel-inner">
 						<c:forEach var="i" begin="0" end="${popularStoryList.size() - 1}">
 							<c:choose>
@@ -121,7 +115,7 @@
 			<div class="col-sm-5">
 				<div class="list-group">
 					<c:forEach var="i" begin="0" end="${recentStoryList.size() - 1}">
-						<a href="#"
+						<a href="story/${recentStoryList.get(i).getStoryTitle()}"
 							class="list-group-item list-group-item-action flex-column align-items-start">
 							<div class="d-flex w-100 justify-content-between">
 								<h5 class="mb-1"><c:out value="${recentStoryList.get(i).getStoryTitle()}"></c:out></h5>

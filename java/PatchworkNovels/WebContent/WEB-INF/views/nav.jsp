@@ -44,7 +44,8 @@
 					</form>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="signup">New around here? Sign up</a>
-				</div></li>
+				</div>
+			</li>
 		</ul>
 	</div>
 </nav>
