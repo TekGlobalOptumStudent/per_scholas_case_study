@@ -1,5 +1,7 @@
 package com.PatchworkNovels.controller;
 
+import java.util.Base64;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.PatchworkNovels.entities.Snippet;
@@ -81,11 +85,18 @@ public class ViewController {
 		if(user != null) {
 			ModelAndView mav = new ModelAndView("profile");
 			mav.addObject("username", username);
-			mav.addObject("userProfileImage", user.getProfileImage());
 			mav.addObject("userDateJoined", user.getDateJoined());
 			mav.addObject("userPublishedStories", user.getPublishedStories());
 			mav.addObject("userPublishedSnippets", user.getPublishedSnippets());
 			mav.addObject("userFavoriteStories", user.getFavoriteStories());
+			if(user.getProfileImage() != null) {
+				try {
+					String encoding = "data:image/png;base64," + new String(user.getProfileImage(), "UTF8");
+					mav.addObject("userProfileImage", encoding);
+				} catch(Exception e) {
+					System.out.println("Error getting image");
+				}
+			}
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page
@@ -105,6 +116,20 @@ public class ViewController {
 		return "redirect:/home";
 	}
 	
+	@PostMapping("uploadImage")
+	public String uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
+		String username = (String)request.getSession().getAttribute("login_username");
+		try {
+			System.out.println(file.getOriginalFilename());
+			System.out.println(file.getSize());
+			userService.addProfileImage(username, Base64.getEncoder().encode(file.getBytes()));
+		} catch (Exception e) {
+			System.out.println("Error trying to read file");
+			e.printStackTrace();
+		}
+		return "redirect:/profile/" + username;
+	}
+	
 	// signup
 	
 	@GetMapping("/signup")
@@ -113,10 +138,11 @@ public class ViewController {
 	}
 	
 	@PostMapping("/signup")
-	public String submitUser(@ModelAttribute User user) {
+	public String submitUser(@ModelAttribute User user, HttpServletRequest request) {
 		if(userService.checkUsername(user.getUsername())) return "signup";
 		// TODO: validation, authentication, and authorization
-		userService.addUser(user);		
+		userService.addUser(user);
+		request.getSession().setAttribute("login_username", user.getUsername());
 		return "redirect:/profile/" + user.getUsername();
 	}
 	

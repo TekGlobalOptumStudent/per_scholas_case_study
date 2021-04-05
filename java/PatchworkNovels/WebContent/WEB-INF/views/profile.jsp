@@ -37,13 +37,61 @@
 	<div class="profile-body">
 		<div class="row">
 			<div class="col-sm-3">
-				<img src="..." class="rounded mx-auto d-block" alt="...">
-				<h1></h1>
+				<c:choose>
+					<c:when test="${userProfileImage == null}">
+						<div class="empty-slot">No profile picture</div>
+					</c:when>
+					<c:otherwise>
+						<img src="${userProfileImage}" alt="...">
+					</c:otherwise>
+				</c:choose>
+				<h1><c:out value="${username}"></c:out></h1>
 				<div class="list-group">
-					<a href="#" class="list-group-item list-group-item-action">Add Profile Image</a>
-					<a href="#" class="list-group-item list-group-item-action">Remove Profile Image</a>
-					<a href="${pageContext.request.contextPath}/changePassword" class="list-group-item list-group-item-action">Change Password</a>
-					<a href="${pageContext.request.contextPath}/deleteUser" class="list-group-item list-group-item-action">Delete Profile</a>
+					<button type="button"
+						class="list-group-item list-group-item-action" data-toggle="modal"
+						data-target="#addProfileImage">Add Profile Image</button>
+
+					<div class="modal fade" id="addProfileImage" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalCenterTitle"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title">Add a Profile Image</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									<form id="imageUploadForm" action="${pageContext.request.contextPath}/uploadImage" method="post" enctype="multipart/form-data">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" id="file" name="file">
+											<label class="custom-file-label" for="customFile">Choose file</label>
+										</div>
+									</form>
+
+									<script>
+										$(".custom-file-input").on("change",function() {
+											var fileName = $(this).val().split("\\").pop();
+											$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+										});
+									</script>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary"
+										data-dismiss="modal">Close</button>
+									<input type="submit" class="btn btn-primary" form="imageUploadForm" value="Submit"/>
+								</div>
+							</div>
+						</div>
+					</div>
+					<a href="#" class="list-group-item list-group-item-action">Remove
+						Profile Image</a> <a
+						href="${pageContext.request.contextPath}/changePassword"
+						class="list-group-item list-group-item-action">Change Password</a>
+					<a href="${pageContext.request.contextPath}/deleteUser"
+						class="list-group-item list-group-item-action">Delete Profile</a>
 				</div>
 			</div>
 			<div class="col-sm-3">
