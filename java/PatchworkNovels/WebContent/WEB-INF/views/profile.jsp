@@ -39,6 +39,7 @@
 			<div class="col-sm-3">
 				<c:choose>
 					<c:when test="${userProfileImage == null}">
+						<!-- TODO: put placeholder image -->
 						<div class="empty-slot">No profile picture</div>
 					</c:when>
 					<c:otherwise>

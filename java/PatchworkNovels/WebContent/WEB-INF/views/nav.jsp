@@ -64,7 +64,7 @@
 						<div class="dropdown-menu dropdown-menu-right">
 						<c:choose>
 							<c:when test="${login_profile == null}">
-								
+								<!-- TODO: put placeholder image -->
 							</c:when>
 							<c:otherwise>
 								<img class="align-self-start mr-3" src="data:image/png;base64,${login_profile}" alt="Profile Image">
