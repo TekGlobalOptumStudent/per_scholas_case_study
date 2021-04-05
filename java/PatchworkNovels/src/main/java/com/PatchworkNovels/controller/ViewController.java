@@ -146,6 +146,11 @@ public class ViewController {
 		Snippet snippet = snippetService.readSnippet(snippetId);
 		if(snippet != null) {
 			ModelAndView mav = new ModelAndView("snippet");
+			mav.addObject("snippetAuthor", snippet.getSnippetAuthor());
+			mav.addObject("snippetText", snippet.getSnippetText());
+			mav.addObject("snippetTimePosted", snippet.getSnippetTimePosted());
+			mav.addObject("snippetStories", snippet.getSnippetStories());
+			mav.addObject("snippetComments", snippet.getSnippetComments());
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page
@@ -158,6 +163,11 @@ public class ViewController {
 		Story story = storyService.readStory(storyTitle);
 		if(story != null) {
 			ModelAndView mav = new ModelAndView("story");
+			mav.addObject("storyAuthor", story.getStoryAuthor());
+			mav.addObject("storyComments", story.getStoryComments());
+			mav.addObject("storyRating", story.getStoryRating());
+			mav.addObject("storyTimePosted", story.getStoryTimePosted());
+			mav.addObject("storyText", story.getStoryText());
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page
