@@ -191,6 +191,7 @@ public class ViewController {
 		Snippet snippet = snippetService.readSnippet(snippetId);
 		if(snippet != null) {
 			ModelAndView mav = new ModelAndView("snippet");
+			mav.addObject("snipperId", snippet.getSnippetId());
 			mav.addObject("snippetAuthor", snippet.getSnippetAuthor());
 			mav.addObject("snippetText", snippet.getSnippetText());
 			mav.addObject("snippetTimePosted", snippet.getSnippetTimePosted());
@@ -199,6 +200,14 @@ public class ViewController {
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page
+	}
+	
+	@RequestMapping("/addCommentToSnippet")
+	public String addCommentToSnippet(HttpServletRequest request) {
+		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
+		User commentAuthor = userService.getUser(request.getParameter("commentAuthor"));
+		snippetService.addComment(snippetId, new Comment(commentAuthor, request.getParameter("commentText")));
+		return "redirect:/snippet/" + snippetId;
 	}
 	
 	// stories

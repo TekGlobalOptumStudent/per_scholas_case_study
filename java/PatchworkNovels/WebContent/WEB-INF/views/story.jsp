@@ -54,7 +54,7 @@
 			<div class="col-sm-4">
 				<!-- TODO: change name to composer, populate list with contributors -->
 				<h1>Story Composer</h1>
-				<img src="..." class="rounded mx-auto d-block" alt="...">
+				<img src="data:image/png;base64,${storyAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">Cras justo odio</li>
 					<li class="list-group-item">Dapibus ac facilisis in</li>
