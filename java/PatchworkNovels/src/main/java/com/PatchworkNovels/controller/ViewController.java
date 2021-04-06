@@ -97,7 +97,7 @@ public class ViewController {
 			mav.addObject("userFavoriteStories", user.getFavoriteStories());
 			if(user.getProfileImage() != null) {
 				try {
-					mav.addObject("userProfileImage", new String(user.getProfileImage(), "UTF8"));
+					mav.addObject("userProfileImage", user.getProfileImage());
 				} catch(Exception e) {
 					System.out.println("Error getting image");
 				}
@@ -125,8 +125,9 @@ public class ViewController {
 	public String uploadImage(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
 		String username = (String)request.getSession().getAttribute("login_username");
 		try {
-			userService.addProfileImage(username, Base64.getEncoder().encode(file.getBytes()));
-			request.getSession().setAttribute("login_profile", new String(Base64.getEncoder().encode(file.getBytes()), "UTF8"));
+			String imageData = new String(Base64.getEncoder().encode(file.getBytes()), "UTF8");
+			userService.addProfileImage(username, imageData);
+			request.getSession().setAttribute("login_profile", imageData);
 		} catch (Exception e) {
 			System.out.println("Error trying to read file");
 			e.printStackTrace();
@@ -167,7 +168,7 @@ public class ViewController {
 			User dbUser = userService.getUser(user.getUsername());
 			request.getSession().setAttribute("login_username", dbUser.getUsername());
 			try {
-				request.getSession().setAttribute("login_profile", new String(dbUser.getProfileImage(), "UTF8"));
+				request.getSession().setAttribute("login_profile", dbUser.getProfileImage());
 			} catch(Exception e) {
 				System.out.println("Error getting image");
 			}

@@ -50,7 +50,7 @@ public class UserService {
 	}
 	
 	@Transactional
-	public boolean addProfileImage(String username, byte[] profileImage) {
+	public boolean addProfileImage(String username, String profileImage) {
 		if(username == null || profileImage == null) return false;
 		User user = userRepository.getByUsername(username);
 		if(user != null) {

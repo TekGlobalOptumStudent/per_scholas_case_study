@@ -33,7 +33,7 @@ public class User {
 	
 	@Lob
 	@Column(name = "profileImage", nullable = true, columnDefinition = "BLOB")
-	private byte[] profileImage;
+	private String profileImage;
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "dateJoined", nullable = false)
@@ -83,7 +83,7 @@ public class User {
 		return this.password;
 	}
 	
-	public byte[] getProfileImage() {
+	public String getProfileImage() {
 		return this.profileImage;
 	}
 	
@@ -113,7 +113,7 @@ public class User {
 		this.password = password;
 	}
 	
-	public void setProfileImage(byte[] profileImage) {
+	public void setProfileImage(String profileImage) {
 		this.profileImage = profileImage;
 	}
 	
