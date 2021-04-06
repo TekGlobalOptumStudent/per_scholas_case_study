@@ -72,27 +72,65 @@
 					</c:when>
 					<c:otherwise>
 						<ul class="list-group">
-							<li class="list-group-item">
-								<div class="media">
-									<img class="align-self-start mr-3"
-										src="<%=request.getContextPath()%>/resources/img/test.PNG"
-										alt="Generic placeholder image">
-									<div class="media-body">
-										<h5 class="mt-0">Top-aligned media</h5>
-										<p>Cras sit amet nibh libero, in gravida nulla. Nulla vel
-											metus scelerisque ante sollicitudin. Cras purus odio,
-											vestibulum in vulputate at, tempus viverra turpis. Fusce
-											condimentum nunc ac nisi vulputate fringilla. Donec lacinia
-											congue felis in faucibus.</p>
-										<p>Donec sed odio dui. Nullam quis risus eget urna mollis
-											ornare vel eu leo. Cum sociis natoque penatibus et magnis
-											dis parturient montes, nascetur ridiculus mus.</p>
+							<c:forEach var="i" begin="0" end="${storyComments.size() - 1}">
+								<li class="list-group-item">
+									<div class="media">
+										<img class="align-self-start mr-3"
+											src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
+											alt="Generic placeholder image">
+										<div class="media-body">
+											<h5 class="mt-0">
+												<c:out value="${storyComments.get(i).getCommentAuthor().getUsername()}"></c:out>
+											</h5>
+											<small>
+												<c:out value="${storyComments.get(i).getCommentTimePosted()}"></c:out>
+											</small>
+											<p>
+												<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
+											</p>
+										</div>
 									</div>
-								</div>
-							</li>
+								</li>
+							</c:forEach>
 						</ul>
 					</c:otherwise>
 				</c:choose>
+			</div>
+			<div class="col-sm-4">
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target="#addComment">Add Comment</button>
+
+				<div class="modal fade" id="addComment" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalCenterTitle"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">Add Comment</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<form id="commentForm" action="${pageContext.request.contextPath}/addCommentToStory" method="post">
+									<div class="form-group">
+            							<label for="comment" class="col-form-label">Comment:</label>
+            							<textarea class="form-control" id="commentText" name="commentText"></textarea>
+            							<input type="hidden" id="commentAuthor" name="commentAuthor" value="${login_username}">
+            							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+          							</div>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary"
+									data-dismiss="modal">Close</button>
+								<input type="submit" class="btn btn-primary"
+									form="commentForm" value="Accept" />
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 

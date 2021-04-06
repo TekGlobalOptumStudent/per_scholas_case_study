@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
 import com.PatchworkNovels.entities.User;
@@ -207,6 +208,7 @@ public class ViewController {
 		if(story != null) {
 			ModelAndView mav = new ModelAndView("story");
 			mav.addObject("storyAuthor", story.getStoryAuthor());
+			mav.addObject("storyTitle", story.getStoryTitle());
 			mav.addObject("storyComments", story.getStoryComments());
 			mav.addObject("storyRating", story.getStoryRating());
 			mav.addObject("storyTimePosted", story.getStoryTimePosted());
@@ -216,4 +218,11 @@ public class ViewController {
 		return new ModelAndView("error"); // TODO: make error page
 	}
 	
+	@RequestMapping("/addCommentToStory")
+	public String addCommentToStory(HttpServletRequest request) {
+		String storyTitle = request.getParameter("storyTitle");
+		User commentAuthor = userService.getUser(request.getParameter("commentAuthor"));
+		storyService.addComment(storyTitle, new Comment(commentAuthor, request.getParameter("commentText")));
+		return "redirect:/story/" + storyTitle;
+	}
 }

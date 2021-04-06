@@ -40,7 +40,7 @@
 				<c:choose>
 					<c:when test="${userProfileImage == null}">
 						<!-- TODO: put placeholder image -->
-						<div class="empty-slot">No profile picture</div>
+						<!-- <div class="empty-slot">No profile picture</div> -->
 					</c:when>
 					<c:otherwise>
 						<img src="data:image/png;base64,${userProfileImage}" alt="...">
@@ -81,24 +81,10 @@
 											</form>
 
 											<script>
-												$(".custom-file-input")
-														.on(
-																"change",
-																function() {
-																	var fileName = $(
-																			this)
-																			.val()
-																			.split(
-																					"\\")
-																			.pop();
-																	$(this)
-																			.siblings(
-																					".custom-file-label")
-																			.addClass(
-																					"selected")
-																			.html(
-																					fileName);
-																});
+												$(".custom-file-input").on("change",function() {
+													var fileName = $(this).val().split("\\").pop();
+													$(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+												});
 											</script>
 										</div>
 										<div class="modal-footer">
