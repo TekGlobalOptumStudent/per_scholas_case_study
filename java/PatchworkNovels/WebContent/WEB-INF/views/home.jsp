@@ -21,9 +21,6 @@
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
 
-<!-- External JS -->
-<script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>
-
 <!-- External CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/styles/global.css" />
@@ -152,5 +149,6 @@
 		</div>
 	</div>
 </body>
-
+<!-- External JS -->
+<script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>
 </html>

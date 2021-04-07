@@ -21,9 +21,6 @@
 	integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
 	crossorigin="anonymous"></script>
 
-<!-- External JS -->
-<script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>
-
 <!-- External CSS -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/resources/styles/global.css" />
@@ -42,11 +39,19 @@
 			<div class="placeholder1"></div>
 		</div>
 		<div class="row" style="height: 80%">
-			<!-- TODO: create interactive ui with React -->
-			<div class="text-container">
-				<div class="placeholder4"></div>
+			<div class="col">
+				<div class="dropzone">
+					<p class="draggable" draggable="true">1</p>
+					<p class="draggable" draggable="true">2</p>
+				</div>
 			</div>
-			<div class="snippet-list"></div>
+			<div class="col">
+				<div class="dropzone">
+					<p class="draggable" draggable="true">3</p>
+					<p class="draggable" draggable="true">4</p>
+				</div>
+			</div>
+			<!-- <div class="snippet-list"></div> -->
 		</div>
 		<div class="row" style="height: 10%">
 			<div class="placeholder1"></div>
@@ -54,5 +59,6 @@
 	</div>
 
 </body>
-
+<!-- External JS -->
+<script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>
 </html>
