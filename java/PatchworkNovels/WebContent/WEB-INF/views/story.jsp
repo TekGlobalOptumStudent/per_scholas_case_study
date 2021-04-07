@@ -158,11 +158,13 @@
 						</div>				
 						<form action="${pageContext.request.contextPath}/likeStory" id="likeStoryForm">
 							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+							<input type="hidden" id="username" name="username" value="${login_username}">
 							<input type="submit" class="btn btn-primary"
 								form="likeStoryForm" value="Like" />
 						</form>
 						<form action="${pageContext.request.contextPath}/dislikeStory" id="dislikeStoryForm">
 							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+							<input type="hidden" id="username" name="username" value="${login_username}">
 							<input type="submit" class="btn btn-primary"
 								form="dislikeStoryForm" value="Dislike" />
 						</form>

@@ -132,7 +132,7 @@ public class UserService {
 		if(username == null || story == null) return false;
 		boolean ret = false;
 		User user = userRepository.getByUsername(username);
-		if(user != null) {
+		if(user != null && !user.getFavoriteStories().contains(story)) {
 			ret = user.getFavoriteStories().add(story);
 			userRepository.save(user);
 		}
@@ -144,7 +144,7 @@ public class UserService {
 		if(username == null || story == null) return false;
 		boolean ret = false;
 		User user = userRepository.getByUsername(username);
-		if(user != null) {
+		if(user != null && user.getFavoriteStories().contains(story)) {
 			ret = user.getFavoriteStories().remove(story);
 			userRepository.save(user);
 		}

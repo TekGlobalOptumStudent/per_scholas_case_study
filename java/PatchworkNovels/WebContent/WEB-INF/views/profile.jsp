@@ -195,14 +195,14 @@
 							<c:forEach var="i" begin="0"
 								end="${userFavoriteStories.size() - 1}">
 								<a
-									href="${pageContext.request.contextPath}/story/${userFavoriteStories.get(i).getSnippetId()}"
+									href="${pageContext.request.contextPath}/story/${userFavoriteStories.get(i).getStoryTitle()}"
 									class="list-group-item list-group-item-action flex-column align-items-start">
 									<div class="d-flex w-100 justify-content-between">
 										<h5 class="mb-1">
-											<c:out value="${userFavoriteStories.get(i).getSnippetText()}"></c:out>
+											<c:out value="${userFavoriteStories.get(i).getStoryTitle()}"></c:out>
 										</h5>
 										<small><c:out
-												value="${userFavoriteStories.get(i).getSnippetTimePosted()}"></c:out></small>
+												value="${userFavoriteStories.get(i).getStoryTimePosted()}"></c:out></small>
 									</div>
 									<p class="mb-1">Nothing here yet</p>
 								</a>
