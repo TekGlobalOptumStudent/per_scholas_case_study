@@ -191,7 +191,7 @@ public class ViewController {
 		Snippet snippet = snippetService.readSnippet(snippetId);
 		if(snippet != null) {
 			ModelAndView mav = new ModelAndView("snippet");
-			mav.addObject("snipperId", snippet.getSnippetId());
+			mav.addObject("snippetId", snippet.getSnippetId());
 			mav.addObject("snippetAuthor", snippet.getSnippetAuthor());
 			mav.addObject("snippetText", snippet.getSnippetText());
 			mav.addObject("snippetTimePosted", snippet.getSnippetTimePosted());
@@ -210,6 +210,22 @@ public class ViewController {
 		return "redirect:/snippet/" + snippetId;
 	}
 	
+	@RequestMapping("/likeSnippetComment")
+	public String likeSnippetComment(HttpServletRequest request) {
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
+		commentService.likeComment(commentId);
+		return "redirect:/snippet/" + snippetId;
+	}
+	
+	@RequestMapping("/dislikeSnippetComment")
+	public String dislikeSnippetComment(HttpServletRequest request) {
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
+		commentService.dislikeComment(commentId);
+		return "redirect:/snippet/" + snippetId;
+	}
+	
 	// stories
 	
 	@RequestMapping("/story/{storyTitle}")
@@ -217,8 +233,8 @@ public class ViewController {
 		Story story = storyService.readStory(storyTitle);
 		if(story != null) {
 			ModelAndView mav = new ModelAndView("story");
-			mav.addObject("storyAuthor", story.getStoryAuthor());
 			mav.addObject("storyTitle", story.getStoryTitle());
+			mav.addObject("storyAuthor", story.getStoryAuthor());
 			mav.addObject("storyComments", story.getStoryComments());
 			mav.addObject("storyRating", story.getStoryRating());
 			mav.addObject("storyTimePosted", story.getStoryTimePosted());
@@ -247,6 +263,22 @@ public class ViewController {
 	public String dislikeStory(HttpServletRequest request) {
 		String storyTitle = request.getParameter("storyTitle");
 		storyService.dislikeStory(storyTitle);
+		return "redirect:/story/" + storyTitle;
+	}
+	
+	@RequestMapping("/likeStoryComment")
+	public String likeStoryComment(HttpServletRequest request) {
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		String storyTitle = request.getParameter("storyTitle");
+		commentService.likeComment(commentId);
+		return "redirect:/story/" + storyTitle;
+	}
+	
+	@RequestMapping("/dislikeStoryComment")
+	public String dislikeStoryComment(HttpServletRequest request) {
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		String storyTitle = request.getParameter("storyTitle");
+		commentService.dislikeComment(commentId);
 		return "redirect:/story/" + storyTitle;
 	}
 }

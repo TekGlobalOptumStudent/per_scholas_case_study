@@ -93,6 +93,25 @@
 												<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
 											</p>
 										</div>
+										<small>
+											<c:out value="${storyComments.get(i).getCommentRating()}"></c:out>
+										</small>
+										<c:choose>
+											<c:when test="${login_username != null}">
+												<form action="${pageContext.request.contextPath}/likeStoryComment" id="likeCommentForm${storyComments.get(i).getCommentId()}">
+													<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+													<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
+													<input type="submit" class="btn btn-primary"
+														form="likeCommentForm${storyComments.get(i).getCommentId()}" value="Like" />
+												</form>
+												<form action="${pageContext.request.contextPath}/dislikeStoryComment" id="dislikeCommentForm${storyComments.get(i).getCommentId()}">
+													<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+													<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
+													<input type="submit" class="btn btn-primary"
+														form="dislikeCommentForm${storyComments.get(i).getCommentId()}" value="Dislike" />
+												</form>
+											</c:when>
+										</c:choose>
 									</div>
 								</li>
 							</c:forEach>

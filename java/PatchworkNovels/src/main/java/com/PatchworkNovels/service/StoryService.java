@@ -35,6 +35,7 @@ public class StoryService {
 		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryText(newStoryText);
+			storyRepository.save(story);
 			return true;
 		}
 		return false;
@@ -46,6 +47,7 @@ public class StoryService {
 		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryTitle(newStoryTitle);
+			storyRepository.save(story);
 			return true;
 		}
 		return false;
@@ -57,6 +59,7 @@ public class StoryService {
 		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryRating(story.getStoryRating() + 1);
+			storyRepository.save(story);
 			return true;
 		}
 		return false;
@@ -68,6 +71,7 @@ public class StoryService {
 		Story story = storyRepository.getByStoryTitle(storyTitle);
 		if(story != null) {
 			story.setStoryRating(story.getStoryRating() - 1);
+			storyRepository.save(story);
 			return true;
 		}
 		return false;

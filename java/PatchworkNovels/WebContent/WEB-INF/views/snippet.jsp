@@ -89,6 +89,25 @@
 												<c:out value="${snippetComments.get(i).getCommentText()}"></c:out>
 											</p>
 										</div>
+										<small>
+											<c:out value="${snippetComments.get(i).getCommentRating()}"></c:out>
+										</small>
+										<c:choose>
+											<c:when test="${login_username != null}">
+												<form action="${pageContext.request.contextPath}/likeSnippetComment" id="likeCommentForm${snippetComments.get(i).getCommentId()}">
+													<input type="hidden" id="snippetId" name="snippetId" value="${snippetId}">
+													<input type="hidden" id="commentId" name="commentId" value="${snippetComments.get(i).getCommentId()}">
+													<input type="submit" class="btn btn-primary"
+														form="likeCommentForm${snippetComments.get(i).getCommentId()}" value="Like" />
+												</form>
+												<form action="${pageContext.request.contextPath}/dislikeSnippetComment" id="dislikeCommentForm${snippetComments.get(i).getCommentId()}">
+													<input type="hidden" id="snippetId" name="snippetId" value="${snippetId}">
+													<input type="hidden" id="commentId" name="commentId" value="${snippetComments.get(i).getCommentId()}">
+													<input type="submit" class="btn btn-primary"
+														form="dislikeCommentForm${snippetComments.get(i).getCommentId()}" value="Dislike" />
+												</form>
+											</c:when>
+										</c:choose>
 									</div>
 								</li>
 							</c:forEach>
@@ -101,41 +120,44 @@
 			<div class="col-sm-4">
 				<h3>Snippet Composer</h3>
 				<img src="data:image/png;base64,${snippetAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
-				
-				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#addComment">Add Comment</button>
-
-				<div class="modal fade" id="addComment" tabindex="-1"
-					role="dialog" aria-labelledby="exampleModalCenterTitle"
-					aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Add Comment</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-							<div class="modal-body">
-								<form id="commentForm" action="${pageContext.request.contextPath}/addCommentToSnippet" method="post">
-									<div class="form-group">
-            							<label for="comment" class="col-form-label">Comment:</label>
-            							<textarea class="form-control" id="commentText" name="commentText"></textarea>
-            							<input type="hidden" id="commentAuthor" name="commentAuthor" value="${login_username}">
-            							<input type="hidden" id="snippetId" name="snippetId" value="${snippetId}">
-          							</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Close</button>
-								<input type="submit" class="btn btn-primary"
-									form="commentForm" value="Accept" />
+				<c:choose>
+					<c:when test="${login_username != null}">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#addComment">Add Comment</button>
+		
+						<div class="modal fade" id="addComment" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Add Comment</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form id="commentForm" action="${pageContext.request.contextPath}/addCommentToSnippet" method="post">
+											<div class="form-group">
+		            							<label for="comment" class="col-form-label">Comment:</label>
+		            							<textarea class="form-control" id="commentText" name="commentText"></textarea>
+		            							<input type="hidden" id="commentAuthor" name="commentAuthor" value="${login_username}">
+		            							<input type="hidden" id="snippetId" name="snippetId" value="${snippetId}">
+		          							</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<input type="submit" class="btn btn-primary"
+											form="commentForm" value="Accept" />
+									</div>
+								</div>
 							</div>
 						</div>
-					</div>
-				</div>
+					</c:when>
+				</c:choose>
 			</div>
 
 		</div>

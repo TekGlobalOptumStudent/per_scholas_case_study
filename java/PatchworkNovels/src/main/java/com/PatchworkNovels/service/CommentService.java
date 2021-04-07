@@ -36,6 +36,7 @@ public class CommentService {
 		Comment comment = commentRepository.getByCommentId(commentId);
 		if(comment != null) {
 			comment.setCommentText(newCommentText);
+			commentRepository.save(comment);
 			return true;
 		}
 		return false;
@@ -46,7 +47,8 @@ public class CommentService {
 		if(commentId < 0) return false;
 		Comment comment = commentRepository.getByCommentId(commentId);
 		if(comment != null) {
-			comment.setCommentRating(comment.getCommentId() + 1);
+			comment.setCommentRating(comment.getCommentRating() + 1);
+			commentRepository.save(comment);
 			return true;
 		}
 		return false;
@@ -57,7 +59,8 @@ public class CommentService {
 		if(commentId < 0) return false;
 		Comment comment = commentRepository.getByCommentId(commentId);
 		if(comment != null) {
-			comment.setCommentRating(comment.getCommentId() - 1);
+			comment.setCommentRating(comment.getCommentRating() - 1);
+			commentRepository.save(comment);
 			return true;
 		}
 		return false;
