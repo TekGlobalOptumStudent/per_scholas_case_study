@@ -281,17 +281,18 @@ public class ViewController {
 	public String likeStory(HttpServletRequest request) {
 		String storyTitle = request.getParameter("storyTitle");
 		String username = request.getParameter("username");
-		storyService.likeStory(storyTitle);
 		userService.addFavoriteStory(username, storyService.readStory(storyTitle));
+		storyService.likeStory(storyTitle);
 		return "redirect:/story/" + storyTitle;
 	}
 	
 	@RequestMapping("/dislikeStory")
 	public String dislikeStory(HttpServletRequest request) {
 		String storyTitle = request.getParameter("storyTitle");
+		System.out.println(storyService.readStory(storyTitle));
 		String username = request.getParameter("username");
-		storyService.dislikeStory(storyTitle);
 		userService.deleteFavoriteStory(username, storyService.readStory(storyTitle));
+		storyService.dislikeStory(storyTitle);
 		return "redirect:/story/" + storyTitle;
 	}
 	

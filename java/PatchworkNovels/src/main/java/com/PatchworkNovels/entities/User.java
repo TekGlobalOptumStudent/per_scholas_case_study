@@ -47,7 +47,7 @@ public class User {
 	@JoinTable(name = "user_publishedSnippets")
 	private List<Snippet> publishedSnippets;
 	
-	@OneToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
+	@OneToMany(targetEntity = Story.class, fetch = FetchType.LAZY)
 	@JoinTable(name = "user_favoriteStories")
 	private List<Story> favoriteStories;
 	

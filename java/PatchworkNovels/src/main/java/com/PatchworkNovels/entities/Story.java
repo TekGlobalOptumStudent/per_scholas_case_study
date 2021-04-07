@@ -148,18 +148,6 @@ public class Story {
 				return false;
 		} else if (!storyAuthor.equals(other.storyAuthor))
 			return false;
-		if (storyComments == null) {
-			if (other.storyComments != null)
-				return false;
-		} else if (!storyComments.equals(other.storyComments))
-			return false;
-		if (storyRating != other.storyRating)
-			return false;
-		if (storyText == null) {
-			if (other.storyText != null)
-				return false;
-		} else if (!storyText.equals(other.storyText))
-			return false;
 		if (storyTimePosted == null) {
 			if (other.storyTimePosted != null)
 				return false;
