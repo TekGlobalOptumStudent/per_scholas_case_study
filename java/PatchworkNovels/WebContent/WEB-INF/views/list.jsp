@@ -56,7 +56,8 @@
 												value="${allSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
 									</div> <small><c:out
 											value="${allSnippets.get(i).getSnippetAuthor().getUsername()}"></c:out></small>
-									<p class="mb-1">Nothing here yet</p>
+									<p class="mb-1"><c:out
+											value="${allSnippets.get(i).getSnippetText()}"></c:out></p>
 								</a>
 							</c:forEach>
 						</div>

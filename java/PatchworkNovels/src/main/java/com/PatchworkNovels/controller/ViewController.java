@@ -202,6 +202,13 @@ public class ViewController {
 		return new ModelAndView("error"); // TODO: make error page
 	}
 	
+	@RequestMapping("/uploadSnippet")
+	public String uploadImage(HttpServletRequest request) {
+		User user = userService.getUser(request.getParameter("snippetAuthor"));
+		userService.addPublishedSnippet(user.getUsername(), new Snippet(user, request.getParameter("snippetText")));
+		return "redirect:/profile/" + user.getUsername();
+	}
+	
 	@RequestMapping("/addCommentToSnippet")
 	public String addCommentToSnippet(HttpServletRequest request) {
 		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
