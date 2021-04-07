@@ -40,18 +40,23 @@
 		</div>
 		<div class="row" style="height: 80%">
 			<div class="col">
-				<div class="dropzone">
-					<p class="draggable" draggable="true">1</p>
-					<p class="draggable" draggable="true">2</p>
-				</div>
+				<ul class="list-group dropzone"></ul>
 			</div>
 			<div class="col">
-				<div class="dropzone">
-					<p class="draggable" draggable="true">3</p>
-					<p class="draggable" draggable="true">4</p>
-				</div>
+				<c:choose>
+					<c:when test="${allSnippets.isEmpty()}">
+						<div class="empty-slot">Nothing To Show</div>
+					</c:when>
+					<c:otherwise>
+						<ul class="list-group dropzone">
+							<c:forEach var="i" begin="0" end="${allSnippets.size() - 1}">
+								<li class="list-group-item draggable" draggable="true"><c:out
+										value="${allSnippets.get(i).getSnippetText()}"></c:out></li>
+							</c:forEach>
+						</ul>
+					</c:otherwise>
+				</c:choose>
 			</div>
-			<!-- <div class="snippet-list"></div> -->
 		</div>
 		<div class="row" style="height: 10%">
 			<div class="placeholder1"></div>

@@ -65,6 +65,7 @@ public class ViewController {
 	@RequestMapping("/createStory")
 	public ModelAndView createStoryHandler() {
 		ModelAndView mav = new ModelAndView("createStory");
+		mav.addObject("allSnippets", snippetService.getAllSnippets());
 		return mav;
 	}
 	

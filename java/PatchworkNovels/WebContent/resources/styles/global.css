@@ -77,11 +77,13 @@ body {
 }
 
 .draggable {
+	/*
 	height: 100px;
 	width: 100%;
   	padding: 1rem;
   	background: white;
   	border: 1px solid black;
+  	*/
   	cursor: move;
 }
 
