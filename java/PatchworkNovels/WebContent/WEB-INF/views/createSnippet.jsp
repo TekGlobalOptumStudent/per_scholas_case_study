@@ -36,8 +36,7 @@
 
 	<div class="create-body">
 		<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet">
-			<textarea name="snippetText" id="snippetText" row="200" col="10">
-			</textarea>
+			<textarea name="snippetText" id="snippetText" row="200" col="10"></textarea>
 			<input type="hidden" id="snippetAuthor" name="snippetAuthor" value="${login_username}"/>
 			<input type="submit" class="btn btn-primary" form="snippetUploadForm" value="Submit" />
 		</form>

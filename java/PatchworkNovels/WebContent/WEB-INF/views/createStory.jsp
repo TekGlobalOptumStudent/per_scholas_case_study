@@ -29,6 +29,7 @@
 </head>
 
 <body>
+
 	<!-- Navigation Bar -->
 	<jsp:include page="nav.jsp">
 		<jsp:param name="user" value="" />
@@ -36,11 +37,16 @@
 
 	<div class="create-body">
 		<div class="row" style="height: 10%">
-			<div class="placeholder1"></div>
+			<form name="storyUploadForm" id="storyUploadForm" action="<%=request.getContextPath()%>/uploadStory" >
+		        <input type="hidden" id="storyText" name="storyText" value="">
+		        <input type="hidden" id="storyAuthor" name="storyAuthor" value="${login_username}">
+		        <input type="text" id="storyTitle" name="storyTitle">
+			</form>
+			
 		</div>
 		<div class="row" style="height: 80%">
 			<div class="col">
-				<ul class="list-group dropzone"></ul>
+				<ul class="list-group dropzone" id="storyTextDropzone" name="storyTextDropzone"></ul>
 			</div>
 			<div class="col">
 				<c:choose>
@@ -50,7 +56,7 @@
 					<c:otherwise>
 						<ul class="list-group dropzone">
 							<c:forEach var="i" begin="0" end="${allSnippets.size() - 1}">
-								<li class="list-group-item draggable" draggable="true"><c:out
+								<li class="list-group-item draggable" draggable="true" id="${allSnippets.get(i).getSnippetId()}"><c:out
 										value="${allSnippets.get(i).getSnippetText()}"></c:out></li>
 							</c:forEach>
 						</ul>
@@ -59,7 +65,8 @@
 			</div>
 		</div>
 		<div class="row" style="height: 10%">
-			<div class="placeholder1"></div>
+			
+			<input type="submit" class="btn btn-primary" form="storyUploadForm" value="Submit" onclick="captureStoryText();"/>
 		</div>
 	</div>
 

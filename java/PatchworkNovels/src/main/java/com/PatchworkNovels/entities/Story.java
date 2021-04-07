@@ -53,11 +53,11 @@ public class Story {
 	
 	public Story() { }
 	
-	public Story(User storyAuthor, String storyTitle) {
-		this.storyAuthor = storyAuthor;
+	public Story(String storyTitle, User storyAuthor, List<Snippet> storyText) {
 		this.storyTitle = storyTitle;
+		this.storyAuthor = storyAuthor;
 		this.storyTimePosted = new Date();
-		this.storyText = new ArrayList<Snippet>();
+		this.storyText = storyText;
 		this.storyComments = new ArrayList<Comment>();
 		this.storyRating = 0;
 	}

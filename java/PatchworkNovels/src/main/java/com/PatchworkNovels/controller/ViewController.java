@@ -1,6 +1,9 @@
 package com.PatchworkNovels.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Base64;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -250,6 +253,20 @@ public class ViewController {
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page
+	}
+	
+	@RequestMapping("/uploadStory")
+	public String uploadStory(HttpServletRequest request) {
+		User user = userService.getUser(request.getParameter("storyAuthor"));
+		String storyTextString = request.getParameter("storyText");
+		List<Snippet> storyText = new ArrayList<Snippet>();
+		Arrays.asList(storyTextString.split(",")).forEach(s -> {
+			storyText.add(snippetService.readSnippet(Integer.parseInt(s)));
+		});
+		Story toAdd = new Story(request.getParameter("storyTitle"), user, storyText);
+		storyService.addStory(toAdd);
+		userService.addPublishedStory(user.getUsername(), storyService.readStory(toAdd.getStoryTitle()));
+		return "redirect:/profile/" + user.getUsername();
 	}
 	
 	@RequestMapping("/addCommentToStory")
