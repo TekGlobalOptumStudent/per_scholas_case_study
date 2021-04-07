@@ -235,4 +235,18 @@ public class ViewController {
 		storyService.addComment(storyTitle, new Comment(commentAuthor, request.getParameter("commentText")));
 		return "redirect:/story/" + storyTitle;
 	}
+	
+	@RequestMapping("/likeStory")
+	public String likeStory(HttpServletRequest request) {
+		String storyTitle = request.getParameter("storyTitle");
+		storyService.likeStory(storyTitle);
+		return "redirect:/story/" + storyTitle;
+	}
+	
+	@RequestMapping("/dislikeStory")
+	public String dislikeStory(HttpServletRequest request) {
+		String storyTitle = request.getParameter("storyTitle");
+		storyService.dislikeStory(storyTitle);
+		return "redirect:/story/" + storyTitle;
+	}
 }

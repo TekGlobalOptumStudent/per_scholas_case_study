@@ -37,6 +37,10 @@
 	<div class="stories-body">
 		<div class="row" style="height: 75%">
 			<div class="col-sm-8">
+				<h1>
+					<c:out value="${storyTitle}"></c:out>
+				</h1>
+				<c:out value="${storyRating}"></c:out>
 				<c:choose>
 					<c:when test="${storyText.isEmpty()}">
 						<div class="empty-slot">Nothing To Show</div>
@@ -52,9 +56,9 @@
 				</c:choose>
 			</div>
 			<div class="col-sm-4">
-				<!-- TODO: change name to composer, populate list with contributors -->
 				<h1>Story Composer</h1>
 				<img src="data:image/png;base64,${storyAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
+				<!-- TODO: populate list with contributors -->
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">Cras justo odio</li>
 					<li class="list-group-item">Dapibus ac facilisis in</li>
@@ -97,40 +101,54 @@
 				</c:choose>
 			</div>
 			<div class="col-sm-4">
-				<button type="button" class="btn btn-primary" data-toggle="modal"
-					data-target="#addComment">Add Comment</button>
-
-				<div class="modal fade" id="addComment" tabindex="-1"
-					role="dialog" aria-labelledby="exampleModalCenterTitle"
-					aria-hidden="true">
-					<div class="modal-dialog modal-dialog-centered" role="document">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLongTitle">Add Comment</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
+				<c:choose>
+					<c:when test="${login_username != null}">
+						<button type="button" class="btn btn-primary" data-toggle="modal"
+							data-target="#addComment">Add Comment</button>
+		
+						<div class="modal fade" id="addComment" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalCenterTitle"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLongTitle">Add Comment</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<form id="commentForm" action="${pageContext.request.contextPath}/addCommentToStory" method="post">
+											<div class="form-group">
+		            							<label for="comment" class="col-form-label">Comment:</label>
+		            							<textarea class="form-control" id="commentText" name="commentText"></textarea>
+		            							<input type="hidden" id="commentAuthor" name="commentAuthor" value="${login_username}">
+		            							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+		          							</div>
+										</form>
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<input type="submit" class="btn btn-primary"
+											form="commentForm" value="Accept" />
+									</div>
+								</div>
 							</div>
-							<div class="modal-body">
-								<form id="commentForm" action="${pageContext.request.contextPath}/addCommentToStory" method="post">
-									<div class="form-group">
-            							<label for="comment" class="col-form-label">Comment:</label>
-            							<textarea class="form-control" id="commentText" name="commentText"></textarea>
-            							<input type="hidden" id="commentAuthor" name="commentAuthor" value="${login_username}">
-            							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
-          							</div>
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-secondary"
-									data-dismiss="modal">Close</button>
-								<input type="submit" class="btn btn-primary"
-									form="commentForm" value="Accept" />
-							</div>
-						</div>
-					</div>
-				</div>
+						</div>				
+						<form action="${pageContext.request.contextPath}/likeStory" id="likeStoryForm">
+							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+							<input type="submit" class="btn btn-primary"
+								form="likeStoryForm" value="Like" />
+						</form>
+						<form action="${pageContext.request.contextPath}/dislikeStory" id="dislikeStoryForm">
+							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+							<input type="submit" class="btn btn-primary"
+								form="dislikeStoryForm" value="Dislike" />
+						</form>
+					</c:when>
+				</c:choose>
 			</div>
 		</div>
 
