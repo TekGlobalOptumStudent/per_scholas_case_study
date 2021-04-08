@@ -52,6 +52,9 @@
 				<c:choose>
 					<c:when test="${isLoggedIn}">
 						<div class="list-group">
+							<form action="${pageContext.request.contextPath}/changePassword">
+								<input type="submit" class="list-group-item list-group-item-action" value="Change Password">
+							</form>
 							<button type="button"
 								class="list-group-item list-group-item-action"
 								data-toggle="modal" data-target="#addProfileImage">Add

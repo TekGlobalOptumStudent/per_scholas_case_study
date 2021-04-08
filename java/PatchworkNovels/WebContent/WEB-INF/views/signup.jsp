@@ -37,24 +37,36 @@
 	<div class="signup-body">
 		<div class="form-outer-container">
 			<form action="signup" method="post">
-				<!-- TODO: check if email already exists in database -->
 				<div class="form-group">
-					<label for="exampleInputEmail1">Email address</label> <input
-						class="form-control" id="username" name="username"
-						placeholder="Username">
+					<label>Username</label>
+					<c:choose>
+						<c:when test="${login_username == null}">
+							<input type="text" class="form-control" id="username" name="username"
+							minlength="4" maxlength="20"
+							placeholder="Username">
+						</c:when>
+						<c:otherwise>
+							<h4><c:out value="${login_username}"></c:out></h4>
+							<input type="hidden" id="username" name="username" value="${login_username}">
+						</c:otherwise>
+					</c:choose>
+					
 				</div>
 				<div class="form-group">
-					<label for="exampleInputPassword1">Password</label> <input
-						type="password" class="form-control" id="password" name="password"
-						placeholder="Password">
+					<label>Password</label>
+					<input type="password" class="form-control" id="password" name="password"
+					minlength="4" maxlength="20"
+					placeholder="Password">
 				</div>
 				<div class="form-group">
-					<label for="exampleInputPassword1">Confirm Password</label> <input
-						type="password" class="form-control" id="exampleInputPassword1"
-						placeholder="Confirm password">
+					<label>Confirm Password</label>
+					<input type="password" class="form-control" id="confirmPassword" name="confirmPassword"
+					minlength="4" maxlength="20"
+					placeholder="Confirm password">
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
+			<c:out value="${message}"></c:out>
 		</div>
 	</div>
 

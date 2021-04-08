@@ -155,29 +155,46 @@ public class ViewController {
 	
 	@PostMapping("/signup")
 	public String submitUser(@ModelAttribute User user, HttpServletRequest request) {
-		if(userService.checkUsername(user.getUsername())) return "signup";
-		// TODO: validation, authentication, and authorization
-		userService.addUser(user);
-		request.getSession().setAttribute("login_username", user.getUsername());
-		return "redirect:/profile/" + user.getUsername();
+		String check = (String)request.getSession().getAttribute("login_username");
+		String password = user.getPassword(), username = user.getUsername();
+		String regex = "[^A-Za-z0-9]";
+		if(userService.checkUsername(username) && check == null) {
+			request.setAttribute("message", "That username is taken.");
+			return "signup";
+		} else if (username.matches(regex) || password.matches(regex)) {
+			request.setAttribute("message", "You cannot have special characters in your username or password.");
+			return "signup";
+		} else if(username.length() < 4 || username.length() > 20) {
+			request.setAttribute("message", "Your username is either too long or too short.");
+			return "signup";
+		} else if(password.length() < 4 || password.length() > 20) {
+			request.setAttribute("message", "Your password is either too long or too short.");
+			return "signup";
+		} else if(!password.equals(user.getConfirmPassword())) {
+			request.setAttribute("message", "Please make sure your passwords match.");
+			return "signup";
+		} else {
+			if(check != null) {
+				userService.editPassword(username, user.getPassword());
+			} else {
+				userService.addUser(user);
+				request.getSession().setAttribute("login_username", username);
+			}
+		}
+		request.setAttribute("message", null);
+		return "redirect:/profile/" + username;
 	}
 	
 	@RequestMapping("login")
 	public String login(@ModelAttribute User user, HttpServletRequest request) {
-		String username = (String)request.getSession().getAttribute("login_username");
-		if(username != null) {
-			userService.editUser(username, username, user.getPassword());
-			return "redirect:/profile/" + user.getUsername();
-		} else if(userService.validateUser(user.getUsername(), user.getPassword())) {
+		if(userService.validateUser(user.getUsername(), user.getPassword())) {
 			User dbUser = userService.getUser(user.getUsername());
 			request.getSession().setAttribute("login_username", dbUser.getUsername());
-			try {
-				request.getSession().setAttribute("login_profile", dbUser.getProfileImage());
-			} catch(Exception e) {
-				System.out.println("Error getting image");
-			}
+			request.getSession().setAttribute("login_profile", dbUser.getProfileImage());
 			return "redirect:/profile/" + dbUser.getUsername();
 		}
+		request.getSession().setAttribute("message", "Those credentials were not found in our database,"
+				+ " please create a new account with those credentials.");
 		return "signup";
 	}
 	

@@ -41,11 +41,10 @@ public class UserService {
 	}
 
 	@Transactional
-	public boolean editUser(String username, String newUsername, String newPassword) {
-		if(username == null || newUsername == null || newPassword == null) return false;
+	public boolean editPassword(String username, String newPassword) {
+		if(username == null ||  newPassword == null) return false;
 		User user = userRepository.getByUsername(username);
 		if(user != null) {
-			user.setUsername(newUsername);
 			user.setPassword(newPassword);
 			userRepository.save(user);
 			return true;

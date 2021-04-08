@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
@@ -32,6 +33,9 @@ public class User {
 	@Basic
 	@Column(name = "password", nullable = false, columnDefinition = "VARCHAR(20) NOT NULL")
 	private String password;
+	
+	@Transient
+	private String confirmPassword;
 	
 	@Lob
 	@Column(name = "profileImage", nullable = true, columnDefinition = "BLOB")
@@ -88,6 +92,10 @@ public class User {
 		return this.password;
 	}
 	
+	public String getConfirmPassword() {
+		return this.confirmPassword;
+	}
+	
 	public String getProfileImage() {
 		return this.profileImage;
 	}
@@ -116,6 +124,10 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 	
 	public void setProfileImage(String profileImage) {
