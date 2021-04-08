@@ -2,6 +2,7 @@ package com.PatchworkNovels.repo;
 
 
 import com.PatchworkNovels.entities.Comment;
+import com.PatchworkNovels.entities.User;
 
 import java.util.List;
 
@@ -12,6 +13,6 @@ import org.springframework.stereotype.Repository;
 public interface CommentRepository extends JpaRepository<Comment, Integer> {
 	
 	public Comment getByCommentId(int commentId);
-	public List<Comment> findAllByCommentAuthor(String username);
+	public List<Comment> findAllByCommentAuthor(User user);
 	
 }

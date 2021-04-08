@@ -52,6 +52,18 @@ public class StoryService {
 		}
 		return false;
 	}
+	
+	@Transactional
+	public boolean deleteStoryText(String storyTitle, Snippet snippet) {
+		if(storyTitle == null || snippet == null) return false;
+		Story story = storyRepository.getByStoryTitle(storyTitle);
+		if(story != null) {
+			story.getStoryText().remove(snippet);
+			storyRepository.save(story);
+			return true;
+		}
+		return false;
+	}
 
 	@Transactional
 	public boolean likeStory(String storyTitle) {

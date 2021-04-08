@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.PatchworkNovels.entities.Comment;
+import com.PatchworkNovels.entities.User;
 import com.PatchworkNovels.repo.CommentRepository;
 
 @Service
@@ -82,11 +83,14 @@ public class CommentService {
 	}
 
 	@Transactional
-	public boolean updateAllComments(String username) {
-		if(username == null) return false;
-		List<Comment> userComments = commentRepository.findAllByCommentAuthor(username);
+	public boolean updateAllComments(User user) {
+		if(user == null) return false;
+		List<Comment> userComments = commentRepository.findAllByCommentAuthor(user);
 		if(userComments != null && !userComments.isEmpty())
-			userComments.forEach(c -> c.setCommentAuthor(userService.getUser("")));
+			userComments.forEach(c -> {
+				c.setCommentAuthor(userService.getUser(""));
+				commentRepository.save(c);
+			});
 		return false;
 	}
 	

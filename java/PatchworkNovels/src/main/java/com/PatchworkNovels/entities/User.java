@@ -17,6 +17,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 @Entity
 @Table(name = "User")
 public class User {
@@ -39,15 +42,18 @@ public class User {
 	@Column(name = "dateJoined", nullable = false)
 	private Date dateJoined;
 	
-	@OneToMany(targetEntity = Story.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = Story.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "user_publishedStories")
 	private List<Story> publishedStories;
 	
-	@OneToMany(targetEntity = Snippet.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = Snippet.class, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "user_publishedSnippets")
 	private List<Snippet> publishedSnippets;
 	
-	@OneToMany(targetEntity = Story.class, fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = Story.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "user_favoriteStories")
 	private List<Story> favoriteStories;
 	

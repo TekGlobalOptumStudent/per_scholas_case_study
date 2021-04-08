@@ -1,5 +1,6 @@
 package com.PatchworkNovels.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,9 @@ public class UserService {
 	
 	@Autowired
 	StoryService storyService;
+	
+	@Autowired
+	CommentService commentService;
 
 	@Transactional
 	public boolean addUser(User user) {
@@ -93,11 +97,14 @@ public class UserService {
 		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			ret = user.getPublishedStories().remove(story);
-			story.getStoryText().forEach(s -> {
+			getAllUsers().forEach(u -> deleteFavoriteStory(u.getUsername(), story));
+			ArrayList<Snippet> storyText = new ArrayList<Snippet>(story.getStoryText());
+			storyText.forEach(s -> {
+				storyService.deleteStoryText(story.getStoryTitle(), s);
 				snippetService.deleteStory(s.getSnippetId(), story);
 				if(s.getSnippetStories().isEmpty()) snippetService.deleteSnippet(s.getSnippetId());
 			});
-			getAllUsers().forEach(u -> deleteFavoriteStory(u.getUsername(), story));
+			storyService.deleteStory(story.getStoryTitle());
 			userRepository.save(user);
 		}
 		return ret;
@@ -161,6 +168,13 @@ public class UserService {
 		if(username == null) return false;
 		User user = userRepository.getByUsername(username);
 		if(user != null) {
+			commentService.updateAllComments(user);
+			ArrayList<Story> favoriteStoryList = new ArrayList<Story>(user.getFavoriteStories());
+			favoriteStoryList.forEach(s -> deleteFavoriteStory(user.getUsername(), s));
+			ArrayList<Snippet> publishedSnippetList = new ArrayList<Snippet>(user.getPublishedSnippets());
+			publishedSnippetList.forEach(s -> deletePublishedSnippet(user.getUsername(), s));
+			ArrayList<Story> publishedStoryList = new ArrayList<Story>(user.getPublishedStories());
+			publishedStoryList.forEach(s -> deletePublishedStory(user.getUsername(), s));
 			userRepository.delete(user);
 			return true;
 		}

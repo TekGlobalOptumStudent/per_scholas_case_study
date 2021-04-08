@@ -37,7 +37,7 @@ public class Story {
 	@Column(name = "storyTimePosted", nullable = false)
 	private Date storyTimePosted;
 	
-	@ManyToMany(targetEntity = Snippet.class, fetch = FetchType.LAZY)
+	@ManyToMany(targetEntity = Snippet.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "story_storyText")
 	private List<Snippet> storyText;
 	

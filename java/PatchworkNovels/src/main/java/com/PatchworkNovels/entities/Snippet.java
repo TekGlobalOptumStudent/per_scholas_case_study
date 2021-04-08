@@ -44,7 +44,7 @@ public class Snippet {
 	@Column(name = "snippetText", nullable = false, columnDefinition = "TEXT NOT NULL")
 	private String snippetText;
 	
-	@ManyToMany(targetEntity = Story.class, fetch = FetchType.LAZY)
+	@ManyToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
 	@JoinTable(name = "snippet_snippetStories")
 	private List<Story> snippetStories;
 	
