@@ -35,7 +35,7 @@
 	</jsp:include>
 
 	<div class="create-body">
-		<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet">
+		<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet" method="post">
 			<c:choose>
 				<c:when test="${snippetText != null}">
 					<textarea name="snippetText" id="snippetText" row="200" col="10">

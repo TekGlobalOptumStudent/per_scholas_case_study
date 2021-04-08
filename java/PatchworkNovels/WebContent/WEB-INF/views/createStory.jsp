@@ -37,7 +37,7 @@
 
 	<div class="create-body">
 		<div class="row" style="height: 10%">
-			<form name="storyUploadForm" id="storyUploadForm" action="<%=request.getContextPath()%>/uploadStory" >
+			<form name="storyUploadForm" id="storyUploadForm" action="<%=request.getContextPath()%>/uploadStory" method="post">
 		        <input type="hidden" id="storyText" name="storyText" value="">
 		        <input type="hidden" id="storyAuthor" name="storyAuthor" value="${login_username}">
 		        <c:choose>
@@ -54,7 +54,7 @@
 			<div class="col">
 				<ul class="list-group dropzone" id="storyTextDropzone" name="storyTextDropzone">
 					<c:choose>
-						<c:when test="${storySnippets != null}">
+						<c:when test="${!storySnippets.isEmpty()}">
 							<c:forEach var="i" begin="0" end="${storySnippets.size() - 1}">
 								<li class="list-group-item draggable" draggable="true" id="${storySnippets.get(i).getSnippetId()}">
 									<c:out value="${storySnippets.get(i).getSnippetText()}"></c:out>
@@ -65,23 +65,19 @@
 				</ul>
 			</div>
 			<div class="col">
-				<c:choose>
-					<c:when test="${allSnippets.isEmpty()}">
-						<div class="empty-slot">Nothing To Show</div>
-					</c:when>
-					<c:otherwise>
-						<ul class="list-group dropzone">
+				<ul class="list-group dropzone">
+					<c:choose>
+						<c:when test="${!allSnippets.isEmpty()}">
 							<c:forEach var="i" begin="0" end="${allSnippets.size() - 1}">
 								<li class="list-group-item draggable" draggable="true" id="${allSnippets.get(i).getSnippetId()}">
 									<c:out value="${allSnippets.get(i).getSnippetText()}"></c:out>
 								</li>
 							</c:forEach>
-						</ul>
-					</c:otherwise>
-				</c:choose>
+						</c:when>
+					</c:choose>
+				</ul>
 			</div>
 		</div>
-		<button onclick="captureStoryText();" value="Hi">Click me</button>
 		<div class="row" style="height: 10%">
 			<input type="submit" class="btn btn-primary" form="storyUploadForm" value="Submit" onclick="captureStoryText();"/>
 		</div>

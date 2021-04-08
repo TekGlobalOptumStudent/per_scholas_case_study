@@ -117,7 +117,7 @@ public class ViewController {
 		return mav;
 	}
 	
-	@RequestMapping("deleteUser")
+	@PostMapping("deleteUser")
 	public String deleteUser(HttpServletRequest request) {
 		String username = (String)request.getSession().getAttribute("login_username");
 		request.getSession().setAttribute("login_username", null);
@@ -206,8 +206,8 @@ public class ViewController {
 		return new ModelAndView("error"); // TODO: make error page
 	}
 	
-	@RequestMapping("/uploadSnippet")
-	public String uploadImage(HttpServletRequest request) {
+	@PostMapping("/uploadSnippet")
+	public String uploadSnippet(HttpServletRequest request) {
 		User user = userService.getUser(request.getParameter("snippetAuthor"));
 		if(request.getSession().getAttribute("editSnippet") != null) {
 			request.getSession().setAttribute("editSnippet", null);
@@ -294,7 +294,7 @@ public class ViewController {
 		return new ModelAndView("error"); // TODO: make error page
 	}
 	
-	@RequestMapping("/uploadStory")
+	@PostMapping("/uploadStory")
 	public String uploadStory(HttpServletRequest request) {
 		User user = userService.getUser(request.getParameter("storyAuthor"));
 		String storyTextString = request.getParameter("storyText");
@@ -308,8 +308,7 @@ public class ViewController {
 			return "redirect:/profile/" + user.getUsername();
 		}
 		Story toAdd = new Story(request.getParameter("storyTitle"), user, storyText);
-		storyService.addStory(toAdd);
-		userService.addPublishedStory(user.getUsername(), storyService.readStory(toAdd.getStoryTitle()));
+		userService.addPublishedStory(user.getUsername(), toAdd);
 		return "redirect:/profile/" + user.getUsername();
 	}
 	
