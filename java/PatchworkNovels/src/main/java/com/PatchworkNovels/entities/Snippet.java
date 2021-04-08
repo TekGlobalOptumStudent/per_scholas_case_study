@@ -8,7 +8,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,6 +19,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 @Entity
 @Table(name = "Snippet")
@@ -44,11 +46,13 @@ public class Snippet {
 	@Column(name = "snippetText", nullable = false, columnDefinition = "TEXT NOT NULL")
 	private String snippetText;
 	
-	@ManyToMany(targetEntity = Story.class, fetch = FetchType.EAGER)
+	@ManyToMany(targetEntity = Story.class)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "snippet_snippetStories")
 	private List<Story> snippetStories;
 	
-	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(targetEntity = Comment.class, cascade = CascadeType.ALL)
+	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinTable(name = "snippet_snippetComments")
 	private List<Comment> snippetComments;
 	
