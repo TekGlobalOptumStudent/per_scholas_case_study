@@ -244,6 +244,22 @@ public class ViewController {
 		return "redirect:/snippet/" + snippetId;
 	}
 	
+	@PostMapping("/editSnippetComment")
+	public String editSnippetComment(HttpServletRequest request) {
+		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		commentService.editComment(commentId, request.getParameter("commentText"));
+		return "redirect:/snippet/" + snippetId;
+	}
+	
+	@PostMapping("/deleteSnippetComment")
+	public String deleteSnippetComment(HttpServletRequest request) {
+		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		snippetService.deleteComment(snippetId, commentService.readComment(commentId));
+		return "redirect:/snippet/" + snippetId;
+	}
+	
 	@RequestMapping("/likeSnippetComment")
 	public String likeSnippetComment(HttpServletRequest request) {
 		int commentId = Integer.parseInt(request.getParameter("commentId"));
@@ -338,10 +354,25 @@ public class ViewController {
 	@RequestMapping("/dislikeStory")
 	public String dislikeStory(HttpServletRequest request) {
 		String storyTitle = request.getParameter("storyTitle");
-		System.out.println(storyService.readStory(storyTitle));
 		String username = request.getParameter("username");
 		userService.deleteFavoriteStory(username, storyService.readStory(storyTitle));
 		storyService.dislikeStory(storyTitle);
+		return "redirect:/story/" + storyTitle;
+	}
+	
+	@PostMapping("/editStoryComment")
+	public String editStoryComment(HttpServletRequest request) {
+		String storyTitle = request.getParameter("storyTitle");
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		commentService.editComment(commentId, request.getParameter("commentText"));
+		return "redirect:/story/" + storyTitle;
+	}
+	
+	@PostMapping("/deleteStoryComment")
+	public String deleteStoryComment(HttpServletRequest request) {
+		String storyTitle = request.getParameter("storyTitle");
+		int commentId = Integer.parseInt(request.getParameter("commentId"));
+		storyService.deleteComment(storyTitle, commentService.readComment(commentId));
 		return "redirect:/story/" + storyTitle;
 	}
 	
