@@ -80,6 +80,7 @@ public class UserService {
 		User user = userRepository.getByUsername(username);
 		if(user != null) {
 			ret = user.getPublishedStories().add(story);
+			story.getStoryText().forEach(s -> snippetService.addStory(s.getSnippetId(), story));
 			userRepository.save(user);
 		}
 		return ret;
@@ -91,8 +92,12 @@ public class UserService {
 		boolean ret = false;
 		User user = userRepository.getByUsername(username);
 		if(user != null) {
-			getAllUsers().forEach(u -> deleteFavoriteStory(u.getUsername(), story));
 			ret = user.getPublishedStories().remove(story);
+			story.getStoryText().forEach(s -> {
+				snippetService.deleteStory(s.getSnippetId(), story);
+				if(s.getSnippetStories().isEmpty()) snippetService.deleteSnippet(s.getSnippetId());
+			});
+			getAllUsers().forEach(u -> deleteFavoriteStory(u.getUsername(), story));
 			userRepository.save(user);
 		}
 		return ret;

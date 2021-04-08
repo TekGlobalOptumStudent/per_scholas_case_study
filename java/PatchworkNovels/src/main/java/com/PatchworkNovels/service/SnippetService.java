@@ -46,7 +46,7 @@ public class SnippetService {
 	}
 	
 	@Transactional
-	protected boolean editSnippetAuthor(int snippetId, User newSnippetAuthor) {
+	public boolean editSnippetAuthor(int snippetId, User newSnippetAuthor) {
 		if(snippetId < 0 || newSnippetAuthor == null) return false;
 		Snippet snippet = snippetRepository.getBySnippetId(snippetId);
 		if(snippet != null) {
