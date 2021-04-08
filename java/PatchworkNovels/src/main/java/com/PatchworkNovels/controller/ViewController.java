@@ -230,7 +230,10 @@ public class ViewController {
 	
 	@RequestMapping("/deleteSnippet")
 	public String deleteSnippet(HttpServletRequest request) {
-		return null;
+		User user = userService.getUser(request.getParameter("username"));
+		Snippet snippet = snippetService.readSnippet(Integer.parseInt(request.getParameter("snippetId")));
+		userService.deletePublishedSnippet(user.getUsername(), snippet);
+		return "redirect:/profile/" + user.getUsername();
 	}
 	
 	@RequestMapping("/addCommentToSnippet")
@@ -309,7 +312,10 @@ public class ViewController {
 	
 	@RequestMapping("/deleteStory")
 	public String deleteStory(HttpServletRequest request) {
-		return null;
+		User user = userService.getUser(request.getParameter("username"));
+		Story story = storyService.readStory(request.getParameter("storyTitle"));
+		userService.deletePublishedStory(user.getUsername(), story);
+		return "redirect:/profile/" + user.getUsername();
 	}
 	
 	@RequestMapping("/addCommentToStory")

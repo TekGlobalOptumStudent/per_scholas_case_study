@@ -89,9 +89,9 @@
 										</div>
 										<div class="modal-footer">
 											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
+												data-dismiss="modal">Cancel</button>
 											<input type="submit" class="btn btn-primary"
-												form="imageUploadForm" value="Submit" />
+												form="imageUploadForm" value="Confirm" />
 										</div>
 									</div>
 								</div>
@@ -113,21 +113,53 @@
 												<span aria-hidden="true">&times;</span>
 											</button>
 										</div>
+										<div class="modal-header">
+											<h6>Are you sure?</h6>
+										</div>
 										<div class="modal-footer">
 											<form id="removeImageForm"
 												action="${pageContext.request.contextPath}/deleteImage"
 												method="post"></form>
 											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
+												data-dismiss="modal">Cancel</button>
 											<input type="submit" class="btn btn-primary"
-												form="removeImageForm" value="Accept" />
+												form="removeImageForm" value="Confirm" />
 										</div>
 									</div>
 								</div>
 							</div>
-							<a href="${pageContext.request.contextPath}/deleteUser"
-								class="list-group-item list-group-item-action">Delete
-								Profile</a>
+							<button type="button"
+								class="list-group-item list-group-item-action"
+								data-toggle="modal" data-target="#deleteUser">Delete
+								Profile</button>
+
+							<div class="modal fade" id="deleteUser" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalCenterTitle"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title">Delete Profile</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-header">
+											<h6>Are you sure?</h6>
+										</div>
+										<div class="modal-footer">
+											<form id="deleteUserForm"
+												action="${pageContext.request.contextPath}/deleteUser"
+												method="post"></form>
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Cancel</button>
+											<input type="submit" class="btn btn-primary"
+												form="deleteUserForm" value="Confirm" />
+										</div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</c:when>
 				</c:choose>
@@ -162,11 +194,39 @@
 											<input type="hidden" id="username" name="username" value="${login_username}">
 											<input type="submit" class="btn btn-primary" form="editStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Edit" />
 										</form>
-										<form action="${pageContext.request.contextPath}/deleteStory" id="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}">
-											<input type="hidden" id="storyTitle" name="storyTitle" value="${userPublishedStories.get(i).getStoryTitle()}">
-											<input type="hidden" id="username" name="username" value="${login_username}">
-											<input type="submit" class="btn btn-primary" form="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Delete" />
-										</form>
+										<button type="button"
+											class="btn btn-primary"
+											data-toggle="modal" data-target="#deleteStory">Delete
+										</button>
+										
+										<div class="modal fade" id="deleteStory" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalCenterTitle"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">Delete Story</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-header">
+														<h6>Are you sure?</h6>
+													</div>
+													<div class="modal-footer">
+														<form action="${pageContext.request.contextPath}/deleteStory" id="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}">
+															<input type="hidden" id="storyTitle" name="storyTitle" value="${userPublishedStories.get(i).getStoryTitle()}">
+															<input type="hidden" id="username" name="username" value="${login_username}">
+														</form>
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Cancel</button>
+														<input type="submit" class="btn btn-primary"
+															form="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Confirm" />
+													</div>
+												</div>
+											</div>
+										</div>
 									</c:when>
 								</c:choose>
 							</c:forEach>
@@ -200,11 +260,39 @@
 											<input type="hidden" id="username" name="username" value="${login_username}">
 											<input type="submit" class="btn btn-primary" form="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Edit" />
 										</form>
-										<form action="${pageContext.request.contextPath}/deleteStory" id="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}">
-											<input type="hidden" id="snippetId" name="snippetId" value="${userPublishedSnippets.get(i).getSnippetId()}">
-											<input type="hidden" id="username" name="username" value="${login_username}">
-											<input type="submit" class="btn btn-primary" form="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Delete" />
-										</form>
+										<button type="button"
+											class="btn btn-primary"
+											data-toggle="modal" data-target="#deleteSnippet">Delete
+										</button>
+										
+										<div class="modal fade" id="deleteSnippet" tabindex="-1"
+											role="dialog" aria-labelledby="exampleModalCenterTitle"
+											aria-hidden="true">
+											<div class="modal-dialog modal-dialog-centered" role="document">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title">Delete Snippet</h5>
+														<button type="button" class="close" data-dismiss="modal"
+															aria-label="Close">
+															<span aria-hidden="true">&times;</span>
+														</button>
+													</div>
+													<div class="modal-header">
+														<h6>Are you sure?</h6>
+													</div>
+													<div class="modal-footer">
+														<form action="${pageContext.request.contextPath}/deleteSnippet" id="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}">
+															<input type="hidden" id="snippetId" name="snippetId" value="${userPublishedSnippets.get(i).getSnippetId()}">
+															<input type="hidden" id="username" name="username" value="${login_username}">
+														</form>
+														<button type="button" class="btn btn-secondary"
+															data-dismiss="modal">Cancel</button>
+														<input type="submit" class="btn btn-primary"
+															form="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Confirm" />
+													</div>
+												</div>
+											</div>
+										</div>
 									</c:when>
 								</c:choose>
 							</c:forEach>
