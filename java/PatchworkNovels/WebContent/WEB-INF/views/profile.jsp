@@ -148,11 +148,27 @@
 										<h5 class="mb-1">
 											<c:out value="${userPublishedStories.get(i).getStoryTitle()}"></c:out>
 										</h5>
-										<small><c:out
-												value="${userPublishedStories.get(i).getStoryTimePosted()}"></c:out></small>
+										<small>
+											<c:out value="${userPublishedStories.get(i).getStoryTimePosted()}"></c:out>
+										</small>
+										
 									</div>
 									<p class="mb-1">Nothing here yet</p>
 								</a>
+								<c:choose>
+									<c:when test="${login_username != null && login_username.equals(username)}">
+										<form action="${pageContext.request.contextPath}/editStory" id="editStoryForm${userPublishedStories.get(i).getStoryTitle()}">
+											<input type="hidden" id="storyTitle" name="storyTitle" value="${userPublishedStories.get(i).getStoryTitle()}">
+											<input type="hidden" id="username" name="username" value="${login_username}">
+											<input type="submit" class="btn btn-primary" form="editStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Edit" />
+										</form>
+										<form action="${pageContext.request.contextPath}/deleteStory" id="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}">
+											<input type="hidden" id="storyTitle" name="storyTitle" value="${userPublishedStories.get(i).getStoryTitle()}">
+											<input type="hidden" id="username" name="username" value="${login_username}">
+											<input type="submit" class="btn btn-primary" form="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Delete" />
+										</form>
+									</c:when>
+								</c:choose>
 							</c:forEach>
 						</div>
 					</c:otherwise>
@@ -171,15 +187,26 @@
 									href="${pageContext.request.contextPath}/snippet/${userPublishedSnippets.get(i).getSnippetId()}"
 									class="list-group-item list-group-item-action flex-column align-items-start">
 									<div class="d-flex w-100 justify-content-between">
-										<h5 class="mb-1">
-											<c:out
-												value="${userPublishedSnippets.get(i).getSnippetText()}"></c:out>
-										</h5>
 										<small><c:out
 												value="${userPublishedSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
 									</div>
-									<p class="mb-1">Nothing here yet</p>
+									<p class="mb-1"><c:out
+											value="${userPublishedSnippets.get(i).getSnippetText()}"></c:out></p>
 								</a>
+								<c:choose>
+									<c:when test="${login_username != null && login_username.equals(username)}">
+										<form action="${pageContext.request.contextPath}/editSnippet" id="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}">
+											<input type="hidden" id="snippetId" name="snippetId" value="${userPublishedSnippets.get(i).getSnippetId()}">
+											<input type="hidden" id="username" name="username" value="${login_username}">
+											<input type="submit" class="btn btn-primary" form="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Edit" />
+										</form>
+										<form action="${pageContext.request.contextPath}/deleteStory" id="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}">
+											<input type="hidden" id="snippetId" name="snippetId" value="${userPublishedSnippets.get(i).getSnippetId()}">
+											<input type="hidden" id="username" name="username" value="${login_username}">
+											<input type="submit" class="btn btn-primary" form="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Delete" />
+										</form>
+									</c:when>
+								</c:choose>
 							</c:forEach>
 						</div>
 					</c:otherwise>
