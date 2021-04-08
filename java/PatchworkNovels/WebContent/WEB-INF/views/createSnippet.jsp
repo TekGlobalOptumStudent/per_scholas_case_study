@@ -36,7 +36,17 @@
 
 	<div class="create-body">
 		<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet">
-			<textarea name="snippetText" id="snippetText" row="200" col="10"></textarea>
+			<c:choose>
+				<c:when test="${snippetText != null}">
+					<textarea name="snippetText" id="snippetText" row="200" col="10">
+						<c:out value="${snippetText}"></c:out>
+					</textarea>
+					<input type="hidden" id="snippetId" name="snippetId" value="${snippetId}" />
+				</c:when>
+				<c:otherwise>
+					<textarea name="snippetText" id="snippetText" row="200" col="10"></textarea>
+				</c:otherwise>
+			</c:choose>
 			<input type="hidden" id="snippetAuthor" name="snippetAuthor" value="${login_username}"/>
 			<input type="submit" class="btn btn-primary" form="snippetUploadForm" value="Submit" />
 		</form>

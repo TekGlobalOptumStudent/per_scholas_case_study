@@ -209,8 +209,28 @@ public class ViewController {
 	@RequestMapping("/uploadSnippet")
 	public String uploadImage(HttpServletRequest request) {
 		User user = userService.getUser(request.getParameter("snippetAuthor"));
+		if(request.getSession().getAttribute("editSnippet") != null) {
+			request.getSession().setAttribute("editSnippet", null);
+			snippetService.editSnippet(Integer.parseInt(request.getParameter("snippetId")), request.getParameter("snippetText"));
+			return "redirect:/profile/" + user.getUsername();
+		}
 		userService.addPublishedSnippet(user.getUsername(), new Snippet(user, request.getParameter("snippetText")));
 		return "redirect:/profile/" + user.getUsername();
+	}
+	
+	@PostMapping("/editSnippet")
+	public ModelAndView editSnippet(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("createSnippet");
+		Snippet snippet = snippetService.readSnippet(Integer.parseInt(request.getParameter("snippetId")));
+		mav.addObject("snippetText", snippet.getSnippetText());
+		mav.addObject("snippetId", snippet.getSnippetId());
+		request.getSession().setAttribute("editSnippet", "true");
+		return mav;
+	}
+	
+	@RequestMapping("/deleteSnippet")
+	public String deleteSnippet(HttpServletRequest request) {
+		return null;
 	}
 	
 	@RequestMapping("/addCommentToSnippet")
@@ -263,10 +283,33 @@ public class ViewController {
 		Arrays.asList(storyTextString.split(",")).forEach(s -> {
 			storyText.add(snippetService.readSnippet(Integer.parseInt(s)));
 		});
+		if(request.getSession().getAttribute("editStory") != null) {
+			request.getSession().setAttribute("editStory", null);
+			storyService.editStory(request.getParameter("storyTitle"), storyText);
+			return "redirect:/profile/" + user.getUsername();
+		}
 		Story toAdd = new Story(request.getParameter("storyTitle"), user, storyText);
 		storyService.addStory(toAdd);
 		userService.addPublishedStory(user.getUsername(), storyService.readStory(toAdd.getStoryTitle()));
 		return "redirect:/profile/" + user.getUsername();
+	}
+	
+	@PostMapping("/editStory")
+	public ModelAndView editStory(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("createStory");
+		Story story = storyService.readStory(request.getParameter("storyTitle"));
+		List<Snippet> restOfSnippets = snippetService.getAllSnippets();
+		restOfSnippets.removeAll(story.getStoryText());
+		mav.addObject("storySnippets", story.getStoryText());
+		mav.addObject("allSnippets", restOfSnippets);
+		mav.addObject("storyTitle", story.getStoryTitle());
+		request.getSession().setAttribute("editStory", "true");
+		return mav;
+	}
+	
+	@RequestMapping("/deleteStory")
+	public String deleteStory(HttpServletRequest request) {
+		return null;
 	}
 	
 	@RequestMapping("/addCommentToStory")

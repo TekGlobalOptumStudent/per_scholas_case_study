@@ -157,7 +157,7 @@
 								</a>
 								<c:choose>
 									<c:when test="${login_username != null && login_username.equals(username)}">
-										<form action="${pageContext.request.contextPath}/editStory" id="editStoryForm${userPublishedStories.get(i).getStoryTitle()}">
+										<form action="${pageContext.request.contextPath}/editStory" id="editStoryForm${userPublishedStories.get(i).getStoryTitle()}" method="post">
 											<input type="hidden" id="storyTitle" name="storyTitle" value="${userPublishedStories.get(i).getStoryTitle()}">
 											<input type="hidden" id="username" name="username" value="${login_username}">
 											<input type="submit" class="btn btn-primary" form="editStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Edit" />
@@ -195,7 +195,7 @@
 								</a>
 								<c:choose>
 									<c:when test="${login_username != null && login_username.equals(username)}">
-										<form action="${pageContext.request.contextPath}/editSnippet" id="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}">
+										<form action="${pageContext.request.contextPath}/editSnippet" id="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" method="post">
 											<input type="hidden" id="snippetId" name="snippetId" value="${userPublishedSnippets.get(i).getSnippetId()}">
 											<input type="hidden" id="username" name="username" value="${login_username}">
 											<input type="submit" class="btn btn-primary" form="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Edit" />

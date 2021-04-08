@@ -42,6 +42,6 @@ function getDragAfterElement(container, y) {
 function captureStoryText() {
 	var list = document.getElementById('storyTextDropzone').childNodes;
 	var storyText = [];
-	list.forEach(e => storyText.push(e.id));
+	list.forEach(e => {if(e.nodeType == 1) storyText.push(e.id)});
 	document.getElementById("storyText").value = storyText;
 }
