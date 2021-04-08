@@ -116,13 +116,13 @@ public class UserService {
 		boolean ret = false;
 		User user = userRepository.getByUsername(username);
 		if(user != null) {
+			ret = user.getPublishedSnippets().remove(snippet);
 			if(snippet.getSnippetStories().isEmpty()) {
-				ret = user.getPublishedSnippets().remove(snippet);
-				userRepository.save(user);
+				snippetService.deleteSnippet(snippet.getSnippetId());
 			} else {
-				snippet.setSnippetAuthor(getUser(""));
-				ret = true;
+				snippetService.editSnippetAuthor(snippet.getSnippetId(), getUser(""));
 			}
+			userRepository.save(user);
 		}
 		return ret;
 	}

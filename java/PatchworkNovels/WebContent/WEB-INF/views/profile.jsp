@@ -171,8 +171,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="list-group">
-							<c:forEach var="i" begin="0"
-								end="${userPublishedStories.size() - 1}">
+							<c:forEach var="i" begin="0" end="${userPublishedStories.size() - 1}">
 								<a
 									href="${pageContext.request.contextPath}/story/${userPublishedStories.get(i).getStoryTitle()}"
 									class="list-group-item list-group-item-action flex-column align-items-start">
@@ -189,17 +188,17 @@
 								</a>
 								<c:choose>
 									<c:when test="${login_username != null && login_username.equals(username)}">
-										<form action="${pageContext.request.contextPath}/editStory" id="editStoryForm${userPublishedStories.get(i).getStoryTitle()}" method="post">
+										<form action="${pageContext.request.contextPath}/editStory" id="editStoryForm${i}" method="post">
 											<input type="hidden" id="storyTitle" name="storyTitle" value="${userPublishedStories.get(i).getStoryTitle()}">
 											<input type="hidden" id="username" name="username" value="${login_username}">
-											<input type="submit" class="btn btn-primary" form="editStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Edit" />
+											<input type="submit" class="btn btn-primary" form="editStoryForm${i}" value="Edit" />
 										</form>
 										<button type="button"
 											class="btn btn-primary"
-											data-toggle="modal" data-target="#deleteStory">Delete
+											data-toggle="modal" data-target="#deleteStory${i}">Delete
 										</button>
 										
-										<div class="modal fade" id="deleteStory" tabindex="-1"
+										<div class="modal fade" id="deleteStory${i}" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalCenterTitle"
 											aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered" role="document">
@@ -215,14 +214,14 @@
 														<h6>Are you sure?</h6>
 													</div>
 													<div class="modal-footer">
-														<form action="${pageContext.request.contextPath}/deleteStory" id="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}">
+														<form action="${pageContext.request.contextPath}/deleteStory" id="deleteStoryForm${i}">
 															<input type="hidden" id="storyTitle" name="storyTitle" value="${userPublishedStories.get(i).getStoryTitle()}">
 															<input type="hidden" id="username" name="username" value="${login_username}">
 														</form>
 														<button type="button" class="btn btn-secondary"
 															data-dismiss="modal">Cancel</button>
 														<input type="submit" class="btn btn-primary"
-															form="deleteStoryForm${userPublishedStories.get(i).getStoryTitle()}" value="Confirm" />
+															form="deleteStoryForm${i}" value="Confirm" />
 													</div>
 												</div>
 											</div>
@@ -241,8 +240,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="list-group">
-							<c:forEach var="i" begin="0"
-								end="${userPublishedSnippets.size() - 1}">
+							<c:forEach var="i" begin="0" end="${userPublishedSnippets.size() - 1}">
 								<a
 									href="${pageContext.request.contextPath}/snippet/${userPublishedSnippets.get(i).getSnippetId()}"
 									class="list-group-item list-group-item-action flex-column align-items-start">
@@ -255,17 +253,17 @@
 								</a>
 								<c:choose>
 									<c:when test="${login_username != null && login_username.equals(username)}">
-										<form action="${pageContext.request.contextPath}/editSnippet" id="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" method="post">
+										<form action="${pageContext.request.contextPath}/editSnippet" id="editSnippetForm${i}" method="post">
 											<input type="hidden" id="snippetId" name="snippetId" value="${userPublishedSnippets.get(i).getSnippetId()}">
 											<input type="hidden" id="username" name="username" value="${login_username}">
-											<input type="submit" class="btn btn-primary" form="editSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Edit" />
+											<input type="submit" class="btn btn-primary" form="editSnippetForm${i}" value="Edit" />
 										</form>
 										<button type="button"
 											class="btn btn-primary"
-											data-toggle="modal" data-target="#deleteSnippet">Delete
+											data-toggle="modal" data-target="#deleteSnippet${i}">Delete
 										</button>
 										
-										<div class="modal fade" id="deleteSnippet" tabindex="-1"
+										<div class="modal fade" id="deleteSnippet${i}" tabindex="-1"
 											role="dialog" aria-labelledby="exampleModalCenterTitle"
 											aria-hidden="true">
 											<div class="modal-dialog modal-dialog-centered" role="document">
@@ -281,14 +279,14 @@
 														<h6>Are you sure?</h6>
 													</div>
 													<div class="modal-footer">
-														<form action="${pageContext.request.contextPath}/deleteSnippet" id="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}">
+														<form action="${pageContext.request.contextPath}/deleteSnippet" id="deleteSnippetForm${i}">
 															<input type="hidden" id="snippetId" name="snippetId" value="${userPublishedSnippets.get(i).getSnippetId()}">
 															<input type="hidden" id="username" name="username" value="${login_username}">
 														</form>
 														<button type="button" class="btn btn-secondary"
 															data-dismiss="modal">Cancel</button>
 														<input type="submit" class="btn btn-primary"
-															form="deleteSnippetForm${userPublishedSnippets.get(i).getSnippetId()}" value="Confirm" />
+															form="deleteSnippetForm${i}" value="Confirm" />
 													</div>
 												</div>
 											</div>

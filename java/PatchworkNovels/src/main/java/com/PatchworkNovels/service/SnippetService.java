@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.PatchworkNovels.entities.Comment;
 import com.PatchworkNovels.entities.Snippet;
 import com.PatchworkNovels.entities.Story;
+import com.PatchworkNovels.entities.User;
 import com.PatchworkNovels.repo.SnippetRepository;
 
 @Service
@@ -38,6 +39,18 @@ public class SnippetService {
 		Snippet snippet = snippetRepository.getBySnippetId(snippetId);
 		if(snippet != null) {
 			snippet.setSnippetText(newSnippetText);
+			snippetRepository.save(snippet);
+			return true;
+		}
+		return false;
+	}
+	
+	@Transactional
+	protected boolean editSnippetAuthor(int snippetId, User newSnippetAuthor) {
+		if(snippetId < 0 || newSnippetAuthor == null) return false;
+		Snippet snippet = snippetRepository.getBySnippetId(snippetId);
+		if(snippet != null) {
+			snippet.setSnippetAuthor(newSnippetAuthor);
 			snippetRepository.save(snippet);
 			return true;
 		}
