@@ -10,7 +10,6 @@
 		<config>java:com.PatchworkNovels.PatchworkNovelsApplication</config>
 	</configs>
 	<autoconfigs>
-		<config>src/main/webapp/WEB-INF/dispatcher-servlet.xml</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
