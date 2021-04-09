@@ -229,8 +229,8 @@
 						</div>
 					</c:when>
 				</c:choose>
+				<c:out value="${message}"></c:out>
 			</div>
-
 		</div>
 	</div>
 
