@@ -49,12 +49,13 @@
 		        	</c:otherwise>
 		        </c:choose>
 			</form>
+			<c:out value="${message}"></c:out>
 		</div>
 		<div class="row" style="height: 80%">
 			<div class="col">
 				<ul class="list-group dropzone" id="storyTextDropzone" name="storyTextDropzone">
 					<c:choose>
-						<c:when test="${!storySnippets.isEmpty()}">
+						<c:when test="${storySnippets != null && !storySnippets.isEmpty()}">
 							<c:forEach var="i" begin="0" end="${storySnippets.size() - 1}">
 								<li class="list-group-item draggable" draggable="true" id="${storySnippets.get(i).getSnippetId()}">
 									<c:out value="${storySnippets.get(i).getSnippetText()}"></c:out>
@@ -67,7 +68,7 @@
 			<div class="col">
 				<ul class="list-group dropzone">
 					<c:choose>
-						<c:when test="${!allSnippets.isEmpty()}">
+						<c:when test="${allSnippets!= null && !allSnippets.isEmpty()}">
 							<c:forEach var="i" begin="0" end="${allSnippets.size() - 1}">
 								<li class="list-group-item draggable" draggable="true" id="${allSnippets.get(i).getSnippetId()}">
 									<c:out value="${allSnippets.get(i).getSnippetText()}"></c:out>

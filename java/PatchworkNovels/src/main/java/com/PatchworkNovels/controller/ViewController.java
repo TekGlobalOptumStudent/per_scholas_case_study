@@ -60,13 +60,15 @@ public class ViewController {
 	// create
 	
 	@RequestMapping("/createSnippet")
-	public ModelAndView createSnippetHandler() {
+	public ModelAndView createSnippetHandler(HttpServletRequest request) {
+		request.setAttribute("message", null);
 		ModelAndView mav = new ModelAndView("createSnippet");
 		return mav;
 	}
 	
 	@RequestMapping("/createStory")
-	public ModelAndView createStoryHandler() {
+	public ModelAndView createStoryHandler(HttpServletRequest request) {
+		request.setAttribute("message", null);
 		ModelAndView mav = new ModelAndView("createStory");
 		mav.addObject("allSnippets", snippetService.getAllSnippets());
 		return mav;
@@ -99,13 +101,7 @@ public class ViewController {
 			mav.addObject("userPublishedStories", user.getPublishedStories());
 			mav.addObject("userPublishedSnippets", user.getPublishedSnippets());
 			mav.addObject("userFavoriteStories", user.getFavoriteStories());
-			if(user.getProfileImage() != null) {
-				try {
-					mav.addObject("userProfileImage", user.getProfileImage());
-				} catch(Exception e) {
-					System.out.println("Error getting image");
-				}
-			}
+			mav.addObject("userProfileImage", user.getProfileImage());
 			return mav;
 		}
 		return new ModelAndView("error"); // TODO: make error page
@@ -113,6 +109,7 @@ public class ViewController {
 	
 	@RequestMapping("changePassword")
 	public ModelAndView changePassword(HttpServletRequest request) {
+		request.setAttribute("message", null);
 		ModelAndView mav = new ModelAndView("signup");
 		return mav;
 	}
@@ -149,7 +146,8 @@ public class ViewController {
 	// signup
 	
 	@GetMapping("/signup")
-	public ModelAndView signupHandler() {
+	public ModelAndView signupHandler(HttpServletRequest request) {
+		request.setAttribute("message", null);
 		return new ModelAndView("signup");
 	}
 	
@@ -157,11 +155,10 @@ public class ViewController {
 	public String submitUser(@ModelAttribute User user, HttpServletRequest request) {
 		String check = (String)request.getSession().getAttribute("login_username");
 		String password = user.getPassword(), username = user.getUsername();
-		String regex = "[^A-Za-z0-9]";
 		if(userService.checkUsername(username) && check == null) {
 			request.setAttribute("message", "That username is taken.");
 			return "signup";
-		} else if (username.matches(regex) || password.matches(regex)) {
+		} else if (checkSpecialCharacter(username) || checkSpecialCharacter(password)) {
 			request.setAttribute("message", "You cannot have special characters in your username or password.");
 			return "signup";
 		} else if(username.length() < 4 || username.length() > 20) {
@@ -185,12 +182,21 @@ public class ViewController {
 		return "redirect:/profile/" + username;
 	}
 	
+	private boolean checkSpecialCharacter(String s) {
+		if(s == null || s.isEmpty()) return false;
+		for(int i = 0; i < s.length(); i++) {
+			if("/-@#$%^&_-+=()[];\"\'\\|<>?!*{}:.-+=~".contains(s.charAt(i) + "")) return true;
+		}
+		return false;
+	}
+	
 	@RequestMapping("login")
 	public String login(@ModelAttribute User user, HttpServletRequest request) {
 		if(userService.validateUser(user.getUsername(), user.getPassword())) {
 			User dbUser = userService.getUser(user.getUsername());
 			request.getSession().setAttribute("login_username", dbUser.getUsername());
 			request.getSession().setAttribute("login_profile", dbUser.getProfileImage());
+			request.setAttribute("message", null);
 			return "redirect:/profile/" + dbUser.getUsername();
 		}
 		request.getSession().setAttribute("message", "Those credentials were not found in our database,"
@@ -202,6 +208,9 @@ public class ViewController {
 	public String logout(HttpServletRequest request) {
 		request.getSession().setAttribute("login_username", null);
 		request.getSession().setAttribute("login_profile", null);
+		request.getSession().setAttribute("message", null);
+		request.getSession().setAttribute("editStory", null);
+		request.getSession().setAttribute("editSnippet", null);
 		return "redirect:/home";
 	}
 	
@@ -225,13 +234,20 @@ public class ViewController {
 	
 	@PostMapping("/uploadSnippet")
 	public String uploadSnippet(HttpServletRequest request) {
+		String snippetText = request.getParameter("snippetText");
 		User user = userService.getUser(request.getParameter("snippetAuthor"));
+		if(snippetText == null || snippetText.isBlank()) {
+			if(request.getAttribute("editSnippet") != null) return "redirect:/profile/" + user.getUsername();
+			request.setAttribute("message", "Snippet cannot be empty.");
+			return "redirect:/createSnippet";
+		}
+		request.setAttribute("message", null);
 		if(request.getSession().getAttribute("editSnippet") != null) {
 			request.getSession().setAttribute("editSnippet", null);
-			snippetService.editSnippet(Integer.parseInt(request.getParameter("snippetId")), request.getParameter("snippetText"));
+			snippetService.editSnippet(Integer.parseInt(request.getParameter("snippetId")), snippetText);
 			return "redirect:/profile/" + user.getUsername();
 		}
-		userService.addPublishedSnippet(user.getUsername(), new Snippet(user, request.getParameter("snippetText")));
+		userService.addPublishedSnippet(user.getUsername(), new Snippet(user, snippetText));
 		return "redirect:/profile/" + user.getUsername();
 	}
 	
@@ -313,18 +329,34 @@ public class ViewController {
 	
 	@PostMapping("/uploadStory")
 	public String uploadStory(HttpServletRequest request) {
-		User user = userService.getUser(request.getParameter("storyAuthor"));
+		String storyTitle = request.getParameter("storyTitle");
 		String storyTextString = request.getParameter("storyText");
+		User user = userService.getUser(request.getParameter("storyAuthor"));
+		if(storyTitle == null || storyTitle.isBlank()) {
+			request.setAttribute("message", "Story title cannot be empty.");
+			return "redirect:/createStory";
+		} else if (storyTitle.length() > 50) {
+			request.setAttribute("message", "Story title is too long.");
+			return "redirect:/createStory";
+		} else if(storyTitle.matches("[^A-Za-z0-9]")) {
+			request.setAttribute("message", "Story title cannot contain special characters.");
+			return "redirect:/createStory";
+		} else if(storyTextString == null || storyTextString.isBlank()) {
+			if(request.getSession().getAttribute("editStory") != null) return "redirect:/profile/" + user.getUsername();
+			request.setAttribute("message", "Story cannot be empty.");
+			return "redirect:/createStory";
+		}
+		request.setAttribute("message", null);
 		List<Snippet> storyText = new ArrayList<Snippet>();
 		Arrays.asList(storyTextString.split(",")).forEach(s -> {
 			storyText.add(snippetService.readSnippet(Integer.parseInt(s)));
 		});
 		if(request.getSession().getAttribute("editStory") != null) {
 			request.getSession().setAttribute("editStory", null);
-			storyService.editStory(request.getParameter("storyTitle"), storyText);
+			storyService.editStory(storyTitle, storyText);
 			return "redirect:/profile/" + user.getUsername();
 		}
-		Story toAdd = new Story(request.getParameter("storyTitle"), user, storyText);
+		Story toAdd = new Story(storyTitle, user, storyText);
 		userService.addPublishedStory(user.getUsername(), toAdd);
 		return "redirect:/profile/" + user.getUsername();
 	}

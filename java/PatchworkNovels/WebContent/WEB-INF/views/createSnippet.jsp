@@ -50,7 +50,7 @@
 			<input type="hidden" id="snippetAuthor" name="snippetAuthor" value="${login_username}"/>
 			<input type="submit" class="btn btn-primary" form="snippetUploadForm" value="Submit" />
 		</form>
-		
+		<c:out value="${message}"></c:out>
 	</div>
 	
 </body>
