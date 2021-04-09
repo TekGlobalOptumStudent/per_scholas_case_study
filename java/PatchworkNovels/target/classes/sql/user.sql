@@ -1,4 +1,4 @@
-INSERT INTO User (username, password, profileImage, dateJoined) VALUES
+INSERT INTO `user` (`username`, `password`, `profile_image`, `date_joined`) VALUES
 ('', '', null, '2000-01-01'),
 ('user1', 'pass1', null, '2001-01-01'),
 ('user2', 'pass2', null, '2002-02-02'),

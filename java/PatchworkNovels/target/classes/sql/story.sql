@@ -1,4 +1,4 @@
-INSERT INTO Story (storyTitle, storyAuthor, storyTimePosted, storyRating) VALUES
+INSERT INTO `story` (`story_title`, `story_author`, `story_time_posted`, `story_rating`) VALUES
 ('user1story1', 'user1', '2001-01-01', 1),
 ('user1story2', 'user1', '2001-01-02', 2),
 ('user1story3', 'user1', '2001-01-03', 3),

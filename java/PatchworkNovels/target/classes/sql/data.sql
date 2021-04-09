@@ -14,118 +14,117 @@
 
 -- Dumping data for table patchworknovels.comment: ~9 rows (approximately)
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` (`commentId`, `commentRating`, `commentText`, `commentTimePosted`, `commentAuthor`) VALUES
-	(11, 1, 'user1comment1', '2001-01-01 00:00:00', 'user1'),
-	(12, 2, 'user1comment2', '2001-01-02 00:00:00', 'user1'),
-	(13, 3, 'user1comment3', '2001-01-03 00:00:00', 'user1'),
-	(14, 1, 'user2comment1', '2002-02-01 00:00:00', 'user2'),
-	(15, 2, 'user2comment2', '2002-02-02 00:00:00', 'user2'),
-	(16, 3, 'user2comment3', '2002-02-03 00:00:00', 'user2'),
-	(17, 1, 'user3comment1', '2003-03-01 00:00:00', 'user3'),
-	(18, 2, 'user3comment2', '2003-03-02 00:00:00', 'user3'),
-	(19, 3, 'user3comment3', '2003-03-03 00:00:00', 'user3');
+INSERT INTO `comment` (`comment_id`, `comment_rating`, `comment_text`, `comment_time_posted`, `comment_author`) VALUES
+	(11, 1, 'user1comment1', '2001-01-01 00:00:00.000000', 'user1'),
+	(12, 2, 'user1comment2', '2001-01-02 00:00:00.000000', 'user1'),
+	(13, 3, 'user1comment3', '2001-01-03 00:00:00.000000', 'user1'),
+	(14, 1, 'user2comment1', '2002-02-01 00:00:00.000000', 'user2'),
+	(15, 2, 'user2comment2', '2002-02-02 00:00:00.000000', 'user2'),
+	(16, 3, 'user2comment3', '2002-02-03 00:00:00.000000', 'user2'),
+	(17, 1, 'user3comment1', '2003-03-01 00:00:00.000000', 'user3'),
+	(18, 2, 'user3comment2', '2003-03-02 00:00:00.000000', 'user3'),
+	(19, 3, 'user3comment3', '2003-03-03 00:00:00.000000', 'user3');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.hibernate_sequence: ~2 rows (approximately)
+-- Dumping data for table patchworknovels.hibernate_sequence: ~1 rows (approximately)
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` (`next_val`) VALUES
-	(1),
-	(1);
+INSERT INTO `hibernate_sequence` (`next_not_cached_value`, `minimum_value`, `maximum_value`, `start_value`, `increment`, `cache_size`, `cycle_option`, `cycle_count`) VALUES
+	(1, 1, 9223372036854775806, 1, 1, 1000, 0, 0);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 
 -- Dumping data for table patchworknovels.snippet: ~10 rows (approximately)
 /*!40000 ALTER TABLE `snippet` DISABLE KEYS */;
-INSERT INTO `snippet` (`snippetId`, `snippetText`, `snippetTimePosted`, `snippetAuthor`) VALUES
-	(11, 'snippetTest1', '2001-01-01 00:00:00', 'user1'),
-	(12, 'snippetTest2', '2002-02-02 00:00:00', 'user2'),
-	(13, 'snippetTest3', '2003-03-03 00:00:00', 'user3'),
-	(14, 'snippetTest4', '2004-04-04 00:00:00', 'user4'),
-	(15, 'snippetTest5', '2005-05-05 00:00:00', 'user5'),
-	(16, 'snippetTest6', '2006-06-06 00:00:00', 'user6'),
-	(17, 'snippetTest7', '2007-07-07 00:00:00', 'user7'),
-	(18, 'snippetTest8', '2008-08-08 00:00:00', 'user8'),
-	(19, 'snippetTest9', '2009-09-09 00:00:00', 'user9'),
-	(20, 'snippetTest10', '2010-10-10 00:00:00', 'user10');
+INSERT INTO `snippet` (`snippet_id`, `snippet_text`, `snippet_time_posted`, `snippet_author`) VALUES
+	(11, 'snippetTest1', '2001-01-01 00:00:00.000000', 'user1'),
+	(12, 'snippetTest2', '2002-02-02 00:00:00.000000', 'user2'),
+	(13, 'snippetTest3', '2003-03-03 00:00:00.000000', 'user3'),
+	(14, 'snippetTest4', '2004-04-04 00:00:00.000000', 'user4'),
+	(15, 'snippetTest5', '2005-05-05 00:00:00.000000', 'user5'),
+	(16, 'snippetTest6', '2006-06-06 00:00:00.000000', 'user6'),
+	(17, 'snippetTest7', '2007-07-07 00:00:00.000000', 'user7'),
+	(18, 'snippetTest8', '2008-08-08 00:00:00.000000', 'user8'),
+	(19, 'snippetTest9', '2009-09-09 00:00:00.000000', 'user9'),
+	(20, 'snippetTest10', '2010-10-10 00:00:00.000000', 'user10');
 /*!40000 ALTER TABLE `snippet` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.snippet_snippetcomments: ~4 rows (approximately)
-/*!40000 ALTER TABLE `snippet_snippetcomments` DISABLE KEYS */;
-INSERT INTO `snippet_snippetcomments` (`Snippet_snippetId`, `snippetComments_commentId`) VALUES
+-- Dumping data for table patchworknovels.snippet_snippet_comments: ~4 rows (approximately)
+/*!40000 ALTER TABLE `snippet_snippet_comments` DISABLE KEYS */;
+INSERT INTO `snippet_snippet_comments` (`snippet_snippet_id`, `snippet_comments_comment_id`) VALUES
 	(11, 11),
 	(12, 12),
 	(13, 13),
 	(14, 14);
-/*!40000 ALTER TABLE `snippet_snippetcomments` ENABLE KEYS */;
+/*!40000 ALTER TABLE `snippet_snippet_comments` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.snippet_snippetstories: ~6 rows (approximately)
-/*!40000 ALTER TABLE `snippet_snippetstories` DISABLE KEYS */;
-INSERT INTO `snippet_snippetstories` (`Snippet_snippetId`, `snippetStories_storyTitle`) VALUES
+-- Dumping data for table patchworknovels.snippet_snippet_stories: ~6 rows (approximately)
+/*!40000 ALTER TABLE `snippet_snippet_stories` DISABLE KEYS */;
+INSERT INTO `snippet_snippet_stories` (`snippet_snippet_id`, `snippet_stories_story_title`) VALUES
 	(11, 'user1story1'),
 	(11, 'user1story2'),
 	(12, 'user1story1'),
 	(12, 'user1story2'),
 	(13, 'user1story1'),
 	(13, 'user1story2');
-/*!40000 ALTER TABLE `snippet_snippetstories` ENABLE KEYS */;
+/*!40000 ALTER TABLE `snippet_snippet_stories` ENABLE KEYS */;
 
 -- Dumping data for table patchworknovels.story: ~9 rows (approximately)
 /*!40000 ALTER TABLE `story` DISABLE KEYS */;
-INSERT INTO `story` (`storyTitle`, `storyRating`, `storyTimePosted`, `storyAuthor`) VALUES
-	('user1story1', 1, '2001-01-01 00:00:00', 'user1'),
-	('user1story2', 2, '2001-01-02 00:00:00', 'user1'),
-	('user1story3', 3, '2001-01-03 00:00:00', 'user1'),
-	('user2story1', 1, '2002-02-01 00:00:00', 'user2'),
-	('user2story2', 2, '2002-02-02 00:00:00', 'user2'),
-	('user2story3', 3, '2002-02-03 00:00:00', 'user2'),
-	('user3story1', 1, '2003-03-01 00:00:00', 'user3'),
-	('user3story2', 2, '2003-03-02 00:00:00', 'user3'),
-	('user3story3', 3, '2003-03-03 00:00:00', 'user3');
+INSERT INTO `story` (`story_title`, `story_rating`, `story_time_posted`, `story_author`) VALUES
+	('user1story1', 1, '2001-01-01 00:00:00.000000', 'user1'),
+	('user1story2', 2, '2001-01-02 00:00:00.000000', 'user1'),
+	('user1story3', 3, '2001-01-03 00:00:00.000000', 'user1'),
+	('user2story1', 1, '2002-02-01 00:00:00.000000', 'user2'),
+	('user2story2', 2, '2002-02-02 00:00:00.000000', 'user2'),
+	('user2story3', 3, '2002-02-03 00:00:00.000000', 'user2'),
+	('user3story1', 1, '2003-03-01 00:00:00.000000', 'user3'),
+	('user3story2', 2, '2003-03-02 00:00:00.000000', 'user3'),
+	('user3story3', 3, '2003-03-03 00:00:00.000000', 'user3');
 /*!40000 ALTER TABLE `story` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.story_storycomments: ~5 rows (approximately)
-/*!40000 ALTER TABLE `story_storycomments` DISABLE KEYS */;
-INSERT INTO `story_storycomments` (`Story_storyTitle`, `storyComments_commentId`) VALUES
+-- Dumping data for table patchworknovels.story_story_comments: ~5 rows (approximately)
+/*!40000 ALTER TABLE `story_story_comments` DISABLE KEYS */;
+INSERT INTO `story_story_comments` (`story_story_title`, `story_comments_comment_id`) VALUES
 	('user2story2', 15),
 	('user2story3', 16),
 	('user3story1', 17),
 	('user3story2', 18),
 	('user3story3', 19);
-/*!40000 ALTER TABLE `story_storycomments` ENABLE KEYS */;
+/*!40000 ALTER TABLE `story_story_comments` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.story_storytext: ~6 rows (approximately)
-/*!40000 ALTER TABLE `story_storytext` DISABLE KEYS */;
-INSERT INTO `story_storytext` (`Story_storyTitle`, `storyText_snippetId`) VALUES
+-- Dumping data for table patchworknovels.story_story_text: ~6 rows (approximately)
+/*!40000 ALTER TABLE `story_story_text` DISABLE KEYS */;
+INSERT INTO `story_story_text` (`story_story_title`, `story_text_snippet_id`) VALUES
 	('user1story1', 11),
 	('user1story1', 12),
 	('user1story1', 13),
 	('user1story2', 11),
 	('user1story2', 12),
 	('user1story2', 13);
-/*!40000 ALTER TABLE `story_storytext` ENABLE KEYS */;
+/*!40000 ALTER TABLE `story_story_text` ENABLE KEYS */;
 
 -- Dumping data for table patchworknovels.user: ~11 rows (approximately)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`username`, `dateJoined`, `password`, `profileImage`) VALUES
-	('', '2000-01-01 00:00:00', '', NULL),
-	('user1', '2001-01-01 00:00:00', 'pass1', NULL),
-	('user10', '2010-10-10 00:00:00', 'pass10', NULL),
-	('user2', '2002-02-02 00:00:00', 'pass2', NULL),
-	('user3', '2003-03-03 00:00:00', 'pass3', NULL),
-	('user4', '2004-04-04 00:00:00', 'pass4', NULL),
-	('user5', '2005-05-05 00:00:00', 'pass5', NULL),
-	('user6', '2006-06-06 00:00:00', 'pass6', NULL),
-	('user7', '2007-07-07 00:00:00', 'pass7', NULL),
-	('user8', '2008-08-08 00:00:00', 'pass8', NULL),
-	('user9', '2009-09-09 00:00:00', 'pass9', NULL);
+INSERT INTO `user` (`username`, `date_joined`, `password`, `profile_image`) VALUES
+	('', '2000-01-01 00:00:00.000000', '', NULL),
+	('user1', '2001-01-01 00:00:00.000000', 'pass1', NULL),
+	('user10', '2010-10-10 00:00:00.000000', 'pass10', NULL),
+	('user2', '2002-02-02 00:00:00.000000', 'pass2', NULL),
+	('user3', '2003-03-03 00:00:00.000000', 'pass3', NULL),
+	('user4', '2004-04-04 00:00:00.000000', 'pass4', NULL),
+	('user5', '2005-05-05 00:00:00.000000', 'pass5', NULL),
+	('user6', '2006-06-06 00:00:00.000000', 'pass6', NULL),
+	('user7', '2007-07-07 00:00:00.000000', 'pass7', NULL),
+	('user8', '2008-08-08 00:00:00.000000', 'pass8', NULL),
+	('user9', '2009-09-09 00:00:00.000000', 'pass9', NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.user_favoritestories: ~0 rows (approximately)
-/*!40000 ALTER TABLE `user_favoritestories` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user_favoritestories` ENABLE KEYS */;
+-- Dumping data for table patchworknovels.user_favorite_stories: ~0 rows (approximately)
+/*!40000 ALTER TABLE `user_favorite_stories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `user_favorite_stories` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.user_publishedsnippets: ~10 rows (approximately)
-/*!40000 ALTER TABLE `user_publishedsnippets` DISABLE KEYS */;
-INSERT INTO `user_publishedsnippets` (`User_username`, `publishedSnippets_snippetId`) VALUES
+-- Dumping data for table patchworknovels.user_published_snippets: ~10 rows (approximately)
+/*!40000 ALTER TABLE `user_published_snippets` DISABLE KEYS */;
+INSERT INTO `user_published_snippets` (`user_username`, `published_snippets_snippet_id`) VALUES
 	('user1', 11),
 	('user10', 20),
 	('user2', 12),
@@ -136,11 +135,11 @@ INSERT INTO `user_publishedsnippets` (`User_username`, `publishedSnippets_snippe
 	('user7', 17),
 	('user8', 18),
 	('user9', 19);
-/*!40000 ALTER TABLE `user_publishedsnippets` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user_published_snippets` ENABLE KEYS */;
 
--- Dumping data for table patchworknovels.user_publishedstories: ~7 rows (approximately)
-/*!40000 ALTER TABLE `user_publishedstories` DISABLE KEYS */;
-INSERT INTO `user_publishedstories` (`User_username`, `publishedStories_storyTitle`) VALUES
+-- Dumping data for table patchworknovels.user_published_stories: ~9 rows (approximately)
+/*!40000 ALTER TABLE `user_published_stories` DISABLE KEYS */;
+INSERT INTO `user_published_stories` (`user_username`, `published_stories_story_title`) VALUES
 	('user1', 'user1story1'),
 	('user1', 'user1story2'),
 	('user1', 'user1story3'),
@@ -150,7 +149,7 @@ INSERT INTO `user_publishedstories` (`User_username`, `publishedStories_storyTit
 	('user3', 'user3story1'),
 	('user3', 'user3story2'),
 	('user3', 'user3story3');
-/*!40000 ALTER TABLE `user_publishedstories` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user_published_stories` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IFNULL(@OLD_FOREIGN_KEY_CHECKS, 1) */;
