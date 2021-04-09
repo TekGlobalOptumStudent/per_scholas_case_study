@@ -8,13 +8,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -27,7 +27,8 @@ import com.PatchworkNovels.service.SnippetService;
 import com.PatchworkNovels.service.StoryService;
 import com.PatchworkNovels.service.UserService;
 
-@Controller
+@RestController
+@RequestMapping("/")
 public class ViewController {
 
 	@Autowired
@@ -42,7 +43,7 @@ public class ViewController {
 	@Autowired
 	UserService userService;
 
-	@RequestMapping("/")
+	//@RequestMapping("/")
 	public String indexHandler() {
 		return "redirect:/home";
 	}
