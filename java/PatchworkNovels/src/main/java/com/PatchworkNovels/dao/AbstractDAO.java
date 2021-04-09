@@ -84,10 +84,10 @@ public abstract class AbstractDAO {
 		// 1. mariadb
 		// 2. mysql
 		if(databaseType == 1) {
-			DriverManager.registerDriver(new org.mariadb.jdbc.Driver());
+			//DriverManager.registerDriver(new org.mariadb.jdbc.Driver());
 			dbUrl = "jdbc:mariadb://localhost:3306/";
 		} else {
-			DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
+			//DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver());
 			dbUrl = "jdbc:mysql://localhost:3306/";
 		}
 		connection = DriverManager.getConnection(dbUrl, user, pass);

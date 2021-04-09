@@ -2,70 +2,73 @@ package com.PatchworkNovels.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.PatchworkNovels.entities.Comment;
+import com.PatchworkNovels.entities.User;
+import com.PatchworkNovels.service.CommentService;
+import com.PatchworkNovels.service.UserService;
 
 @SpringBootTest
 class CommentServiceTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	CommentService commentService;
 
 	@Test
+	@Transactional
 	void testAddComment() {
-		fail("Not yet implemented");
+		User user = userService.getUser("user1");
+		assertTrue(commentService.addComment(new Comment(user, "testComment")));
 	}
 
 	@Test
+	@Transactional
 	void testReadComment() {
-		fail("Not yet implemented");
+		assertNotNull(commentService.readComment(11));
 	}
 
 	@Test
+	@Transactional
 	void testEditComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.editComment(11, "testNewCommentText"));
 	}
 
 	@Test
+	@Transactional
 	void testLikeComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.likeComment(11));
 	}
 
 	@Test
+	@Transactional
 	void testDislikeComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.dislikeComment(11));
 	}
 
 	@Test
+	@Transactional
 	void testDeleteComment() {
-		fail("Not yet implemented");
+		assertTrue(commentService.deleteComment(11));
 	}
 
 	@Test
+	@Transactional
 	void testGetAllComments() {
-		fail("Not yet implemented");
+		assertFalse(commentService.getAllComments().isEmpty());
 	}
 
 	@Test
+	@Transactional
 	void testUpdateAllComments() {
-		fail("Not yet implemented");
+		User user = userService.getUser("user1");
+		assertTrue(commentService.updateAllComments(user));
 	}
 
 }

@@ -21,7 +21,7 @@ public class StoryService {
 	public boolean addStory(Story story) {
 		if(story == null) return false;
 		storyRepository.save(story);
-		return false;
+		return true;
 	}
 
 	public Story readStory(String storyTitle) {

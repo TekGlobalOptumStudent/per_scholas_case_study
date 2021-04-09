@@ -91,7 +91,7 @@ public class CommentService {
 				c.setCommentAuthor(userService.getUser(""));
 				commentRepository.save(c);
 			});
-		return false;
+		return !userComments.isEmpty();
 	}
 	
 }

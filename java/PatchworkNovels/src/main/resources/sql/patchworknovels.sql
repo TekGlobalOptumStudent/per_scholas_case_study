@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- Host:                         127.0.0.1
--- Server version:               10.5.9-MariaDB - mariadb.org binary distribution
+-- Server version:               10.5.8-MariaDB - mariadb.org binary distribution
 -- Server OS:                    Win64
 -- HeidiSQL Version:             11.2.0.6213
 -- --------------------------------------------------------

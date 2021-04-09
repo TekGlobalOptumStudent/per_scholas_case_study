@@ -2,80 +2,99 @@ package com.PatchworkNovels.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.PatchworkNovels.entities.Comment;
+import com.PatchworkNovels.entities.Snippet;
+import com.PatchworkNovels.entities.Story;
+import com.PatchworkNovels.entities.User;
+import com.PatchworkNovels.service.CommentService;
+import com.PatchworkNovels.service.SnippetService;
+import com.PatchworkNovels.service.StoryService;
+import com.PatchworkNovels.service.UserService;
 
 @SpringBootTest
 class SnippetServiceTest {
 
-	@BeforeAll
-	static void setUpBeforeClass() throws Exception {
-	}
-
-	@AfterAll
-	static void tearDownAfterClass() throws Exception {
-	}
-
-	@BeforeEach
-	void setUp() throws Exception {
-	}
-
-	@AfterEach
-	void tearDown() throws Exception {
-	}
+	@Autowired
+	UserService userService;
+	
+	@Autowired
+	StoryService storyService;
+	
+	@Autowired
+	SnippetService snippetService;
+	
+	@Autowired
+	CommentService commentService;
 
 	@Test
+	@Transactional
 	void testAddSnippet() {
-		fail("Not yet implemented");
+		User user = userService.getUser("user1");
+		assertTrue(snippetService.addSnippet(new Snippet(user, "testSnippet")));
 	}
 
 	@Test
+	@Transactional
 	void testReadSnippet() {
-		fail("Not yet implemented");
+		assertNotNull(snippetService.readSnippet(11));
 	}
 
 	@Test
+	@Transactional
 	void testEditSnippet() {
-		fail("Not yet implemented");
+		assertTrue(snippetService.editSnippet(11, "testSnippet"));
 	}
 
 	@Test
+	@Transactional
 	void testEditSnippetAuthor() {
-		fail("Not yet implemented");
+		User user = userService.getUser("user2");
+		assertTrue(snippetService.editSnippetAuthor(11, user));
 	}
 
 	@Test
+	@Transactional
 	void testAddStory() {
-		fail("Not yet implemented");
+		Story story = storyService.readStory("user1story1");
+		assertTrue(snippetService.addStory(15, story));
 	}
 
 	@Test
+	@Transactional
 	void testDeleteStory() {
-		fail("Not yet implemented");
+		Story story = storyService.readStory("user1story1");
+		assertTrue(snippetService.deleteStory(11, story));
 	}
 
 	@Test
+	@Transactional
 	void testAddComment() {
-		fail("Not yet implemented");
+		User user = userService.getUser("user1");
+		assertTrue(snippetService.addComment(11, new Comment(user, "testComment")));
 	}
 
 	@Test
+	@Transactional
 	void testDeleteComment() {
-		fail("Not yet implemented");
+		Comment toDelete = commentService.readComment(11);
+		assertTrue(snippetService.deleteComment(11, toDelete));
 	}
 
 	@Test
+	@Transactional
 	void testDeleteSnippet() {
-		fail("Not yet implemented");
+		assertTrue(snippetService.deleteSnippet(11));
 	}
 
 	@Test
+	@Transactional
 	void testGetAllSnippets() {
-		fail("Not yet implemented");
+		assertFalse(snippetService.getAllSnippets().isEmpty());
 	}
 
 }
