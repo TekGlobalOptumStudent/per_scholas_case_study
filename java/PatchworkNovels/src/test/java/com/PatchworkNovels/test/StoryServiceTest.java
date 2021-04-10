@@ -107,8 +107,15 @@ class StoryServiceTest {
 	}
 
 	@Test
+	@Transactional
 	void testGetAllStories() {
 		assertFalse(storyService.getAllStories().isEmpty());
+	}
+	
+	@Test
+	@Transactional
+	void testCheckStoryTitle() {
+		assertTrue(storyService.checkStoryTitle("user1story1"));
 	}
 
 }

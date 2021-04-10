@@ -128,4 +128,9 @@ public class StoryService {
 		return storyRepository.findAll();
 	}
 	
+	public boolean checkStoryTitle(String storyTitle) {
+		if(storyTitle == null) return false;
+		return storyRepository.existsById(storyTitle);
+	}
+	
 }

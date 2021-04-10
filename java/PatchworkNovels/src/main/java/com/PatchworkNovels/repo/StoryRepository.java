@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface StoryRepository extends JpaRepository<Story, String> {
 	
 	public Story getByStoryTitle(String storyTitle);
+	public boolean existsByStoryTitle(String storyTitle);
 	
 }
