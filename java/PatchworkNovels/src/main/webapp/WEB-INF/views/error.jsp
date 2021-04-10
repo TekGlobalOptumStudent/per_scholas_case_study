@@ -28,6 +28,6 @@
 <title>Error</title>
 </head>
 <body>
-<p>This is an error page</p>
+<p><c:out value="${message}"></c:out></p>
 </body>
 </html>
