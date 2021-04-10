@@ -29,6 +29,12 @@
 </head>
 
 <body>
+	<%
+		if(session.getAttribute("login_username") == null){
+			request.setAttribute("message", "Please create a new account or login to view this page.");
+			response.sendRedirect("/signup");
+		}
+	%>
 	<!-- Navigation Bar -->
 	<jsp:include page="nav.jsp">
 		<jsp:param name="user" value="" />
