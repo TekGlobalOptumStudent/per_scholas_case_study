@@ -30,7 +30,8 @@
 	<body>
 		<div class="error-body">
 			<%@include file="header.jsp"%>
-			<p><c:out value="${message}"></c:out></p>
+			<p><c:out value="${error_message}"></c:out></p>
+			<% session.setAttribute("error_message", null); %>
 			<%@include file="footer.jsp"%>
 		</div>
 	</body>

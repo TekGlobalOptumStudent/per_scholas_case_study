@@ -44,16 +44,16 @@ public class ViewController {
 
 	@RequestMapping("/home")
 	public ModelAndView homeHandler(HttpServletRequest request) {
-		request.getSession().setAttribute("message", null);
 		ModelAndView mav = new ModelAndView("home");
 		mav.addObject("popularStoryList", storyService.getAllStories());
 		mav.addObject("recentStoryList", storyService.getAllStories());
 		return mav;
 	}
+	
+	// list
 
 	@RequestMapping("/list")
 	public ModelAndView listHandler(HttpServletRequest request) {
-		request.getSession().setAttribute("message", null);
 		ModelAndView mav = new ModelAndView("list");
 		mav.addObject("allStories", storyService.getAllStories());
 		mav.addObject("allSnippets", snippetService.getAllSnippets());
@@ -64,7 +64,6 @@ public class ViewController {
 
 	@RequestMapping("/profile/{username}")
 	public ModelAndView profileHandler(@PathVariable(required = true) String username, HttpServletRequest request) {
-		request.getSession().setAttribute("message", null);
 		if (username.equals(request.getSession().getAttribute("login_username"))) {
 			request.getSession().setAttribute("isLoggedIn", true);
 		} else {
@@ -88,32 +87,8 @@ public class ViewController {
 
 	@GetMapping("/signup")
 	public ModelAndView signupHandler(HttpServletRequest request) {
-		request.getSession().setAttribute("message", null);
+		request.getSession().setAttribute("signup_message", null);
 		return new ModelAndView("signup");
-	}
-
-	@RequestMapping("login")
-	public String login(@ModelAttribute User user, HttpServletRequest request) {
-		if (userService.validateUser(user.getUsername(), user.getPassword())) {
-			User dbUser = userService.getUser(user.getUsername());
-			request.getSession().setAttribute("login_username", dbUser.getUsername());
-			request.getSession().setAttribute("login_profile", dbUser.getProfileImage());
-			request.getSession().setAttribute("message", null);
-			return "redirect:/profile/" + dbUser.getUsername();
-		}
-		request.getSession().setAttribute("message", "Those credentials were not found in our database,"
-				+ " please create a new account with those credentials.");
-		return "signup";
-	}
-
-	@RequestMapping("logout")
-	public String logout(HttpServletRequest request) {
-		request.getSession().setAttribute("login_username", null);
-		request.getSession().setAttribute("login_profile", null);
-		request.getSession().setAttribute("message", null);
-		request.getSession().setAttribute("editStory", null);
-		request.getSession().setAttribute("editSnippet", null);
-		return "redirect:/home";
 	}
 
 	// snippets

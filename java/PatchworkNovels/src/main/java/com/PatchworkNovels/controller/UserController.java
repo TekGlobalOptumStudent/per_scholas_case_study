@@ -27,19 +27,19 @@ public class UserController {
 		String check = (String) request.getSession().getAttribute("login_username");
 		String password = user.getPassword(), username = user.getUsername();
 		if (userService.checkUsername(username) && check == null) {
-			request.getSession().setAttribute("message", "That username is taken.");
+			request.getSession().setAttribute("signup_message", "That username is taken.");
 			return "signup";
 		} else if (checkSpecialCharacter(username) || checkSpecialCharacter(password)) {
-			request.getSession().setAttribute("message", "You cannot have special characters in your username or password.");
+			request.getSession().setAttribute("signup_message", "You cannot have special characters in your username or password.");
 			return "signup";
 		} else if (username.length() < 4 || username.length() > 20) {
-			request.getSession().setAttribute("message", "Your username is either too long or too short.");
+			request.getSession().setAttribute("signup_message", "Your username is either too long or too short.");
 			return "signup";
 		} else if (password.length() < 4 || password.length() > 20) {
-			request.getSession().setAttribute("message", "Your password is either too long or too short.");
+			request.getSession().setAttribute("signup_message", "Your password is either too long or too short.");
 			return "signup";
 		} else if (!password.equals(user.getConfirmPassword())) {
-			request.getSession().setAttribute("message", "Please make sure your passwords match.");
+			request.getSession().setAttribute("signup_message", "Please make sure your passwords match.");
 			return "signup";
 		} else {
 			if (check != null) {
@@ -49,7 +49,6 @@ public class UserController {
 				request.getSession().setAttribute("login_username", username);
 			}
 		}
-		request.getSession().setAttribute("message", null);
 		return "redirect:/profile/" + username;
 	}
 
@@ -62,10 +61,33 @@ public class UserController {
 		}
 		return false;
 	}
+
+	@RequestMapping("login")
+	public String login(@ModelAttribute User user, HttpServletRequest request) {
+		if (userService.validateUser(user.getUsername(), user.getPassword())) {
+			User dbUser = userService.getUser(user.getUsername());
+			request.getSession().setAttribute("login_username", dbUser.getUsername());
+			request.getSession().setAttribute("login_profile", dbUser.getProfileImage());
+			request.getSession().setAttribute("signup_message", null);
+			return "redirect:/profile/" + dbUser.getUsername();
+		}
+		request.getSession().setAttribute("signup_message", "Those credentials were not found in our database,"
+				+ " please create a new account with those credentials.");
+		return "signup";
+	}
+
+	@RequestMapping("logout")
+	public String logout(HttpServletRequest request) {
+		request.getSession().setAttribute("login_username", null);
+		request.getSession().setAttribute("login_profile", null);
+		request.getSession().setAttribute("editStory", null);
+		request.getSession().setAttribute("editSnippet", null);
+		return "redirect:/home";
+	}
+
 	
 	@RequestMapping("changePassword")
 	public ModelAndView changePassword(HttpServletRequest request) {
-		request.getSession().setAttribute("message", null);
 		ModelAndView mav = new ModelAndView("signup");
 		return mav;
 	}

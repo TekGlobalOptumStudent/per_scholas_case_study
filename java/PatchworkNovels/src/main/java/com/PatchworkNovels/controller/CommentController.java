@@ -35,10 +35,9 @@ public class CommentController {
 	public String addCommentToSnippet(HttpServletRequest request) {
 		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
 		if (request.getParameter("commentText").isBlank()) {
-			request.getSession().setAttribute("message", "Comment cannot be blank.");
+			request.getSession().setAttribute("comment_message", "Comment cannot be blank.");
 			return "redirect:/snippet/" + snippetId;
 		}
-		request.getSession().setAttribute("message", null);
 		User commentAuthor = userService.getUser(request.getParameter("commentAuthor"));
 		snippetService.addComment(snippetId, new Comment(commentAuthor, request.getParameter("commentText")));
 		return "redirect:/snippet/" + snippetId;
@@ -48,10 +47,9 @@ public class CommentController {
 	public String editSnippetComment(HttpServletRequest request) {
 		int snippetId = Integer.parseInt(request.getParameter("snippetId"));
 		if (request.getParameter("commentText").isBlank()) {
-			request.getSession().setAttribute("message", "Comment cannot be blank.");
+			request.getSession().setAttribute("comment_message", "Comment cannot be blank.");
 			return "redirect:/snippet/" + snippetId;
 		}
-		request.getSession().setAttribute("message", null);
 		int commentId = Integer.parseInt(request.getParameter("commentId"));
 		commentService.editComment(commentId, request.getParameter("commentText"));
 		return "redirect:/snippet/" + snippetId;
@@ -87,10 +85,9 @@ public class CommentController {
 	public String addCommentToStory(HttpServletRequest request) {
 		String storyTitle = request.getParameter("storyTitle");
 		if (request.getParameter("commentText").isBlank()) {
-			request.getSession().setAttribute("message", "Comment cannot be blank.");
+			request.getSession().setAttribute("comment_message", "Comment cannot be blank.");
 			return "redirect:/story/" + storyTitle;
 		}
-		request.getSession().setAttribute("message", null);
 		User commentAuthor = userService.getUser(request.getParameter("commentAuthor"));
 		storyService.addComment(storyTitle, new Comment(commentAuthor, request.getParameter("commentText")));
 		return "redirect:/story/" + storyTitle;
@@ -100,10 +97,9 @@ public class CommentController {
 	public String editStoryComment(HttpServletRequest request) {
 		String storyTitle = request.getParameter("storyTitle");
 		if (request.getParameter("commentText").isBlank()) {
-			request.getSession().setAttribute("message", "Comment cannot be blank.");
+			request.getSession().setAttribute("comment_message", "Comment cannot be blank.");
 			return "redirect:/story/" + storyTitle;
 		}
-		request.getSession().setAttribute("message", null);
 		int commentId = Integer.parseInt(request.getParameter("commentId"));
 		commentService.editComment(commentId, request.getParameter("commentText"));
 		return "redirect:/story/" + storyTitle;

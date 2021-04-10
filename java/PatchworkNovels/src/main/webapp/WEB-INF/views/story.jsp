@@ -239,13 +239,14 @@
 							<input type="submit" class="btn btn-primary"
 								form="dislikeStoryForm" value="Dislike" />
 						</form>
+						<c:out value="${comment_message}"></c:out>
 					</c:when>
 				</c:choose>
-				<c:out value="${message}"></c:out>
 			</div>
 		</div>
 	</div>
 	<%@include file="footer.jsp"%>
+	<% session.setAttribute("comment_message", null); %>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>

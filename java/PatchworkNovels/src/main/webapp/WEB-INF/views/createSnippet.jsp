@@ -31,7 +31,7 @@
 <body>
 	<%
 		if(session.getAttribute("login_username") == null){
-			request.setAttribute("message", "Please create a new account or login to view this page.");
+			request.setAttribute("signup_message", "Please create a new account or login to view this page.");
 			response.sendRedirect("/signup");
 		}
 	%>
@@ -56,9 +56,10 @@
 			<input type="hidden" id="snippetAuthor" name="snippetAuthor" value="${login_username}"/>
 			<input type="submit" class="btn btn-primary" form="snippetUploadForm" value="Submit" />
 		</form>
-		<c:out value="${message}"></c:out>
+		<c:out value="${snippet_message}"></c:out>
 	</div>
 	<%@include file="footer.jsp"%>
+	<% session.setAttribute("snippet_message", null); %>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>

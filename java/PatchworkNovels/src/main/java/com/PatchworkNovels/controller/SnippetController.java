@@ -27,9 +27,11 @@ public class SnippetController {
 		String snippetText = request.getParameter("snippetText");
 		User user = userService.getUser(request.getParameter("snippetAuthor"));
 		if (snippetText == null || snippetText.isBlank()) {
-			if (request.getSession().getAttribute("editSnippet") != null)
+			if (request.getSession().getAttribute("editSnippet") != null) {
+				request.getSession().setAttribute("editSnippet", null);
 				return "redirect:/profile/" + user.getUsername();
-			request.getSession().setAttribute("message", "Snippet cannot be empty.");
+			}
+			request.getSession().setAttribute("snippet_message", "Snippet cannot be empty.");
 			return "redirect:/createSnippet";
 		}
 		request.getSession().setAttribute("message", null);

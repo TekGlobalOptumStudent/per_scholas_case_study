@@ -27,7 +27,7 @@ public class CustomErrorController implements ErrorController {
 	            message = "Something went wrong, please return to home.";
 	        }
 	    }
-	    mav.addObject("message", message);
+	    mav.addObject("error_message", message);
 	    return mav;
 	}
 

@@ -30,37 +30,37 @@ public class StoryController {
 
 	@Autowired
 	UserService userService;
-
+	
 	@PostMapping("/uploadStory")
 	public String uploadStory(HttpServletRequest request) {
 		String storyTitle = request.getParameter("storyTitle");
 		String storyTextString = request.getParameter("storyText");
 		User user = userService.getUser(request.getParameter("storyAuthor"));
 		if (storyTitle == null || storyTitle.isBlank()) {
-			request.getSession().setAttribute("message", "Story title cannot be empty.");
+			request.getSession().setAttribute("story_message", "Story title cannot be empty.");
 			return "redirect:/createStory";
 		} else if(storyService.checkStoryTitle(storyTitle) && request.getSession().getAttribute("editStory") == null) {
-			request.getSession().setAttribute("message", "That story title is taken.");
+			request.getSession().setAttribute("story_message", "That story title is taken.");
 			return "redirect:/createStory";
 		} else if (storyTitle.length() > 50) {
-			request.getSession().setAttribute("message", "Story title is too long.");
+			request.getSession().setAttribute("story_message", "Story title is too long.");
 			return "redirect:/createStory";
 		} else if (storyTitle.matches("[^A-Za-z0-9]")) {
-			request.getSession().setAttribute("message", "Story title cannot contain special characters.");
+			request.getSession().setAttribute("story_message", "Story title cannot contain special characters.");
 			return "redirect:/createStory";
 		} else if (storyTextString == null || storyTextString.isBlank()) {
-			if (request.getSession().getAttribute("editStory") != null)
+			if (request.getSession().getAttribute("editStory") != null) {
+				request.getSession().setAttribute("editStory", null);
 				return "redirect:/profile/" + user.getUsername();
-			request.getSession().setAttribute("message", "Story cannot be empty.");
+			}
+			request.getSession().setAttribute("story_message", "Story cannot be empty.");
 			return "redirect:/createStory";
 		}
-		request.getSession().setAttribute("message", null);
 		List<Snippet> storyText = new ArrayList<Snippet>();
 		Arrays.asList(storyTextString.split(",")).forEach(s -> {
 			storyText.add(snippetService.readSnippet(Integer.parseInt(s)));
 		});
 		if (request.getSession().getAttribute("editStory") != null) {
-			request.getSession().setAttribute("editStory", null);
 			storyService.editStory(storyTitle, storyText);
 			return "redirect:/profile/" + user.getUsername();
 		}

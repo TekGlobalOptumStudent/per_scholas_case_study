@@ -66,10 +66,11 @@
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
-			<c:out value="${message}"></c:out>
+			<c:out value="${signup_message}"></c:out>
 		</div>
 	</div>
 	<%@include file="footer.jsp"%>
+	<% session.setAttribute("signup_message", null); %>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>

@@ -31,7 +31,7 @@
 <body>
 	<%
 		if(session.getAttribute("login_username") == null){
-			request.setAttribute("message", "Please create a new account or login to view this page.");
+			request.setAttribute("signup_message", "Please create a new account or login to view this page.");
 			response.sendRedirect("/signup");
 		}
 	%>
@@ -54,7 +54,7 @@
 		        	</c:otherwise>
 		        </c:choose>
 			</form>
-			<c:out value="${message}"></c:out>
+			<c:out value="${story_message}"></c:out>
 		</div>
 		<div class="row" style="height: 80%">
 			<div class="col">
@@ -89,6 +89,7 @@
 		</div>
 	</div>
 	<%@include file="footer.jsp"%>
+	<% session.setAttribute("story_message", null); %>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>
