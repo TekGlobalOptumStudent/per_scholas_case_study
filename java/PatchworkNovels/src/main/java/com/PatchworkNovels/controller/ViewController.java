@@ -349,6 +349,9 @@ public class ViewController {
 		if (storyTitle == null || storyTitle.isBlank()) {
 			request.getSession().setAttribute("message", "Story title cannot be empty.");
 			return "redirect:/createStory";
+		} else if(storyService.checkStoryTitle(storyTitle)) {
+			request.getSession().setAttribute("message", "That story title is taken.");
+			return "redirect:/createStory";
 		} else if (storyTitle.length() > 50) {
 			request.getSession().setAttribute("message", "Story title is too long.");
 			return "redirect:/createStory";
