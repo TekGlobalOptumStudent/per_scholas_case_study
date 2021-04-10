@@ -75,9 +75,11 @@
 							<c:forEach var="i" begin="0" end="${snippetComments.size() - 1}">
 								<li class="list-group-item">
 									<div class="media">
+										<a href="<%=request.getContextPath()%>/profile/${snippetComments.get(i).getCommentAuthor().getUsername()}">
 										<img class="align-self-start mr-3"
 											src="data:image/png;base64,${snippetComments.get(i).getCommentAuthor().getProfileImage()}"
 											alt="Profile Image">
+										</a>
 										<div class="media-body">
 											<h5 class="mt-0">
 												<c:out value="${snippetComments.get(i).getCommentAuthor().getUsername()}"></c:out>
@@ -190,7 +192,9 @@
 
 			<div class="col-sm-4">
 				<h3>Snippet Composer</h3>
+				<a href="<%=request.getContextPath()%>/profile/${snippetAuthor.getUsername()}">
 				<img src="data:image/png;base64,${snippetAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
+				</a>
 				<c:choose>
 					<c:when test="${login_username != null}">
 						<button type="button" class="btn btn-primary" data-toggle="modal"

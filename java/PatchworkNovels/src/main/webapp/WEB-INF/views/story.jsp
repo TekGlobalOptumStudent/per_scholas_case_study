@@ -57,7 +57,9 @@
 			</div>
 			<div class="col-sm-4">
 				<h1>Story Composer</h1>
-				<img src="data:image/png;base64,${storyAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
+				<a href="<%=request.getContextPath()%>/profile/${storyAuthor.getUsername()}">
+					<img src="data:image/png;base64,${storyAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
+				</a>
 				<!-- TODO: populate list with contributors -->
 				<ul class="list-group list-group-flush">
 					<li class="list-group-item">Cras justo odio</li>
@@ -79,9 +81,11 @@
 							<c:forEach var="i" begin="0" end="${storyComments.size() - 1}">
 								<li class="list-group-item">
 									<div class="media">
+										<a href="<%=request.getContextPath()%>/profile/${storyComments.get(i).getCommentAuthor().getUsername()}">
 										<img class="align-self-start mr-3"
 											src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
 											alt="Generic placeholder image">
+										</a>
 										<div class="media-body">
 											<h5 class="mt-0">
 												<c:out value="${storyComments.get(i).getCommentAuthor().getUsername()}"></c:out>
