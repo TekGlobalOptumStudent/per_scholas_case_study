@@ -33,7 +33,7 @@
 	<jsp:include page="nav.jsp">
 		<jsp:param name="user" value="" />
 	</jsp:include>
-
+	<%@include file="header.jsp"%>
 	<div class="stories-body">
 		<div class="row" style="height: 75%">
 			<div class="col-sm-8">
@@ -244,8 +244,8 @@
 				<c:out value="${message}"></c:out>
 			</div>
 		</div>
-
 	</div>
+	<%@include file="footer.jsp"%>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>

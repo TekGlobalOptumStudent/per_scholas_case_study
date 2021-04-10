@@ -33,7 +33,7 @@
 	<jsp:include page="nav.jsp">
 		<jsp:param name="user" value="" />
 	</jsp:include>
-
+	<%@include file="header.jsp"%>
 	<div class="snippets-body">
 		<div class="row">
 			<div class="col-sm-8">
@@ -233,7 +233,7 @@
 			</div>
 		</div>
 	</div>
-
+	<%@include file="footer.jsp"%>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>

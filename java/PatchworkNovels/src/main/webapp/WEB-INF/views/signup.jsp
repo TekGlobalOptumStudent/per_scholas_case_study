@@ -33,7 +33,7 @@
 	<jsp:include page="nav.jsp">
 		<jsp:param name="user" value="" />
 	</jsp:include>
-
+	<%@include file="header.jsp"%>
 	<div class="signup-body">
 		<div class="form-outer-container">
 			<form action="signup" method="post">
@@ -69,7 +69,7 @@
 			<c:out value="${message}"></c:out>
 		</div>
 	</div>
-
+	<%@include file="footer.jsp"%>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>

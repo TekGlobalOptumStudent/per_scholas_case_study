@@ -39,7 +39,7 @@
 	<jsp:include page="nav.jsp">
 		<jsp:param name="user" value="" />
 	</jsp:include>
-
+	<%@include file="header.jsp"%>
 	<div class="create-body">
 		<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet" method="post">
 			<c:choose>
@@ -58,7 +58,7 @@
 		</form>
 		<c:out value="${message}"></c:out>
 	</div>
-	
+	<%@include file="footer.jsp"%>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>

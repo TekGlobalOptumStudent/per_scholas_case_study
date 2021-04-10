@@ -23,7 +23,7 @@ body {
 
 /* testing */
 
-.home-body, .list-body, .create-body, .stories-body, .snippets-body, .signup-body, .profile-body {
+.home-body, .list-body, .create-body, .stories-body, .snippets-body, .signup-body, .profile-body, .error-body {
     height: calc(100% - 56px);
 }
 

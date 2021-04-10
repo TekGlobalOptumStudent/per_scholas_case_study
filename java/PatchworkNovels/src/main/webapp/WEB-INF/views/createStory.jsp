@@ -39,7 +39,7 @@
 	<jsp:include page="nav.jsp">
 		<jsp:param name="user" value="" />
 	</jsp:include>
-
+	<%@include file="header.jsp"%>
 	<div class="create-body">
 		<div class="row" style="height: 10%">
 			<form name="storyUploadForm" id="storyUploadForm" action="<%=request.getContextPath()%>/uploadStory" method="post">
@@ -88,7 +88,7 @@
 			<input type="submit" class="btn btn-primary" form="storyUploadForm" value="Submit" onclick="captureStoryText();"/>
 		</div>
 	</div>
-
+	<%@include file="footer.jsp"%>
 </body>
 <!-- External JS -->
 <script src="<%=request.getContextPath()%>/resources/scripts/script.js" /></script>
