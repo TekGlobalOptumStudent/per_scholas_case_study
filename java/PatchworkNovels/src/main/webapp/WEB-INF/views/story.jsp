@@ -66,9 +66,23 @@
 					</div>
 				</a>
 				<p><h3><c:out value="${storyRating}"></c:out> Likes</h3></p>
-				<p>
-					<div class="error"><c:out value="${comment_message}"></c:out></div>
-				</p>
+				<c:choose>
+					<c:when test="${login_username != null}">				
+						<form action="${pageContext.request.contextPath}/likeStory" id="likeStoryForm">
+							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+							<input type="hidden" id="username" name="username" value="${login_username}">
+							<input type="submit" class="btn btn-primary"
+								form="likeStoryForm" value="Like" />
+						</form>
+						<form action="${pageContext.request.contextPath}/dislikeStory" id="dislikeStoryForm">
+							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+							<input type="hidden" id="username" name="username" value="${login_username}">
+							<input type="submit" class="btn btn-primary"
+								form="dislikeStoryForm" value="Dislike" />
+						</form>
+					</c:when>
+				</c:choose>
+			
 			</div>
 		</div>
 		<div class="row" style="height: 25%">
@@ -243,19 +257,8 @@
 									</div>
 								</div>
 							</div>
-						</div>				
-						<form action="${pageContext.request.contextPath}/likeStory" id="likeStoryForm">
-							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
-							<input type="hidden" id="username" name="username" value="${login_username}">
-							<input type="submit" class="btn btn-primary"
-								form="likeStoryForm" value="Like" />
-						</form>
-						<form action="${pageContext.request.contextPath}/dislikeStory" id="dislikeStoryForm">
-							<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
-							<input type="hidden" id="username" name="username" value="${login_username}">
-							<input type="submit" class="btn btn-primary"
-								form="dislikeStoryForm" value="Dislike" />
-						</form>
+						</div>
+						<p><div class="error"><c:out value="${comment_message}"></c:out></div></p>				
 					</c:when>
 				</c:choose>
 			</div>
