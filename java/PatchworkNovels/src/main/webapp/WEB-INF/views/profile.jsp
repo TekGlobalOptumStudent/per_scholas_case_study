@@ -178,7 +178,7 @@
 												<c:out value="${userPublishedStories.get(i).getStoryTitle()}"></c:out>
 											</h5>
 											<small>
-												<c:out value="${userPublishedStories.get(i).getStoryTimePosted()}"></c:out>
+												<fmt:formatDate value="${userPublishedStories.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/>
 											</small>
 										</div>
 										<c:choose>
@@ -254,11 +254,12 @@
 									<a
 										href="${pageContext.request.contextPath}/snippet/${userPublishedSnippets.get(i).getSnippetId()}">
 										<div class="d-flex w-100 justify-content-between">
-											<small><c:out
-													value="${userPublishedSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
+											<h5 class="mb-1">
+												Snippet #<c:out value="${userPublishedSnippets.get(i).getSnippetId()}"></c:out>
+											</h5>
+											<small><fmt:formatDate value="${userPublishedSnippets.get(i).getSnippetTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
 										</div>
-										<p class="mb-1"><c:out
-												value="${userPublishedSnippets.get(i).getSnippetText()}"></c:out></p>
+										<p class="mb-1"><c:out value="${userPublishedSnippets.get(i).getSnippetText()}"></c:out></p>
 									</a>
 									<c:choose>
 										<c:when test="${login_username != null && login_username.equals(username)}">
@@ -317,8 +318,7 @@
 					</c:when>
 					<c:otherwise>
 						<div class="list-group">
-							<c:forEach var="i" begin="0"
-								end="${userFavoriteStories.size() - 1}">
+							<c:forEach var="i" begin="0" end="${userFavoriteStories.size() - 1}">
 								<a
 									href="${pageContext.request.contextPath}/story/${userFavoriteStories.get(i).getStoryTitle()}"
 									class="list-group-item list-group-item-action flex-column align-items-start">
@@ -326,10 +326,16 @@
 										<h5 class="mb-1">
 											<c:out value="${userFavoriteStories.get(i).getStoryTitle()}"></c:out>
 										</h5>
-										<small><c:out
-												value="${userFavoriteStories.get(i).getStoryTimePosted()}"></c:out></small>
+										<small><fmt:formatDate value="${userFavoriteStories.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
 									</div>
-									<p class="mb-1">Nothing here yet</p>
+									<c:choose>
+										<c:when test="${userFavoriteStories.get(i).getStoryText().isEmpty()}">
+											<p class="mb-1">No content preview</p>
+										</c:when>
+										<c:otherwise>
+											<p class="mb-1"><c:out value="${userFavoriteStories.get(i).getStoryText().get(0).getSnippetText()}"></c:out></p>
+										</c:otherwise>
+									</c:choose>
 								</a>
 							</c:forEach>
 						</div>
