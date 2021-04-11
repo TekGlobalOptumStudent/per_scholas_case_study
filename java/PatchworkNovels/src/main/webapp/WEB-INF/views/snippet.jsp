@@ -29,10 +29,6 @@
 </head>
 
 <body>
-	<!-- Navigation Bar -->
-	<jsp:include page="nav.jsp">
-		<jsp:param name="user" value="" />
-	</jsp:include>
 	<%@include file="header.jsp"%>
 	<div class="snippets-body">
 		<div class="row">

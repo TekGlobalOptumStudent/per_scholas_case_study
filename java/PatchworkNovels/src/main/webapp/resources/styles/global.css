@@ -24,6 +24,7 @@ body {
 /* testing */
 
 .home-body, .list-body, .create-body, .stories-body, .snippets-body, .signup-body, .profile-body, .error-body {
+    background-image: url(../img/wood.jpg);
     height: calc(100% - 56px);
 }
 

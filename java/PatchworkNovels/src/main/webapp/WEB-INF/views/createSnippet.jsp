@@ -35,10 +35,6 @@
 			response.sendRedirect("/signup");
 		}
 	%>
-	<!-- Navigation Bar -->
-	<jsp:include page="nav.jsp">
-		<jsp:param name="user" value="" />
-	</jsp:include>
 	<%@include file="header.jsp"%>
 	<div class="create-body">
 		<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet" method="post">
