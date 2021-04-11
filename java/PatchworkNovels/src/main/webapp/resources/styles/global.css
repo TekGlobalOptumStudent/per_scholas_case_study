@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "meltix";
+    src: url(../fonts/Meltix_Regular_Demo.otf);
+}
+
 body {
     background: lightgray;
     overflow: hidden;
@@ -22,6 +27,10 @@ body {
 }
 
 /* testing */
+
+.s-nav {
+    font-family: meltix;
+}
 
 .home-body, .list-body, .create-body, .stories-body, .snippets-body, .signup-body, .profile-body, .error-body {
     background-image: url(../img/wood.jpg);
@@ -90,4 +99,14 @@ body {
 
 .draggable.dragging {
   	opacity: .5;
+}
+
+.profile-img {
+    width: 100px;
+    height: 100px;
+}
+
+.profile-img img {
+    max-height: 100%;
+    max-width: 100%;
 }

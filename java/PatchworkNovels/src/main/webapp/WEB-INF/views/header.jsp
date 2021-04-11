@@ -5,7 +5,7 @@
 <header>
 	<div class="header">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="${pageContext.request.contextPath}/home">Patchwork Novels</a>
+            <a class="navbar-brand s-nav" href="${pageContext.request.contextPath}/home">patchwork novels</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -32,7 +32,6 @@
                     </c:choose>
                 </ul>
                 <ul class="navbar-nav justify-content-end">
-        
                     <c:choose>
                         <c:when test="${login_username == null}">
                             <li class="nav-item dropdown"><a
@@ -64,14 +63,16 @@
                                 role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"><c:out value="${login_username}"></c:out></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                <c:choose>
-                                    <c:when test="${login_profile == null}">
-                                        <!-- TODO: put placeholder image -->
-                                    </c:when>
-                                    <c:otherwise>
-                                        <img class="align-self-start mr-3" src="data:image/png;base64,${login_profile}" alt="Profile Image">
-                                    </c:otherwise>
-                                </c:choose>
+                                <div class="profile-img">
+                                    <c:choose>
+                                        <c:when test="${login_profile == null}">
+                                            <img class="align-self-start mr-3" src="../../resources/img/blank.png" alt="Profile Image">
+                                        </c:when>
+                                        <c:otherwise>
+                                            <img class="align-self-start mr-3" src="data:image/png;base64,${login_profile}" alt="Profile Image">
+                                        </c:otherwise>
+                                    </c:choose>
+                                </div>
                                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/profile/${login_username}" role="button">Profile</a>
                                 <a class="btn btn-primary" href="${pageContext.request.contextPath}/logout" role="button">Logout</a>
                                 </div>
