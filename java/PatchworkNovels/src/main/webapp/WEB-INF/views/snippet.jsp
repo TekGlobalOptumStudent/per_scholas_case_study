@@ -32,7 +32,7 @@
 <body>
 	<%@include file="header.jsp"%>
 	<div class="snippets-body">
-		<div class="row">
+		<div class="row" style="height: 75%">
 			<div class="col-sm-8">
 				<div id="carouselExampleIndicators" class="carousel slide"
 					data-ride="carousel">
@@ -63,6 +63,30 @@
 						<p>${snippetText}</p>
 					</div>
 				</div>
+				
+
+			</div>
+
+			<div class="col-sm-4">
+				<h3><c:out value="${snippetAuthor.getUsername()}"></c:out></h3>
+				<a href="<%=request.getContextPath()%>/profile/${snippetAuthor.getUsername()}">
+					<div class="profile-img">
+					    <c:choose>
+						    <c:when test="${snippetAuthor.getProfileImage() == null}">
+						    	<img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
+						    </c:when>
+						    <c:otherwise>
+							    <img class="align-self-start"
+									src="data:image/png;base64,${snippetAuthor.getProfileImage()}"
+									alt="Profile Image">
+						    </c:otherwise>
+						</c:choose>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="row" style="height: 25%">
+			<div class="col-sm-8">
 				<c:choose>
 					<c:when test="${snippetComments.isEmpty()}">
 						<div class="empty-slot">Nothing To Show</div>
@@ -107,7 +131,7 @@
 													<c:when test="${login_username.equals(snippetComments.get(i).getCommentAuthor().getUsername())}">
 														<button type="button" class="btn btn-primary" data-toggle="modal"
 															data-target="#editComment${i}">Edit</button>
-										
+											
 														<div class="modal fade" id="editComment${i}" tabindex="-1"
 															role="dialog" aria-labelledby="exampleModalCenterTitle"
 															aria-hidden="true">
@@ -141,7 +165,7 @@
 														</div>
 														<button type="button" class="btn btn-primary" data-toggle="modal" 
 															data-target="#deleteComment${i}">Delete</button>
-							
+								
 														<div class="modal fade" id="deleteComment${i}" tabindex="-1"
 															role="dialog" aria-labelledby="exampleModalCenterTitle"
 															aria-hidden="true">
@@ -194,26 +218,8 @@
 						</ul>
 					</c:otherwise>
 				</c:choose>
-
 			</div>
-
 			<div class="col-sm-4">
-				<h3><c:out value="${snippetAuthor.getUsername()}"></c:out></h3>
-				<a href="<%=request.getContextPath()%>/profile/${snippetAuthor.getUsername()}">
-				<div class="profile-img">
-				    <c:choose>
-					    <c:when test="${snippetAuthor.getProfileImage() == null}">
-					    	<img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
-					    </c:when>
-					    <c:otherwise>
-						    <img class="align-self-start"
-								src="data:image/png;base64,${snippetAuthor.getProfileImage()}"
-								alt="Profile Image">
-					    </c:otherwise>
-					    </c:choose>
-					</div>
-				</a>
-				<c:out value="${comment_message}"></c:out>
 				<c:choose>
 					<c:when test="${login_username != null}">
 						<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -250,6 +256,7 @@
 								</div>
 							</div>
 						</div>
+						<p><div class="error"><c:out value="${comment_message}"></c:out></div></p>
 					</c:when>
 				</c:choose>
 			</div>

@@ -131,3 +131,7 @@ img {
 .media-body > small {
 	display: inline-block;
 }
+
+.error {
+	color: red;
+}
