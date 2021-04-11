@@ -84,7 +84,6 @@ public class UserController {
 		request.getSession().setAttribute("editSnippet", null);
 		return "redirect:/home";
 	}
-
 	
 	@RequestMapping("changePassword")
 	public ModelAndView changePassword(HttpServletRequest request) {

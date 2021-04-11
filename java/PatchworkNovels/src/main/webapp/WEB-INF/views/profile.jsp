@@ -33,15 +33,16 @@
 	<div class="profile-body">
 		<div class="row">
 			<div class="col-sm-3">
-				<c:choose>
-					<c:when test="${userProfileImage == null}">
-						<!-- TODO: put placeholder image -->
-						<!-- <div class="empty-slot">No profile picture</div> -->
-					</c:when>
-					<c:otherwise>
-						<img src="data:image/png;base64,${userProfileImage}" alt="...">
-					</c:otherwise>
-				</c:choose>
+				<div class="profile-img">
+					<c:choose>
+						<c:when test="${userProfileImage == null}">
+							<img class="align-self-start mr-3" src="../../resources/img/blank.png" alt="Profile Image">
+						</c:when>
+						<c:otherwise>
+							<img src="data:image/png;base64,${userProfileImage}" alt="Profile Image">
+						</c:otherwise>
+					</c:choose>
+				</div>
 				<h1>
 					<c:out value="${username}"></c:out>
 				</h1>

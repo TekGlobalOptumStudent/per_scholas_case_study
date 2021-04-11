@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="en">
 
 <head>
@@ -33,10 +34,7 @@
 	<div class="stories-body">
 		<div class="row" style="height: 75%">
 			<div class="col-sm-8">
-				<h1>
-					<c:out value="${storyTitle}"></c:out>
-				</h1>
-				<c:out value="${storyRating}"></c:out>
+				<h1><c:out value="${storyTitle}"></c:out></h1>
 				<c:choose>
 					<c:when test="${storyText.isEmpty()}">
 						<div class="empty-slot">Nothing To Show</div>
@@ -52,18 +50,25 @@
 				</c:choose>
 			</div>
 			<div class="col-sm-4">
-				<h1>Story Composer</h1>
+				<h1><c:out value="${storyAuthor.getUsername()}"></c:out></h1>
 				<a href="<%=request.getContextPath()%>/profile/${storyAuthor.getUsername()}">
-					<img src="data:image/png;base64,${storyAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
+					<div class="profile-img">
+					    <c:choose>
+						    <c:when test="${storyComments.get(i).getCommentAuthor().getProfileImage() == null}">
+						    	<img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
+						    </c:when>
+						    <c:otherwise>
+							    <img class="align-self-start"
+									src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
+									alt="Profile Image">
+						    </c:otherwise>
+					    </c:choose>
+					</div>
 				</a>
-				<!-- TODO: populate list with contributors -->
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-				</ul>
+				<p><h3><c:out value="${storyRating}"></c:out> Likes</h3></p>
+				<p>
+					<div class="error"><c:out value="${comment_message}"></c:out></div>
+				</p>
 			</div>
 		</div>
 		<div class="row" style="height: 25%">
@@ -76,113 +81,125 @@
 						<ul class="list-group">
 							<c:forEach var="i" begin="0" end="${storyComments.size() - 1}">
 								<li class="list-group-item">
-									<div class="media">
-										<a href="<%=request.getContextPath()%>/profile/${storyComments.get(i).getCommentAuthor().getUsername()}">
-										<img class="align-self-start mr-3"
-											src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
-											alt="Generic placeholder image">
-										</a>
-										<div class="media-body">
-											<h5 class="mt-0">
-												<c:out value="${storyComments.get(i).getCommentAuthor().getUsername()}"></c:out>
-											</h5>
+									<div class="comment-container">
+										<div class="media">
+											<a href="<%=request.getContextPath()%>/profile/${storyComments.get(i).getCommentAuthor().getUsername()}">
+												<div class="comment-img mr-3">
+				                                    <c:choose>
+				                                        <c:when test="${storyComments.get(i).getCommentAuthor().getProfileImage() == null}">
+				                                            <img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
+				                                        </c:when>
+				                                        <c:otherwise>
+				                                            <img class="align-self-start"
+																src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
+																alt="Profile Image">
+				                                        </c:otherwise>
+				                                    </c:choose>
+												</div>
+											</a>
+											<div class="media-body">
+												<h5 class="mt-0">
+													<c:out value="${storyComments.get(i).getCommentAuthor().getUsername()}"></c:out>
+												</h5>
+												:
+												<small>
+													<fmt:formatDate value="${storyComments.get(i).getCommentTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/>
+												</small>
+												<p>
+													<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
+												</p>
+											</div>
 											<small>
-												<c:out value="${storyComments.get(i).getCommentTimePosted()}"></c:out>
+												<c:out value="${storyComments.get(i).getCommentRating()}"></c:out>
 											</small>
-											<p>
-												<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
-											</p>
+											<c:choose>
+												<c:when test="${login_username != null}">
+													<c:choose>
+														<c:when test="${login_username.equals(storyComments.get(i).getCommentAuthor().getUsername())}">
+															<button type="button" class="btn btn-primary d-flex" data-toggle="modal"
+																data-target="#editComment${i}">Edit</button>
+												
+															<div class="modal fade" id="editComment${i}" tabindex="-1"
+																role="dialog" aria-labelledby="exampleModalCenterTitle"
+																aria-hidden="true">
+																<div class="modal-dialog modal-dialog-centered" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title" id="exampleModalLongTitle">Edit Comment</h5>
+																			<button type="button" class="close" data-dismiss="modal"
+																				aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			<form id="editCommentForm${i}" action="${pageContext.request.contextPath}/editStoryComment" method="post">
+																				<label for="comment" class="col-form-label">Comment:</label>
+																				<textarea class="form-control" id="commentText" name="commentText">
+																					<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
+																				</textarea>
+																				<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+																				<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
+																			</form>
+																		</div>
+																		<div class="modal-footer">
+																			<button type="button" class="btn btn-secondary"
+																				data-dismiss="modal">Close</button>
+																			<input type="submit" class="btn btn-primary"
+																				form="editCommentForm${i}" value="Accept" />
+																		</div>
+																	</div>
+																</div>
+															</div>
+															<button type="button" class="btn btn-primary d-flex" data-toggle="modal" 
+																data-target="#deleteComment${i}">Delete</button>
+									
+															<div class="modal fade" id="deleteComment${i}" tabindex="-1"
+																role="dialog" aria-labelledby="exampleModalCenterTitle"
+																aria-hidden="true">
+																<div class="modal-dialog modal-dialog-centered" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title">Delete Comment</h5>
+																			<button type="button" class="close" data-dismiss="modal"
+																				aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-header">
+																			<h6>Are you sure?</h6>
+																		</div>
+																		<div class="modal-footer">
+																			<form id="deleteCommentForm${i}" action="${pageContext.request.contextPath}/deleteStoryComment" method="post">
+																				<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+																				<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
+																			</form>
+																			<button type="button" class="btn btn-secondary"
+																				data-dismiss="modal">Cancel</button>
+																			<input type="submit" class="btn btn-primary"
+																				form="deleteCommentForm${i}" value="Confirm" />
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</c:when>
+														<c:otherwise>
+															<form action="${pageContext.request.contextPath}/likeStoryComment" id="likeCommentForm${i}">
+																<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+																<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
+																<input type="submit" class="btn btn-primary d-flex"
+																	form="likeCommentForm${i}" value="Like" />
+															</form>
+															<form action="${pageContext.request.contextPath}/dislikeStoryComment" id="dislikeCommentForm${i}">
+																<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
+																<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
+																<input type="submit" class="btn btn-primary d-flex"
+																	form="dislikeCommentForm${i}" value="Dislike" />
+															</form>
+														</c:otherwise>
+													</c:choose>
+												</c:when>
+											</c:choose>
 										</div>
-										<small>
-											<c:out value="${storyComments.get(i).getCommentRating()}"></c:out>
-										</small>
-										<c:choose>
-											<c:when test="${login_username != null}">
-												<c:choose>
-													<c:when test="${login_username.equals(storyComments.get(i).getCommentAuthor().getUsername())}">
-														<button type="button" class="btn btn-primary" data-toggle="modal"
-															data-target="#editComment${i}">Edit</button>
-										
-														<div class="modal fade" id="editComment${i}" tabindex="-1"
-															role="dialog" aria-labelledby="exampleModalCenterTitle"
-															aria-hidden="true">
-															<div class="modal-dialog modal-dialog-centered" role="document">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<h5 class="modal-title" id="exampleModalLongTitle">Edit Comment</h5>
-																		<button type="button" class="close" data-dismiss="modal"
-																			aria-label="Close">
-																			<span aria-hidden="true">&times;</span>
-																		</button>
-																	</div>
-																	<div class="modal-body">
-																		<form id="editCommentForm${i}" action="${pageContext.request.contextPath}/editStoryComment" method="post">
-																			<label for="comment" class="col-form-label">Comment:</label>
-																			<textarea class="form-control" id="commentText" name="commentText">
-																				<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
-																			</textarea>
-																			<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
-																			<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
-																		</form>
-																	</div>
-																	<div class="modal-footer">
-																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal">Close</button>
-																		<input type="submit" class="btn btn-primary"
-																			form="editCommentForm${i}" value="Accept" />
-																	</div>
-																</div>
-															</div>
-														</div>
-														<button type="button" class="btn btn-primary" data-toggle="modal" 
-															data-target="#deleteComment${i}">Delete</button>
-							
-														<div class="modal fade" id="deleteComment${i}" tabindex="-1"
-															role="dialog" aria-labelledby="exampleModalCenterTitle"
-															aria-hidden="true">
-															<div class="modal-dialog modal-dialog-centered" role="document">
-																<div class="modal-content">
-																	<div class="modal-header">
-																		<h5 class="modal-title">Delete Comment</h5>
-																		<button type="button" class="close" data-dismiss="modal"
-																			aria-label="Close">
-																			<span aria-hidden="true">&times;</span>
-																		</button>
-																	</div>
-																	<div class="modal-header">
-																		<h6>Are you sure?</h6>
-																	</div>
-																	<div class="modal-footer">
-																		<form id="deleteCommentForm${i}" action="${pageContext.request.contextPath}/deleteStoryComment" method="post">
-																			<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
-																			<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
-																		</form>
-																		<button type="button" class="btn btn-secondary"
-																			data-dismiss="modal">Cancel</button>
-																		<input type="submit" class="btn btn-primary"
-																			form="deleteCommentForm${i}" value="Confirm" />
-																	</div>
-																</div>
-															</div>
-														</div>
-													</c:when>
-													<c:otherwise>
-														<form action="${pageContext.request.contextPath}/likeStoryComment" id="likeCommentForm${i}">
-															<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
-															<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
-															<input type="submit" class="btn btn-primary"
-																form="likeCommentForm${i}" value="Like" />
-														</form>
-														<form action="${pageContext.request.contextPath}/dislikeStoryComment" id="dislikeCommentForm${i}">
-															<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
-															<input type="hidden" id="commentId" name="commentId" value="${storyComments.get(i).getCommentId()}">
-															<input type="submit" class="btn btn-primary"
-																form="dislikeCommentForm${i}" value="Dislike" />
-														</form>
-													</c:otherwise>
-												</c:choose>
-											</c:when>
-										</c:choose>
 									</div>
 								</li>
 							</c:forEach>
@@ -239,7 +256,6 @@
 							<input type="submit" class="btn btn-primary"
 								form="dislikeStoryForm" value="Dislike" />
 						</form>
-						<c:out value="${comment_message}"></c:out>
 					</c:when>
 				</c:choose>
 			</div>

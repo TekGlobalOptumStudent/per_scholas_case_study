@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <html lang="en">
 
 <head>
@@ -71,17 +72,27 @@
 							<c:forEach var="i" begin="0" end="${snippetComments.size() - 1}">
 								<li class="list-group-item">
 									<div class="media">
-										<a href="<%=request.getContextPath()%>/profile/${snippetComments.get(i).getCommentAuthor().getUsername()}">
-										<img class="align-self-start mr-3"
-											src="data:image/png;base64,${snippetComments.get(i).getCommentAuthor().getProfileImage()}"
-											alt="Profile Image">
+										<a href="<%=request.getContextPath()%>/profile/${storyComments.get(i).getCommentAuthor().getUsername()}">
+											<div class="comment-img mr-3">
+				                                 <c:choose>
+				                                     <c:when test="${storyComments.get(i).getCommentAuthor().getProfileImage() == null}">
+				                                         <img class="align-self-start mr-3" src="../../resources/img/blank.png" alt="Profile Image">
+				                                     </c:when>
+				                                     <c:otherwise>
+				                                         <img class="align-self-start mr-3"
+															src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
+															alt="Profile Image">
+				                                     </c:otherwise>
+				                                 </c:choose>
+				                             </div>
 										</a>
 										<div class="media-body">
 											<h5 class="mt-0">
 												<c:out value="${snippetComments.get(i).getCommentAuthor().getUsername()}"></c:out>
 											</h5>
+											:
 											<small>
-												<c:out value="${snippetComments.get(i).getCommentTimePosted()}"></c:out>
+												<fmt:formatDate value="${snippetComments.get(i).getCommentTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/>
 											</small>
 											<p>
 												<c:out value="${snippetComments.get(i).getCommentText()}"></c:out>
@@ -187,10 +198,22 @@
 			</div>
 
 			<div class="col-sm-4">
-				<h3>Snippet Composer</h3>
+				<h3><c:out value="${snippetAuthor.getUsername()}"></c:out></h3>
 				<a href="<%=request.getContextPath()%>/profile/${snippetAuthor.getUsername()}">
-				<img src="data:image/png;base64,${snippetAuthor.getProfileImage()}" class="rounded mx-auto d-block" alt="Profile Image">
+				<div class="profile-img">
+				    <c:choose>
+					    <c:when test="${snippetAuthor.getProfileImage() == null}">
+					    	<img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
+					    </c:when>
+					    <c:otherwise>
+						    <img class="align-self-start"
+								src="data:image/png;base64,${snippetAuthor.getProfileImage()}"
+								alt="Profile Image">
+					    </c:otherwise>
+					    </c:choose>
+					</div>
 				</a>
+				<c:out value="${comment_message}"></c:out>
 				<c:choose>
 					<c:when test="${login_username != null}">
 						<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -229,7 +252,6 @@
 						</div>
 					</c:when>
 				</c:choose>
-				<c:out value="${comment_message}"></c:out>
 			</div>
 		</div>
 	</div>

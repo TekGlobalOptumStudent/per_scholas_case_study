@@ -63,7 +63,7 @@
                                 role="button" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false"><c:out value="${login_username}"></c:out></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                <div class="profile-img">
+                                <div class="nav-bar-img">
                                     <c:choose>
                                         <c:when test="${login_profile == null}">
                                             <img class="align-self-start mr-3" src="../../resources/img/blank.png" alt="Profile Image">
