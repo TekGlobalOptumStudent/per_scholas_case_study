@@ -86,7 +86,6 @@
 											<p class="mb-1"><c:out value="${allStories.get(i).getStoryText().get(0).getSnippetText()}"></c:out></p>
 										</c:otherwise>
 									</c:choose>
-									
 								</a>
 							</c:forEach>
 						</div>
