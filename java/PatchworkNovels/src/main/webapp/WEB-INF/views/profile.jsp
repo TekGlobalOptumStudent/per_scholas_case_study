@@ -166,6 +166,7 @@
 				</c:choose>
 			</div>
 			<div class="col-sm-3">
+				<h2>Published Stories</h2>
 				<c:choose>
 					<c:when test="${userPublishedStories.isEmpty()}">
 						<div class="empty-slot">Nothing To Show</div>
@@ -235,6 +236,7 @@
 				</c:choose>
 			</div>
 			<div class="col-sm-3">
+				<h2>Published Snippets</h2>
 				<c:choose>
 					<c:when test="${userPublishedSnippets.isEmpty()}">
 						<div class="empty-slot">Nothing To Show</div>
@@ -300,6 +302,7 @@
 				</c:choose>
 			</div>
 			<div class="col-sm-3">
+				<h2>Favorite Stories</h2>
 				<c:choose>
 					<c:when test="${userFavoriteStories.isEmpty()}">
 						<div class="empty-slot">Nothing To Show</div>

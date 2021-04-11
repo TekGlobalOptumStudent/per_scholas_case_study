@@ -46,12 +46,13 @@
 									href="${pageContext.request.contextPath}/snippet/${allSnippets.get(i).getSnippetId()}"
 									class="list-group-item list-group-item-action flex-column align-items-start">
 									<div class="d-flex w-100 justify-content-between">
-										<small><c:out
-												value="${allSnippets.get(i).getSnippetTimePosted()}"></c:out></small>
-									</div> <small><c:out
-											value="${allSnippets.get(i).getSnippetAuthor().getUsername()}"></c:out></small>
-									<p class="mb-1"><c:out
-											value="${allSnippets.get(i).getSnippetText()}"></c:out></p>
+										<h5 class="mb-1">
+											Snippet #<c:out value="${allSnippets.get(i).getSnippetId()}"></c:out>
+										</h5>
+										<small><fmt:formatDate value="${allSnippets.get(i).getSnippetTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
+									</div> 
+									<small><c:out value="${allSnippets.get(i).getSnippetAuthor().getUsername()}"></c:out></small>
+									<p class="mb-1"><c:out value="${allSnippets.get(i).getSnippetText()}"></c:out></p>
 								</a>
 							</c:forEach>
 						</div>
@@ -74,11 +75,18 @@
 										<h5 class="mb-1">
 											<c:out value="${allStories.get(i).getStoryTitle()}"></c:out>
 										</h5>
-										<small><c:out
-												value="${allStories.get(i).getStoryTimePosted()}"></c:out></small>
-									</div> <small><c:out
-											value="${allStories.get(i).getStoryAuthor().getUsername()}"></c:out></small>
-									<p class="mb-1">Nothing here yet</p>
+										<small><fmt:formatDate value="${allStories.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
+									</div>
+									<small><c:out value="${allStories.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+									<c:choose>
+										<c:when test="${allStories.get(i).getStoryText().isEmpty()}">
+											<p class="mb-1">No content preview</p>
+										</c:when>
+										<c:otherwise>
+											<p class="mb-1"><c:out value="${allStories.get(i).getStoryText().get(0).getSnippetText()}"></c:out></p>
+										</c:otherwise>
+									</c:choose>
+									
 								</a>
 							</c:forEach>
 						</div>

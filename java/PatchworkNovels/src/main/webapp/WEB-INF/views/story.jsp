@@ -42,8 +42,7 @@
 					<c:otherwise>
 						<ul class="list-group list-group-flush">
 							<c:forEach var="i" begin="0" end="${storyText.size() - 1}">
-								<li class="list-group-item"><c:out
-										value="${storyText.get(i).getSnippetText()}"></c:out></li>
+								<li class="list-group-item"><c:out value="${storyText.get(i).getSnippetText()}"></c:out></li>
 							</c:forEach>
 						</ul>
 					</c:otherwise>
@@ -54,12 +53,12 @@
 				<a href="<%=request.getContextPath()%>/profile/${storyAuthor.getUsername()}">
 					<div class="profile-img">
 					    <c:choose>
-						    <c:when test="${storyComments.get(i).getCommentAuthor().getProfileImage() == null}">
+						    <c:when test="${storyAuthor.getProfileImage() == null}">
 						    	<img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
 						    </c:when>
 						    <c:otherwise>
 							    <img class="align-self-start"
-									src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
+									src="data:image/png;base64,${storyAuthor.getProfileImage()}"
 									alt="Profile Image">
 						    </c:otherwise>
 					    </c:choose>
