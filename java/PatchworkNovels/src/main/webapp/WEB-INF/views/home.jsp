@@ -59,7 +59,7 @@
 																		<div class="empty-slot">Nothing to show</div>
 																	</c:when>
 																	<c:otherwise>
-																		<p><c:out value="${popularStoryList.get(i).getStoryText().get(i).getSnippetText()}"></c:out></p>
+																		<p><c:out value="${popularStoryList.get(i).getStoryText().get(0).getSnippetText()}"></c:out></p>
 																	</c:otherwise>
 																</c:choose>
 																<small><fmt:formatDate value="${popularStoryList.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
@@ -84,7 +84,7 @@
 																		<div class="empty-slot">Nothing to show</div>
 																	</c:when>
 																	<c:otherwise>
-																		<p><c:out value="${popularStoryList.get(i).getStoryText().get(i).getSnippetText()}"></c:out></p>
+																		<p><c:out value="${popularStoryList.get(i).getStoryText().get(0).getSnippetText()}"></c:out></p>
 																	</c:otherwise>
 																</c:choose>
 																<small><fmt:formatDate value="${popularStoryList.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
@@ -107,63 +107,6 @@
 								aria-hidden="true"></span> <span class="sr-only">Next</span>
 							</a>
 						</div>
-						<!-- 
-						<div id="popularStories" class="carousel slide" data-ride="carousel" style="height: 50%;">
-							<div class="carousel-inner">
-								<c:forEach var="i" begin="0" end="${popularStoryList.size() - 1}">
-									<c:choose>
-										<c:when test="${i==0}">
-											<div class="carousel-item active">
-												<div class="placeholder1">
-													<div class="d-flex w-100 justify-content-between">
-														<h5 class="mb-1">
-															<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
-														</h5>
-														<small><c:out
-																value="${popularStoryList.get(i).getStoryTimePosted()}"></c:out></small>
-													</div>
-													<p class="mb-1">
-														<c:out
-															value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out>
-													</p>
-													<small><c:out
-															value="${popularStoryList.get(i).getStoryRating()}"></c:out></small>
-												</div>
-											</div>
-										</c:when>
-										<c:otherwise>
-											<div class="carousel-item">
-												<div class="placeholder1">
-													<div class="d-flex w-100 justify-content-between">
-														<h5 class="mb-1">
-															<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
-														</h5>
-														<small><c:out
-																value="${popularStoryList.get(i).getStoryTimePosted()}"></c:out></small>
-													</div>
-													<p class="mb-1">
-														<c:out
-															value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out>
-													</p>
-													<small><c:out
-															value="${popularStoryList.get(i).getStoryRating()}"></c:out></small>
-												</div>
-											</div>
-										</c:otherwise>
-									</c:choose>
-								</c:forEach>
-							</div>
-							<a class="carousel-control-prev"
-								href="#popularStories" role="button"
-								data-slide="prev"> <span class="carousel-control-prev-icon"
-								aria-hidden="true"></span> <span class="sr-only">Previous</span>
-							</a> <a class="carousel-control-next"
-								href="#popularStories" role="button"
-								data-slide="next"> <span class="carousel-control-next-icon"
-								aria-hidden="true"></span> <span class="sr-only">Next</span>
-							</a>
-						</div>
-						 -->
 					</c:otherwise>
 				</c:choose>
 
@@ -296,11 +239,17 @@
 										<h5 class="mb-1">
 											<c:out value="${recentStoryList.get(i).getStoryTitle()}"></c:out>
 										</h5>
-										<small><c:out
-												value="${recentStoryList.get(i).getStoryTimePosted()}"></c:out></small>
-									</div> <small><c:out
-											value="${recentStoryList.get(i).getStoryAuthor().getUsername()}"></c:out></small>
-									<p class="mb-1">Nothing here yet</p>
+										<small><c:out value="${recentStoryList.get(i).getStoryTimePosted()}"></c:out></small>
+									</div>
+									<small><c:out value="${recentStoryList.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+									<c:choose>
+										<c:when test="${recentStoryList.get(i).getStoryText().isEmpty()}">
+											<p class="mb-1">No content preview</p>
+										</c:when>
+										<c:otherwise>
+											<p class="mb-1"><c:out value="${recentStoryList.get(i).getStoryText().get(0).getSnippetText()}"></c:out></p>
+										</c:otherwise>
+									</c:choose>
 								</a>
 							</c:forEach>
 						</div>

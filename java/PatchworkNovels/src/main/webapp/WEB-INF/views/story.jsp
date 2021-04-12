@@ -40,7 +40,7 @@
 						<div class="empty-slot">Nothing To Show</div>
 					</c:when>
 					<c:otherwise>
-						<ul class="list-group list-group-flush">
+						<ul class="list-group list-group-flush" style="padding-bottom: 10px;">
 							<c:forEach var="i" begin="0" end="${storyText.size() - 1}">
 								<li class="list-group-item"><c:out value="${storyText.get(i).getSnippetText()}"></c:out></li>
 							</c:forEach>
