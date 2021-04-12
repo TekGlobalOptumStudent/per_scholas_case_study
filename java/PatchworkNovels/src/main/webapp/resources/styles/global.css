@@ -143,3 +143,10 @@ img {
 	background: lightgray;
 	border: 3px solid #555;
 }
+
+.story-container {
+	height: 100%;
+	width: 100%;
+	background: lightgray;
+	border: 3px solid #555;
+}

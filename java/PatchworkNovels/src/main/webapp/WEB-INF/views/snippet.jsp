@@ -42,11 +42,11 @@
 							</c:when>
 							<c:otherwise>
 								<c:forEach var="i" begin="0" end="${snippetStories.size() - 1}">
-									<a href="<%=request.getContextPath()%>/story/${snippetStories.get(i).getStoryTitle()}">
-										<div class="story-container">
-											<c:choose>
-												<c:when test="${i==0}">
-													<div class="carousel-item active">
+									<c:choose>
+										<c:when test="${i==0}">
+											<div class="carousel-item active">
+												<a href="<%=request.getContextPath()%>/story/${snippetStories.get(i).getStoryTitle()}">
+													<div class="story-container">
 														<div class="media">
 															<div class="media-body">
 																<h5 class="mt-0">
@@ -65,9 +65,13 @@
 															</div>
 														</div>
 													</div>
-												</c:when>
-												<c:otherwise>
-													<div class="carousel-item">
+												</a>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<a href="<%=request.getContextPath()%>/story/${snippetStories.get(i).getStoryTitle()}">
+													<div class="story-container">
 														<div class="media">
 															<div class="media-body">
 																<h5 class="mt-0">
@@ -79,17 +83,17 @@
 																		<div class="empty-slot">Nothing to show</div>
 																	</c:when>
 																	<c:otherwise>
-																		<p><c:out value="${snippetStories.get(i).getStoryText().get(i)}"></c:out></p>
+																		<p><c:out value="${snippetStories.get(i).getStoryText().get(i).getSnippetText()}"></c:out></p>
 																	</c:otherwise>
 																</c:choose>
 																<small><fmt:formatDate value="${snippetStories.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
 															</div>>
 														</div>
 													</div>
-												</c:otherwise>
-											</c:choose>
-										</div>
-									</a>
+												</a>
+											</div>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
 							</c:otherwise>
 						</c:choose>

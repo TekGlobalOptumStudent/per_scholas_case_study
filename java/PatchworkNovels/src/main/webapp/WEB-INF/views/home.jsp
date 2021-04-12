@@ -42,6 +42,74 @@
 					<c:otherwise>
 						<div id="popularStories" class="carousel slide" data-ride="carousel" style="height: 50%;">
 							<div class="carousel-inner">
+								<c:forEach var="i" begin="0" end="${popularStoryList.size() - 1}">			
+									<c:choose>
+										<c:when test="${i==0}">
+											<div class="carousel-item active">
+												<a href="<%=request.getContextPath()%>/story/${popularStoryList.get(i).getStoryTitle()}">
+													<div class="story-container">
+														<div class="media">
+															<div class="media-body">
+																<h5 class="mt-0">
+																	<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
+																</h5>
+																<small><c:out value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+																<c:choose>
+																	<c:when test="${popularStoryList.get(i).getStoryText().isEmpty()}">
+																		<div class="empty-slot">Nothing to show</div>
+																	</c:when>
+																	<c:otherwise>
+																		<p><c:out value="${popularStoryList.get(i).getStoryText().get(i).getSnippetText()}"></c:out></p>
+																	</c:otherwise>
+																</c:choose>
+																<small><fmt:formatDate value="${popularStoryList.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
+															</div>
+														</div>
+													</div>
+												</a>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<a href="<%=request.getContextPath()%>/story/${popularStoryList.get(i).getStoryTitle()}">
+													<div class="story-container">
+														<div class="media">
+															<div class="media-body">
+																<h5 class="mt-0">
+																	<c:out value="${popularStoryList.get(i).getStoryTitle()}"></c:out>
+																</h5>
+																<small><c:out value="${popularStoryList.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+																<c:choose>
+																	<c:when test="${popularStoryList.get(i).getStoryText().isEmpty()}">
+																		<div class="empty-slot">Nothing to show</div>
+																	</c:when>
+																	<c:otherwise>
+																		<p><c:out value="${popularStoryList.get(i).getStoryText().get(i).getSnippetText()}"></c:out></p>
+																	</c:otherwise>
+																</c:choose>
+																<small><fmt:formatDate value="${popularStoryList.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
+															</div>
+														</div>
+													</div>
+												</a>
+											</div>
+										</c:otherwise>
+									</c:choose>				
+								</c:forEach>
+							</div>
+							<a class="carousel-control-prev"
+								href="#popularStories" role="button"
+								data-slide="prev"> <span class="carousel-control-prev-icon"
+								aria-hidden="true"></span> <span class="sr-only">Previous</span>
+							</a> <a class="carousel-control-next"
+								href="#popularStories" role="button"
+								data-slide="next"> <span class="carousel-control-next-icon"
+								aria-hidden="true"></span> <span class="sr-only">Next</span>
+							</a>
+						</div>
+						<!-- 
+						<div id="popularStories" class="carousel slide" data-ride="carousel" style="height: 50%;">
+							<div class="carousel-inner">
 								<c:forEach var="i" begin="0" end="${popularStoryList.size() - 1}">
 									<c:choose>
 										<c:when test="${i==0}">
@@ -95,103 +163,112 @@
 								aria-hidden="true"></span> <span class="sr-only">Next</span>
 							</a>
 						</div>
+						 -->
 					</c:otherwise>
 				</c:choose>
 
 				<div id="popularStoryComments" class="carousel slide" data-ride="carousel" style="height: calc(50% - 48px); display: flex;">
 					<div class="carousel-inner">
-						<c:forEach var="i" begin="0" end="${popularStoryList.size() - 1}">
-							<c:choose>
-								<c:when test="${i==0}">
-									<div class="carousel-item active">
-										<c:choose>
-											<c:when test="${popularStoryList.get(i).getStoryComments().isEmpty()}">
-												<div class="empty-slot">Nothing to show</div>
-											</c:when>
-											<c:otherwise>
-												<div class="popular-comment">
-													<div class="media">
-														<a href="<%=request.getContextPath()%>/profile/${storyComments.get(i).getCommentAuthor().getUsername()}">
-															<div class="comment-img mr-3">
-							                                    <c:choose>
-							                                        <c:when test="${storyComments.get(i).getCommentAuthor().getProfileImage() == null}">
-							                                            <img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
-							                                        </c:when>
-							                                        <c:otherwise>
-							                                            <img class="align-self-start"
-																			src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
-																			alt="Profile Image">
-							                                        </c:otherwise>
-							                                    </c:choose>
+						<c:choose>
+							<c:when test="${popularStoryList.isEmpty()}">
+								<div class="empty-slot">Nothing to show</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" begin="0" end="${popularStoryList.size() - 1}">
+									<c:choose>
+										<c:when test="${i==0}">
+											<div class="carousel-item active">
+												<c:choose>
+													<c:when test="${popularStoryList.get(i).getStoryComments().isEmpty()}">
+														<div class="empty-slot">Nothing to show</div>
+													</c:when>
+													<c:otherwise>
+														<div class="popular-comment">
+															<div class="media">
+																<a href="<%=request.getContextPath()%>/profile/${storyComments.get(i).getCommentAuthor().getUsername()}">
+																	<div class="comment-img mr-3">
+									                                    <c:choose>
+									                                        <c:when test="${storyComments.get(i).getCommentAuthor().getProfileImage() == null}">
+									                                            <img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
+									                                        </c:when>
+									                                        <c:otherwise>
+									                                            <img class="align-self-start"
+																					src="data:image/png;base64,${storyComments.get(i).getCommentAuthor().getProfileImage()}"
+																					alt="Profile Image">
+									                                        </c:otherwise>
+									                                    </c:choose>
+																	</div>
+																</a>
+																<div class="media-body">
+																	<h5 class="mt-0">
+																		<c:out value="${storyComments.get(i).getCommentAuthor().getUsername()}"></c:out>
+																	</h5>
+																	:
+																	<small>
+																		<fmt:formatDate value="${storyComments.get(i).getCommentTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/>
+																	</small>
+																	<p>
+																		<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
+																	</p>
+																</div>
+																<small>
+																	<c:out value="${storyComments.get(i).getCommentRating()}"></c:out>
+																</small>
 															</div>
-														</a>
-														<div class="media-body">
-															<h5 class="mt-0">
-																<c:out value="${storyComments.get(i).getCommentAuthor().getUsername()}"></c:out>
-															</h5>
-															:
-															<small>
-																<fmt:formatDate value="${storyComments.get(i).getCommentTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/>
-															</small>
-															<p>
-																<c:out value="${storyComments.get(i).getCommentText()}"></c:out>
-															</p>
 														</div>
-														<small>
-															<c:out value="${storyComments.get(i).getCommentRating()}"></c:out>
-														</small>
-													</div>
-												</div>
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="carousel-item">
-										<c:choose>
-											<c:when test="${popularStoryList.get(i).getStoryComments().isEmpty()}">
-												<div class="empty-slot">Nothing to show</div>
-											</c:when>
-											<c:otherwise>
-												<div class="popular-comment">
-													<div class="media">
-														<a href="<%=request.getContextPath()%>/profile/${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getUsername()}">
-															<div class="comment-img mr-3">
-							                                    <c:choose>
-							                                        <c:when test="${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getProfileImage() == null}">
-							                                            <img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
-							                                        </c:when>
-							                                        <c:otherwise>
-							                                            <img class="align-self-start"
-																			src="data:image/png;base64,${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getProfileImage()}"
-																			alt="Profile Image">
-							                                        </c:otherwise>
-							                                    </c:choose>
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="carousel-item">
+												<c:choose>
+													<c:when test="${popularStoryList.get(i).getStoryComments().isEmpty()}">
+														<div class="empty-slot">Nothing to show</div>
+													</c:when>
+													<c:otherwise>
+														<div class="popular-comment">
+															<div class="media">
+																<a href="<%=request.getContextPath()%>/profile/${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getUsername()}">
+																	<div class="comment-img mr-3">
+									                                    <c:choose>
+									                                        <c:when test="${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getProfileImage() == null}">
+									                                            <img class="align-self-start" src="../../resources/img/blank.png" alt="Profile Image">
+									                                        </c:when>
+									                                        <c:otherwise>
+									                                            <img class="align-self-start"
+																					src="data:image/png;base64,${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getProfileImage()}"
+																					alt="Profile Image">
+									                                        </c:otherwise>
+									                                    </c:choose>
+																	</div>
+																</a>
+																<div class="media-body">
+																	<h5 class="mt-0">
+																		<c:out value="${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getUsername()}"></c:out>
+																	</h5>
+																	:
+																	<small>
+																		<fmt:formatDate value="${popularStoryList.get(i).getStoryComments().get(0).getCommentTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/>
+																	</small>
+																	<p>
+																		<c:out value="${popularStoryList.get(i).getStoryComments().get(0).getCommentText()}"></c:out>
+																	</p>
+																</div>
+																<small>
+																	<c:out value="${popularStoryList.get(i).getStoryComments().get(0).getCommentRating()}"></c:out>
+																</small>
 															</div>
-														</a>
-														<div class="media-body">
-															<h5 class="mt-0">
-																<c:out value="${popularStoryList.get(i).getStoryComments().get(0).getCommentAuthor().getUsername()}"></c:out>
-															</h5>
-															:
-															<small>
-																<fmt:formatDate value="${popularStoryList.get(i).getStoryComments().get(0).getCommentTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/>
-															</small>
-															<p>
-																<c:out value="${popularStoryList.get(i).getStoryComments().get(0).getCommentText()}"></c:out>
-															</p>
 														</div>
-														<small>
-															<c:out value="${popularStoryList.get(i).getStoryComments().get(0).getCommentRating()}"></c:out>
-														</small>
-													</div>
-												</div>
-											</c:otherwise>
-										</c:choose>
-									</div>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
+													</c:otherwise>
+												</c:choose>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
+						
 					</div>
 				</div>				
 				<script>
