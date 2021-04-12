@@ -185,7 +185,14 @@
 						</c:forEach>
 					</div>
 				</div>				
-				
+				<script>
+					var carousel1 = $('#popularStories').carousel();
+					var carousel2 = $('#popularStoryComments').carousel();
+					carousel1.on('slide.bs.carousel', function(event) {
+					    var to = $(event.relatedTarget).index();
+					    carousel2.carousel(to);
+					});
+				</script>
 				
 
 			</div>
