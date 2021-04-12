@@ -171,7 +171,7 @@
 					<c:otherwise>
 						<div class="list-group">
 							<c:forEach var="i" begin="0" end="${userPublishedStories.size() - 1}">
-								<div class="story-container list-group-item list-group-item-action flex-column align-items-start">
+								<div class="published-story-container list-group-item list-group-item-action flex-column align-items-start">
 									<a href="${pageContext.request.contextPath}/story/${userPublishedStories.get(i).getStoryTitle()}">
 										<div class="d-flex w-100 justify-content-between">
 											<h5 class="mb-1">

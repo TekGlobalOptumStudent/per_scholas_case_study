@@ -44,14 +44,16 @@
 		        <input type="hidden" id="storyAuthor" name="storyAuthor" value="${login_username}">
 		        <c:choose>
 		        	<c:when test="${storySnippets != null}">
+		        		<h1><c:out value="${storyTitle}"></c:out></h1>
 		        		<input type="hidden" id="storyTitle" name="storyTitle" value="${storyTitle}">
 		        	</c:when>
 		        	<c:otherwise>
+		        		<h4></>Title Your Story</h4>
 		        		<input type="text" id="storyTitle" name="storyTitle">
 		        	</c:otherwise>
 		        </c:choose>
 			</form>
-			<c:out value="${story_message}"></c:out>
+			<p class="error"><c:out value="${story_message}"></c:out></p>
 		</div>
 		<div class="row" style="height: 80%">
 			<div class="col">

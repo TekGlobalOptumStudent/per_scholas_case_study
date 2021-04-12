@@ -38,22 +38,27 @@
 	%>
 	<%@include file="header.jsp"%>
 	<div class="create-body">
-		<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet" method="post">
-			<c:choose>
-				<c:when test="${snippetText != null}">
-					<textarea name="snippetText" id="snippetText" row="200" col="10">
-						<c:out value="${snippetText}"></c:out>
-					</textarea>
-					<input type="hidden" id="snippetId" name="snippetId" value="${snippetId}" />
-				</c:when>
-				<c:otherwise>
-					<textarea name="snippetText" id="snippetText" row="200" col="10"></textarea>
-				</c:otherwise>
-			</c:choose>
-			<input type="hidden" id="snippetAuthor" name="snippetAuthor" value="${login_username}"/>
-			<input type="submit" class="btn btn-primary" form="snippetUploadForm" value="Submit" />
-		</form>
-		<c:out value="${snippet_message}"></c:out>
+		<div class="form-outer-container">
+			<form name="snippetUploadForm" id="snippetUploadForm" action="<%=request.getContextPath()%>/uploadSnippet" method="post">
+				<div class="form-group">
+					<label>Create a Snippet</label>
+					<c:choose>
+						<c:when test="${snippetText != null}">
+							<textarea name="snippetText" id="snippetText" class="form-control" row="200" col="10">
+								<c:out value="${snippetText}"></c:out>
+							</textarea>
+							<input type="hidden" id="snippetId" name="snippetId" value="${snippetId}" />
+						</c:when>
+						<c:otherwise>
+							<textarea name="snippetText" id="snippetText" class="form-control" row="200" col="10"></textarea>
+						</c:otherwise>
+					</c:choose>
+				</div>
+				<input type="hidden" id="snippetAuthor" name="snippetAuthor" value="${login_username}"/>
+				<input type="submit" class="btn btn-primary" form="snippetUploadForm" value="Submit" />
+				<p class="error"><c:out value="${snippet_message}"></c:out></p>
+			</form>
+		</div>
 	</div>
 	<%@include file="footer.jsp"%>
 	<% session.setAttribute("snippet_message", null); %>

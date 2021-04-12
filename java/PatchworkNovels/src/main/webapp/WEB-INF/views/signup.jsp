@@ -63,7 +63,7 @@
 				</div>
 				<button type="submit" class="btn btn-primary">Submit</button>
 			</form>
-			<c:out value="${signup_message}"></c:out>
+			<p class="error"><c:out value="${signup_message}"></c:out></p>
 		</div>
 	</div>
 	<%@include file="footer.jsp"%>
