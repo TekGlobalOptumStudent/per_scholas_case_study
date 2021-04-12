@@ -36,7 +36,7 @@ body {
 	padding-top: 15px;
 	padding-bottom: 15px;
     background-image: url(../img/wood.jpg);
-    height: calc(100% - 56px);
+    height: calc(100% - 80px);
 }
 
 .form-outer-container {
@@ -150,4 +150,15 @@ img {
 	width: 100%;
 	background: lightgray;
 	border: 3px solid #555;
+}
+
+footer {
+	color: blue;
+	background: #86a5d9;
+}
+
+.footer-text {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }

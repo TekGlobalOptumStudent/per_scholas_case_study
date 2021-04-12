@@ -4,6 +4,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <footer>
 	<div class="footer">
-		<p>This is a footer</p>
+		<div class="footer-text">
+			<p>Samuel Uganiza</p>
+		</div>
 	</div>
 </footer>
