@@ -34,36 +34,82 @@
 	<div class="snippets-body">
 		<div class="row" style="height: 75%">
 			<div class="col-sm-8">
-				<div id="carouselExampleIndicators" class="carousel slide"
-					data-ride="carousel">
+				<div id="stories" class="carousel slide" data-ride="carousel" style="height: 50%;">
 					<div class="carousel-inner">
-						<div class="carousel-item active">
-							<div class="placeholder1"></div>
-						</div>
-						<div class="carousel-item">
-							<div class="placeholder2"></div>
-						</div>
-						<div class="carousel-item">
-							<div class="placeholder3"></div>
-						</div>
+						<c:choose>
+							<c:when test="${snippetStories.isEmpty()}">
+								<div class="empty-slot">Nothing To Show</div>
+							</c:when>
+							<c:otherwise>
+								<c:forEach var="i" begin="0" end="${snippetStories.size() - 1}">
+									<a href="<%=request.getContextPath()%>/story/${snippetStories.get(i).getStoryTitle()}">
+										<div class="story-container">
+											<c:choose>
+												<c:when test="${i==0}">
+													<div class="carousel-item active">
+														<div class="media">
+															<div class="media-body">
+																<h5 class="mt-0">
+																	<c:out value="${snippetStories.get(i).getStoryTitle()}"></c:out>
+																</h5>
+																<small><c:out value="${snippetStories.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+																<c:choose>
+																	<c:when test="${snippetStories.get(i).getStoryText().isEmpty()}">
+																		<div class="empty-slot">Nothing to show</div>
+																	</c:when>
+																	<c:otherwise>
+																		<p><c:out value="${snippetStories.get(i).getStoryText().get(i).getSnippetText()}"></c:out></p>
+																	</c:otherwise>
+																</c:choose>
+																<small><fmt:formatDate value="${snippetStories.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
+															</div>
+														</div>
+													</div>
+												</c:when>
+												<c:otherwise>
+													<div class="carousel-item">
+														<div class="media">
+															<div class="media-body">
+																<h5 class="mt-0">
+																	<c:out value="${snippetStories.get(i).getStoryTitle()}"></c:out>
+																</h5>
+																<small><c:out value="${snippetStories.get(i).getStoryAuthor().getUsername()}"></c:out></small>
+																<c:choose>
+																	<c:when test="${snippetStories.get(i).getStoryText().isEmpty()}">
+																		<div class="empty-slot">Nothing to show</div>
+																	</c:when>
+																	<c:otherwise>
+																		<p><c:out value="${snippetStories.get(i).getStoryText().get(i)}"></c:out></p>
+																	</c:otherwise>
+																</c:choose>
+																<small><fmt:formatDate value="${snippetStories.get(i).getStoryTimePosted()}" type="date" pattern="MMM-dd-yyyy hh:mm:ss"/></small>
+															</div>>
+														</div>
+													</div>
+												</c:otherwise>
+											</c:choose>
+										</div>
+									</a>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 					</div>
-					<a class="carousel-control-prev" href="#carouselExampleIndicators"
+					<a class="carousel-control-prev" href="#stories"
 						role="button" data-slide="prev"> <span
 						class="carousel-control-prev-icon" aria-hidden="true"></span> <span
 						class="sr-only">Previous</span>
-					</a> <a class="carousel-control-next" href="#carouselExampleIndicators"
+					</a> <a class="carousel-control-next" href="#stories"
 						role="button" data-slide="next"> <span
 						class="carousel-control-next-icon" aria-hidden="true"></span> <span
 						class="sr-only">Next</span>
 					</a>
-				</div>
+				</div> 
 
 				<div class="media">
 					<div class="media-body">
 						<p>${snippetText}</p>
 					</div>
 				</div>
-				
 
 			</div>
 
