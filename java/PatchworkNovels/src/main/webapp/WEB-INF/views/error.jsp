@@ -30,7 +30,14 @@
 </head>
 	<body>
 		<div class="error-body">
-			<p><c:out value="${error_message}"></c:out></p>
+			<div class="row">
+				<div class="col-4"></div>
+				<div class="col-4">
+					<h3 class="error"><c:out value="${error_message}"></c:out></h3>
+					<img src="../../resources/img/patchwork.jpg"/>
+				</div>
+				<div class="col-4"></div>
+			</div>
 			<% session.setAttribute("error_message", null); %>
 			<%@include file="footer.jsp"%>
 		</div>
