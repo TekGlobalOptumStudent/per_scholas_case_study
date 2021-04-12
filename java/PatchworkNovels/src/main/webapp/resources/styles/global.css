@@ -15,14 +15,10 @@ body {
     height: 100%;
 }
 
-.col, .col-sm-8, .col-sm-4, .col-sm-3 {
+.col, .col-sm-8, .col-sm-4, .col-sm-3, .col-sm-5, .col-sm-7 {
     height: 100%;
     display: flex;
     flex-direction: column;
-}
-
-.col-sm-5, .col-sm-7 {
-	height: 100%;
 }
 
 .list-group {
@@ -139,4 +135,11 @@ img {
 
 .error {
 	color: red;
+}
+
+.popular-comment {
+	height: 100%;
+	width: 100%;
+	background: lightgray;
+	border: 3px solid #555;
 }
